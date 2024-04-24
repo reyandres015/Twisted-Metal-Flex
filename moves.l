@@ -11,24 +11,36 @@ bool inGame = false; /* ¿Ya se inicio el juego? */
 
 typedef struct {
     char name[20];
+    int damage;
+} Weapon; /* Clase arma */
+
+typedef struct {
+    char name[20];
     int vida;
-    int energia;
     char direccion[20];
     int x;
     int y;
+    int selectedWeapon;
+    bool canMove;
+    bool protected;
 } Player; /* Clase jugador */
+
+
+/*arreglo de armas */
+Weapon weapons[3];
+Weapon ametralladora;
+
+typedef struct {
+    char name[20];
+    int damage;
+} SpecialAttack; /* Clase ataque especial */
 
 /* Arreglo de jugadores seleccionados */
 Player players[4];
 
 int actualPlayer = 0; /* Jugador actual */
 
-char matrix[4][4][20] = {
-    {"", "Grasshopper", "", ""},
-    {"", "Outlaw 2", "", ""},
-    {"Mr. Slam", "", "", ""},
-    {"Twister", "", " ", " "}
-}; /* Matriz del campo de juego */
+char matrix[100][100][20]; /* Matriz del campo de juego */
 
 /* Función para identificar si un jugador ya fue seleccionado. */
 bool isCharacterSelected(char* character) {
@@ -38,6 +50,25 @@ bool isCharacterSelected(char* character) {
         }
     }
     return false;
+}
+
+void startGame(){
+  Weapon newWeapon = {.damage = 20};
+  strncpy(newWeapon.name, "pistola", sizeof(newWeapon.name));
+  weapons[0] = newWeapon;
+
+  newWeapon.damage = 30;
+  strncpy(newWeapon.name, "Bazuca", sizeof(newWeapon.name));
+  weapons[1] = newWeapon;
+
+  newWeapon.damage = 10;
+  strncpy(newWeapon.name, "Granada", sizeof(newWeapon.name));
+  weapons[2] = newWeapon;
+
+  newWeapon.damage = 40;
+  strncpy(newWeapon.name, "Ametralladora", sizeof(newWeapon.name));
+  
+  ametralladora = newWeapon;
 }
 
 /* CONTINUAR JUEGO */
@@ -56,14 +87,16 @@ void selectCharacter(char* character) {
     if(!inGame){
         if(SceneSelection){
             if (!isCharacterSelected(character)) {
-                Player newPlayer = {.vida = 200, .energia = 200};                  
+                /* Crear jugador */
+                Player newPlayer = {.vida = 200, .canMove = true, .protected = false, .selectedWeapon = 1};
                 strncpy(newPlayer.name, character, sizeof(newPlayer.name));
                 strncpy(newPlayer.direccion, "arriba", sizeof(newPlayer.direccion));
+
                 players[actualPlayer] = newPlayer;
                 printf("Character %d selected: %s \n", actualPlayer+1, players[actualPlayer].name);
                 actualPlayer++;
 
-                /* Si ya se seleccionaron los 4 jugadores */
+                /* Si ya se seleccionaron todos los jugadores */
                 if(actualPlayer == number_of_players){
                     inGame = true;
                     printf("The %d players have been selected. The game is ready to start\n",number_of_players);
@@ -98,15 +131,16 @@ PLAYER   "Axel"|"Grasshopper"|"Mr. Grimm"|"Hammerhead"|"Minion"|"Outlaw 2"|"Road
 
 /*Movimientos de direccion*/
 Direccion_Arriba	    "W"
-Direccion_Derecha	    "S"
+Direccion_Abajo	    "S"
 Direccion_Izquierda	  "A"
-Direccion_Abajo	      "D"
+Direccion_Derecha	      "D"
 
 tk_up     ({Direccion_Arriba})
 tk_down   ({Direccion_Abajo})
 tk_left   ({Direccion_Izquierda})
 tk_right  ({Direccion_Derecha})
 
+%option noyywrap
 
 /*Movimientos de velocidad*/
 Velocidad_Turbo		  "speed_turbo"
@@ -147,6 +181,7 @@ tk_invisible    ({Ataque_BeInvisible})
  /* TOKEN ESCENARIO SELECCIONADO */
 {ESCENARIO} {
   SceneSelection = true;
+  startGame();
   printf("\nEscenario seleccionado: %s\n", yytext);
 }
 
@@ -231,7 +266,13 @@ tk_invisible    ({Ataque_BeInvisible})
  /* TOKEN ARMAS */
 {tk_L1} {
   if(inGame){
-    printf("Player %d is changing weapon to the left\n", actualPlayer);
+    printf("Player %d is changing weapon to the left", actualPlayer);
+    if(players[actualPlayer].selectedWeapon == 0){
+        players[actualPlayer].selectedWeapon = 2;
+    } else {
+        players[actualPlayer].selectedWeapon--;
+    }
+    printf("%s seleccionada", weapons[players[actualPlayer].selectedWeapon].name);
   }else{
     printf("You need to select a character first");
   }
@@ -240,6 +281,7 @@ tk_invisible    ({Ataque_BeInvisible})
 {tk_L2} {
   if(inGame){
     printf("Player %d is shooting\n", actualPlayer);
+    
   }else{
     printf("You need to select a character first");
   }
@@ -248,6 +290,12 @@ tk_invisible    ({Ataque_BeInvisible})
 {tk_R1} {
   if(inGame){
     printf("Player %d is changing weapon to the right\n", actualPlayer);
+    if(players[actualPlayer].selectedWeapon == 2){
+        players[actualPlayer].selectedWeapon = 0;
+    } else {
+        players[actualPlayer].selectedWeapon++;
+    }
+    printf("%s seleccionada", weapons[players[actualPlayer].selectedWeapon].name);
   }else{
     printf("You need to select a character first");
   }
@@ -261,9 +309,16 @@ tk_invisible    ({Ataque_BeInvisible})
   }
 }
 
- /* TOKEN ATAQUES ESPECIALES */
+ /* ATAQUES ESPECIALES */
 
-{tk_jump} {
+{tk_up}{tk_down}{tk_up} { /* freeze */
+  if(inGame){
+    printf("Player %d is freezing\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+{tk_up}{tk_left}{tk_left} { /* JUMP */
   if(inGame){
     printf("Player %d is jumping\n", actualPlayer);
   }else{
@@ -271,15 +326,8 @@ tk_invisible    ({Ataque_BeInvisible})
   }
 }
 
-{tk_freeze} {
-  if(inGame){
-    printf("Player %d is freezing\n", actualPlayer);
-  }else{
-    printf("You need to select a character first");
-  }
-}
 
-{tk_mine} {
+{tk_right}{tk_left}{tk_down} { /* MINE */
   if(inGame){
     printf("Player %d is placing a mine\n", actualPlayer);
   }else{
@@ -287,7 +335,7 @@ tk_invisible    ({Ataque_BeInvisible})
   }
 }
 
-{tk_invisible} {
+{tk_left}{tk_left}{tk_down}{tk_down} { /* BE INVISIBLE */
   if(inGame){
     printf("Player %d is becoming invisible\n", actualPlayer);
   }else{
