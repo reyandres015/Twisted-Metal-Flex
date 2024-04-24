@@ -40,6 +40,17 @@ bool isCharacterSelected(char* character) {
     return false;
 }
 
+/* CONTINUAR JUEGO */
+void continueGame() {
+    if(inGame){
+        printf("\n");
+        actualPlayer++;
+        printf("Turno del jugador %d: %s", actualPlayer+1, players[actualPlayer].name);
+    }else{
+        printf("You need to select a character first");
+    }
+}
+
 /* Función para seleccionar un personaje */
 void selectCharacter(char* character) {
     if(!inGame){
@@ -56,6 +67,8 @@ void selectCharacter(char* character) {
                 if(actualPlayer == number_of_players){
                     inGame = true;
                     printf("The %d players have been selected. The game is ready to start\n",number_of_players);
+                    actualPlayer = -1;
+                    continueGame();
                 }
             } else {
                 printf("Character %s has already been selected\n", character);
@@ -127,6 +140,8 @@ tk_freeze       ({Ataque_Freeze})
 tk_mine         ({Ataque_Mine})
 tk_invisible    ({Ataque_BeInvisible})
 
+%option noyywrap
+
 %%
 
  /* TOKEN ESCENARIO SELECCIONADO */
@@ -145,6 +160,144 @@ tk_invisible    ({Ataque_BeInvisible})
  /* TOKEN PLAYER -> Seleccion de personajes y guardado en arreglo*/
 {PLAYER} {
   selectCharacter(yytext);
+}
+
+ /* TOKEN DIRECCIONES */
+{tk_up} {
+  if(inGame){
+    strncpy(players[actualPlayer].direccion, "arriba", sizeof(players[actualPlayer-1].direccion));
+    printf("%s is moving up\n", players[actualPlayer].name);
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_down} {
+  if(inGame){
+    strncpy(players[actualPlayer].direccion, "abajo", sizeof(players[actualPlayer-1].direccion));
+    printf("%s is moving down\n", players[actualPlayer].name);
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_left} {
+  if(inGame){
+    strncpy(players[actualPlayer].direccion, "izquierda", sizeof(players[actualPlayer-1].direccion));
+    printf("%s is moving left\n", players[actualPlayer].name);
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_right} {
+  if(inGame){
+    strncpy(players[actualPlayer].direccion, "derecha", sizeof(players[actualPlayer-1].direccion));
+    printf("%s is moving right\n", players[actualPlayer].name);
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+ /* TOKEN VELOCIDADES */
+{tk_turbo} {
+  if(inGame){
+    printf("Player %d is using turbo\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_brake} {
+  if(inGame){
+    printf("Player %d is using brake\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_acelerate} {
+  if(inGame){
+    printf("Player %d is using acelerate\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+ /* TOKEN ARMAS */
+{tk_L1} {
+  if(inGame){
+    printf("Player %d is changing weapon to the left\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_L2} {
+  if(inGame){
+    printf("Player %d is shooting\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_R1} {
+  if(inGame){
+    printf("Player %d is changing weapon to the right\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_R2} {
+  if(inGame){
+    printf("Player %d is using the machine gun\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+ /* TOKEN ATAQUES ESPECIALES */
+
+{tk_jump} {
+  if(inGame){
+    printf("Player %d is jumping\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_freeze} {
+  if(inGame){
+    printf("Player %d is freezing\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_mine} {
+  if(inGame){
+    printf("Player %d is placing a mine\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+{tk_invisible} {
+  if(inGame){
+    printf("Player %d is becoming invisible\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+
+ /* TOKEN ERROR */
+. {
+  printf("Error: %s\n", yytext);
 }
 
 %%

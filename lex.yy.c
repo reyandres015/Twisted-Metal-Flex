@@ -354,8 +354,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 4
-#define YY_END_OF_BUFFER 5
+#define YY_NUM_RULES 20
+#define YY_END_OF_BUFFER 21
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -363,42 +363,46 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[143] =
+static const flex_int16_t yy_accept[189] =
     {   0,
-        0,    0,    5,    4,    2,    4,    4,    4,    4,    4,
-        4,    4,    4,    4,    4,    4,    4,    0,    0,    0,
+        0,    0,   21,   19,   20,    2,    6,   19,    5,   19,
+       19,   19,   19,   19,   19,   19,   19,   19,   19,    7,
+       19,    4,   19,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,   11,   12,    0,    0,    0,    0,    0,
+        0,   13,   14,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    3,    0,
+        0,    0,    0,    0,    0,    0,   15,   17,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        3,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    1,    0,    0,    0,    0,    0,    0,    0,
 
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    1,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+       16,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0
+        0,    0,   10,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,   18,    9,    8,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
     {   0,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    3,    1,    1,    1,    4,
-        5,    6,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    7,    1,    1,    8,    1,    1,
-        9,   10,    1,    1,   11,    1,   12,   13,   14,   15,
-        1,   16,   17,   18,    1,    1,   19,    1,   20,    1,
-        1,    1,    1,    1,    1,    1,   21,    1,   22,   23,
+        1,    3,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    4,    1,    1,    5,    6,
+        7,    8,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    9,   10,    1,   11,    1,   12,
+       13,   14,   15,   16,   17,   18,   19,   20,   21,   22,
+        1,   23,   24,   25,    1,    1,   26,    1,   27,    1,
+        1,    1,    1,    1,   28,    1,   29,   30,   31,   32,
 
-       24,    1,   25,   26,   27,    1,   28,   29,   30,   31,
-       32,   33,    1,   34,   35,   36,   37,    1,   38,   39,
-        1,   40,    1,    1,    1,    1,    1,    1,    1,    1,
+       33,    1,   34,   35,   36,    1,   37,   38,   39,   40,
+       41,   42,    1,   43,   44,   45,   46,   47,   48,   49,
+        1,   50,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -415,108 +419,131 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[41] =
+static const YY_CHAR yy_meta[51] =
     {   0,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1
     } ;
 
-static const flex_int16_t yy_base[144] =
+static const flex_int16_t yy_base[189] =
     {   0,
-        0,   16,  179,  180,  180,    6,  157,  143,    6,   12,
-      152,  138,  153,  141,   14,   15,  151,  150,  134,  145,
-      134,  146,  136,   19,  134,  129,  160,  124,  125,  126,
-      138,  137,  133,  132,  118,  127,  119,  112,  130,  121,
-      121,  113,  117,  117,  120,  117,  121,  140,  139,  111,
-      112,  115,  114,  114,  111,  104,   98,   96,   99,   96,
-      180,  127,   93,  103,  105,  123,   92,   91,   34,  102,
-      100,   85,   91,   86,   81,   80,   82,   78,   87,   81,
-       75,   92,   83,   74,   76,   95,   74,   66,   69,   73,
-       69,   62,  180,   72,   60,   63,   60,   71,   70,   61,
+        0,    0,  235,  236,  236,  236,   12,  201,  204,  189,
+      188,   24,  184,   49,   21,  196,  182,  198,   53,   21,
+       25,  197,  183,  195,  178,  189,  206,  177,  186,  189,
+      178,   28,  177,  236,  236,  175,  170,  209,  164,  166,
+      167,  236,  236,  180,  179,  174,  173,  159,  168,  160,
+      169,  151,  171,  161,  158,  160,  163,  151,  155,  155,
+      158,  149,   34,  159,  186,  185,  149,  150,  153,  152,
+      152,  149,  142,  136,  134,  145,  136,  133,  236,  128,
+      171,  123,  128,  138,  141,  166,  236,  236,  127,  126,
+       58,  139,  136,  120,  126,  121,  116,  115,  117,  113,
 
-       65,   64,   58,   57,   62,   64,   54,   58,   63,   49,
-       80,   52,   56,   47,   44,   43,   51,   54,   52,   41,
-       39,   47,   39,   39,   38,   39,   62,   36,   32,   42,
-       26,   28,   39,   34,   28,   21,   30,   31,   31,   23,
-        8,  180,    0
+      122,  124,  115,  109,  117,  127,  118,  115,  106,  108,
+      130,  106,   97,  101,  105,  101,   93,  236,  104,   91,
+       95,   92,  103,  102,   93,  105,   96,   95,   86,   88,
+      236,   87,   92,   94,   84,   88,   94,   79,  118,   82,
+       86,   77,   74,   73,   81,   42,   85,   82,   76,   70,
+       68,   76,   68,   68,   67,   68,   98,   65,   61,   58,
+       54,   57,   69,   67,   51,   53,   64,   58,   52,   45,
+       60,   43,  236,   47,   49,   50,   49,   45,   42,   48,
+       44,   33,   42,   33,  236,  236,  236,  236
     } ;
 
-static const flex_int16_t yy_def[144] =
+static const flex_int16_t yy_def[189] =
     {   0,
-      143,  143,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      188,    1,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
 
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,    0,  142
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,    0
     } ;
 
-static const flex_int16_t yy_nxt[221] =
+static const flex_int16_t yy_nxt[287] =
     {   0,
-        4,  142,  142,    5,    5,    5,    6,    7,    8,    9,
-      142,   10,   11,   12,   13,   14,   15,   16,   17,    5,
-        5,    5,    6,    7,    8,    9,   23,   10,   11,   12,
-       13,   14,   15,   16,   17,   18,   19,   24,   25,   32,
-       35,   61,   89,   26,   20,   27,   33,   44,   61,   45,
-       90,   34,   36,   61,  141,   93,  140,   61,   93,  139,
-      138,  137,   93,  136,   61,   61,   93,   61,  135,  134,
-      133,  132,  131,  130,   93,   61,   61,   61,  129,   61,
-      128,  127,  126,  125,  124,  123,   93,  122,  121,  120,
-      119,  118,  117,  116,  115,  114,  113,   61,  112,  111,
+        4,    5,    4,    4,    4,    6,    6,    6,    7,    8,
+        9,   10,   11,   12,    4,   13,    4,   14,   15,   16,
+       17,   18,   19,   20,   21,   22,    4,    4,    4,    4,
+        4,    4,    4,    4,    4,    4,    4,    4,    4,    4,
+        4,    4,    4,   23,    4,    4,    4,    4,    4,    4,
+       24,   25,   31,   34,   35,   45,   36,   42,   43,   48,
+       26,   37,   46,   38,   32,   60,   88,   61,   47,   89,
+      114,  160,   49,  187,  186,   79,  185,  184,  183,   79,
+       79,  115,  182,  118,  181,  180,  161,  162,  179,  178,
+       79,  118,  177,   44,  176,  175,  174,  118,  173,  172,
 
-      110,  109,  108,   93,   61,  107,  106,  105,  104,  103,
-      102,  101,  100,   99,   98,   97,   96,   95,   94,   93,
-       92,   91,   88,   87,   86,   85,   84,   83,   82,   81,
-       80,   79,   78,   77,   76,   75,   74,   73,   72,   71,
-       70,   69,   68,   67,   66,   65,   64,   63,   62,   61,
-       60,   59,   58,   57,   56,   55,   54,   53,   52,   51,
-       50,   49,   48,   47,   46,   43,   42,   41,   40,   39,
-       38,   37,   31,   30,   29,   28,   22,   21,  142,    3,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      171,  170,   79,   79,  118,   79,  169,  168,  167,  166,
+      165,  164,  163,  118,   79,   79,   79,  159,   79,  158,
+      157,  156,  155,  154,  153,  118,  152,  151,  150,  149,
+      148,  147,  146,  145,  144,  143,  142,  141,   79,  140,
+      139,  138,  137,  136,  118,   79,  135,  134,  133,  132,
+      131,  130,  129,  128,  127,  126,  125,  124,  123,  122,
+      121,  120,  119,  118,  117,  116,  113,  112,  111,  110,
+      109,  108,  107,  106,  105,  104,  103,  102,  101,  100,
+       99,   98,   97,   96,   95,   94,   93,   92,   91,   90,
+       87,   86,   85,   84,   83,   82,   81,   80,   79,   78,
 
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142
+       77,   76,   75,   74,   73,   72,   71,   70,   69,   68,
+       67,   66,   65,   64,   63,   62,   59,   58,   57,   56,
+       55,   54,   53,   52,   51,   50,   41,   40,   39,   33,
+       30,   29,   28,   27,  188,    3,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188
     } ;
 
-static const flex_int16_t yy_chk[221] =
+static const flex_int16_t yy_chk[287] =
     {   0,
-      143,    0,    0,    1,    1,    1,    1,    1,    1,    1,
-        0,    1,    1,    1,    1,    1,    1,    1,    1,    2,
-        2,    2,    2,    2,    2,    2,    9,    2,    2,    2,
-        2,    2,    2,    2,    2,    6,    6,    9,   10,   15,
-       16,  141,   69,   10,    6,   10,   15,   24,  140,   24,
-       69,   15,   16,  139,  138,  137,  136,  135,  134,  133,
-      132,  131,  130,  129,  128,  127,  126,  125,  124,  123,
-      122,  121,  120,  119,  118,  117,  116,  115,  114,  113,
-      112,  111,  110,  109,  108,  107,  106,  105,  104,  103,
-      102,  101,  100,   99,   98,   97,   96,   95,   94,   92,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        7,    7,   12,   14,   14,   20,   15,   19,   19,   21,
+        7,   15,   20,   15,   12,   32,   63,   32,   20,   63,
+       91,  146,   21,  184,  183,  182,  181,  180,  179,  178,
+      177,   91,  176,  175,  174,  172,  146,  146,  171,  170,
+      169,  168,  167,   19,  166,  165,  164,  163,  162,  161,
 
-       91,   90,   89,   88,   87,   86,   85,   84,   83,   82,
-       81,   80,   79,   78,   77,   76,   75,   74,   73,   72,
-       71,   70,   68,   67,   66,   65,   64,   63,   62,   60,
-       59,   58,   57,   56,   55,   54,   53,   52,   51,   50,
-       49,   48,   47,   46,   45,   44,   43,   42,   41,   40,
-       39,   38,   37,   36,   35,   34,   33,   32,   31,   30,
-       29,   28,   27,   26,   25,   23,   22,   21,   20,   19,
-       18,   17,   14,   13,   12,   11,    8,    7,    3,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      160,  159,  158,  157,  156,  155,  154,  153,  152,  151,
+      150,  149,  148,  147,  145,  144,  143,  142,  141,  140,
+      139,  138,  137,  136,  135,  134,  133,  132,  130,  129,
+      128,  127,  126,  125,  124,  123,  122,  121,  120,  119,
+      117,  116,  115,  114,  113,  112,  111,  110,  109,  108,
+      107,  106,  105,  104,  103,  102,  101,  100,   99,   98,
+       97,   96,   95,   94,   93,   92,   90,   89,   86,   85,
+       84,   83,   82,   81,   80,   78,   77,   76,   75,   74,
+       73,   72,   71,   70,   69,   68,   67,   66,   65,   64,
+       62,   61,   60,   59,   58,   57,   56,   55,   54,   53,
 
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
-      142,  142,  142,  142,  142,  142,  142,  142,  142,  142
+       52,   51,   50,   49,   48,   47,   46,   45,   44,   41,
+       40,   39,   38,   37,   36,   33,   31,   30,   29,   28,
+       27,   26,   25,   24,   23,   22,   18,   17,   16,   13,
+       11,   10,    9,    8,    3,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188,  188,  188,  188,  188,
+      188,  188,  188,  188,  188,  188
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -539,11 +566,11 @@ char *yytext;
 #include <stdbool.h>
 #include <string.h>
 
-/* Definicion de variables globales*/
+/* Variables globales*/
 int number_of_players = 0; /* Número de jugadores */
 
-bool SceneSelection = false;
-bool inGame = false;
+bool SceneSelection = false; /* ¿Escenario ya se selecciono? */
+bool inGame = false; /* ¿Ya se inicio el juego? */
 
 typedef struct {
     char name[20];
@@ -552,20 +579,21 @@ typedef struct {
     char direccion[20];
     int x;
     int y;
-} Player;
+} Player; /* Clase jugador */
 
-/* Arreglo de juegadores seleccionados, llenar con Players por defecto sin definir atributos */
+/* Arreglo de jugadores seleccionados */
 Player players[4];
 
-int player = 0; /* Jugador actual */
+int actualPlayer = 0; /* Jugador actual */
 
 char matrix[4][4][20] = {
     {"", "Grasshopper", "", ""},
     {"", "Outlaw 2", "", ""},
     {"Mr. Slam", "", "", ""},
     {"Twister", "", " ", " "}
-};
+}; /* Matriz del campo de juego */
 
+/* Función para identificar si un jugador ya fue seleccionado. */
 bool isCharacterSelected(char* character) {
     for (int i = 0; i < number_of_players; i++) {
         if (strcmp(players[i].name, character) == 0) {
@@ -575,6 +603,18 @@ bool isCharacterSelected(char* character) {
     return false;
 }
 
+/* CONTINUAR JUEGO */
+void continueGame() {
+    if(inGame){
+        printf("\n");
+        actualPlayer++;
+        printf("Turno del jugador %d: %s", actualPlayer+1, players[actualPlayer].name);
+    }else{
+        printf("You need to select a character first");
+    }
+}
+
+/* Función para seleccionar un personaje */
 void selectCharacter(char* character) {
     if(!inGame){
         if(SceneSelection){
@@ -582,14 +622,16 @@ void selectCharacter(char* character) {
                 Player newPlayer = {.vida = 200, .energia = 200};                  
                 strncpy(newPlayer.name, character, sizeof(newPlayer.name));
                 strncpy(newPlayer.direccion, "arriba", sizeof(newPlayer.direccion));
-                players[player] = newPlayer;
-                printf("Character %d selected: %s \n", player+1, players[player].name);
-                player++;
+                players[actualPlayer] = newPlayer;
+                printf("Character %d selected: %s \n", actualPlayer+1, players[actualPlayer].name);
+                actualPlayer++;
 
                 /* Si ya se seleccionaron los 4 jugadores */
-                if(player == number_of_players){
+                if(actualPlayer == number_of_players){
                     inGame = true;
                     printf("The %d players have been selected. The game is ready to start\n",number_of_players);
+                    actualPlayer = -1;
+                    continueGame();
                 }
             } else {
                 printf("Character %s has already been selected\n", character);
@@ -602,13 +644,13 @@ void selectCharacter(char* character) {
     }
 }
 
-#line 606 "lex.yy.c"
+#line 648 "lex.yy.c"
 /* Personajes */
 /*Movimientos de direccion*/
 /*Movimientos de velocidad*/
 /*Armas y cambio de armas*/
 /*Ataques especiales*/
-#line 612 "lex.yy.c"
+#line 654 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -825,12 +867,12 @@ YY_DECL
 		}
 
 	{
-#line 128 "moves.l"
+#line 145 "moves.l"
 
 
-#line 131 "moves.l"
- /*DEFINICION DE REGALAS PARA CADA TOKEN DEL ESCENARIO SELECCIONADO*/
-#line 834 "lex.yy.c"
+#line 148 "moves.l"
+ /* TOKEN ESCENARIO SELECCIONADO */
+#line 876 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -857,13 +899,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 143 )
+				if ( yy_current_state >= 189 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 180 );
+		while ( yy_base[yy_current_state] != 236 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -889,35 +931,220 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 132 "moves.l"
+#line 149 "moves.l"
 {
   SceneSelection = true;
   printf("\nEscenario seleccionado: %s\n", yytext);
 }
 	YY_BREAK
-/*DEFINICION NUMERO DE JUGADORES*/
+/* TOKEN NUMERO DE JUGADORES*/
 case 2:
 YY_RULE_SETUP
-#line 139 "moves.l"
+#line 156 "moves.l"
 {
   number_of_players = atoi(yytext);
   printf("\nNumero de jugadores: %d\n", number_of_players);
 }
 	YY_BREAK
-/*Seleccion de personajes y guardado en arreglo*/
+/* TOKEN PLAYER -> Seleccion de personajes y guardado en arreglo*/
 case 3:
 YY_RULE_SETUP
-#line 145 "moves.l"
+#line 162 "moves.l"
 {
   selectCharacter(yytext);
 }
 	YY_BREAK
+/* TOKEN DIRECCIONES */
 case 4:
 YY_RULE_SETUP
-#line 149 "moves.l"
+#line 167 "moves.l"
+{
+  if(inGame){
+    strncpy(players[actualPlayer].direccion, "arriba", sizeof(players[actualPlayer-1].direccion));
+    printf("%s is moving up\n", players[actualPlayer].name);
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 5:
+YY_RULE_SETUP
+#line 177 "moves.l"
+{
+  if(inGame){
+    strncpy(players[actualPlayer].direccion, "abajo", sizeof(players[actualPlayer-1].direccion));
+    printf("%s is moving down\n", players[actualPlayer].name);
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 6:
+YY_RULE_SETUP
+#line 187 "moves.l"
+{
+  if(inGame){
+    strncpy(players[actualPlayer].direccion, "izquierda", sizeof(players[actualPlayer-1].direccion));
+    printf("%s is moving left\n", players[actualPlayer].name);
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 7:
+YY_RULE_SETUP
+#line 197 "moves.l"
+{
+  if(inGame){
+    strncpy(players[actualPlayer].direccion, "derecha", sizeof(players[actualPlayer-1].direccion));
+    printf("%s is moving right\n", players[actualPlayer].name);
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+/* TOKEN VELOCIDADES */
+case 8:
+YY_RULE_SETUP
+#line 208 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is using turbo\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 9:
+YY_RULE_SETUP
+#line 216 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is using brake\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 10:
+YY_RULE_SETUP
+#line 224 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is using acelerate\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+/* TOKEN ARMAS */
+case 11:
+YY_RULE_SETUP
+#line 233 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is changing weapon to the left\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 12:
+YY_RULE_SETUP
+#line 241 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is shooting\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 13:
+YY_RULE_SETUP
+#line 249 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is changing weapon to the right\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 14:
+YY_RULE_SETUP
+#line 257 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is using the machine gun\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+/* TOKEN ATAQUES ESPECIALES */
+case 15:
+YY_RULE_SETUP
+#line 267 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is jumping\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 16:
+YY_RULE_SETUP
+#line 275 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is freezing\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 17:
+YY_RULE_SETUP
+#line 283 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is placing a mine\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+case 18:
+YY_RULE_SETUP
+#line 291 "moves.l"
+{
+  if(inGame){
+    printf("Player %d is becoming invisible\n", actualPlayer);
+  }else{
+    printf("You need to select a character first");
+  }
+}
+	YY_BREAK
+/* TOKEN ERROR */
+case 19:
+YY_RULE_SETUP
+#line 300 "moves.l"
+{
+  printf("Error: %s\n", yytext);
+}
+	YY_BREAK
+case 20:
+YY_RULE_SETUP
+#line 304 "moves.l"
 ECHO;
 	YY_BREAK
-#line 921 "lex.yy.c"
+#line 1148 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1214,7 +1441,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 143 )
+			if ( yy_current_state >= 189 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1242,11 +1469,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 143 )
+		if ( yy_current_state >= 189 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 142);
+	yy_is_jam = (yy_current_state == 188);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1922,12 +2149,11 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 149 "moves.l"
+#line 304 "moves.l"
 
 int main(int argc, char const *argv[]) {
   printf(" ");
-  printf("\n--------------The kings Of fighters'94--------------\n");
-  printf("\n----------------Que empiece el juego ! ---------------\n");
+  printf("\n--------------Twisted Metal--------------\n");
   
   yyin = fopen(argv[1], "r");
   yylex();
