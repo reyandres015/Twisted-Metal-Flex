@@ -354,8 +354,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 23
-#define YY_END_OF_BUFFER 24
+#define YY_NUM_RULES 4
+#define YY_END_OF_BUFFER 5
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -363,168 +363,160 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[179] =
+static const flex_int16_t yy_accept[143] =
     {   0,
-        0,    0,   24,   21,   22,   21,   21,   21,   21,   21,
-       21,   21,   21,   22,   21,   21,   21,   21,   21,   21,
-       21,   21,   21,   21,   21,   21,   21,   21,   21,   21,
-       21,    5,   13,   21,   21,   21,    6,   14,   21,   21,
-        7,   15,   21,   21,   21,    8,   16,   21,   21,   18,
-       21,   21,   21,   19,    9,   21,   21,   21,   21,   11,
-       21,   21,   21,   10,   17,   21,   21,   21,   21,   21,
-       21,   21,   21,   21,   21,   21,   21,   21,   21,   21,
-       21,   21,    4,   21,   21,   21,   21,   21,   21,   21,
-       20,   21,   21,   21,   21,   12,   21,   21,    1,   21,
+        0,    0,    5,    4,    2,    4,    4,    4,    4,    4,
+        4,    4,    4,    4,    4,    4,    4,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        3,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    1,    0,    0,    0,    0,    0,    0,    0,
 
-       21,   21,   21,   21,   21,   21,   21,   21,    2,   21,
-       21,    5,   13,   21,   21,   21,    6,   14,   21,   21,
-        7,   15,   21,   21,   21,    8,   16,    3,   21,   21,
-       21,   21,   21,   21,   21,   21,   21,   21,   21,   21,
-       21,   18,   21,   19,    9,   21,   21,   11,   21,   10,
-       17,   21,   21,   21,   21,   21,   21,   21,   21,   21,
-       21,   21,    4,   21,   21,   21,   21,   21,   21,   21,
-       20,   12,    1,   21,    2,   21,    3,    0
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
-        1,    1,    3,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    4,    5,
-        6,    7,    1,    1,    1,    1,    1,    8,    1,    1,
-        1,    1,    1,    1,    9,   10,   11,   12,   13,    1,
-        1,    1,   14,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,   15,    1,   16,    1,    1,   17,
-
-        1,    1,   18,   19,   20,    1,    1,   21,    1,   22,
-        1,    1,    1,   23,   24,   25,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1
-    } ;
-
-static const YY_CHAR yy_meta[26] =
-    {   0,
         1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    3,    1,    1,    1,    4,
+        5,    6,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    7,    1,    1,    8,    1,    1,
+        9,   10,    1,    1,   11,    1,   12,   13,   14,   15,
+        1,   16,   17,   18,    1,    1,   19,    1,   20,    1,
+        1,    1,    1,    1,    1,    1,   21,    1,   22,   23,
+
+       24,    1,   25,   26,   27,    1,   28,   29,   30,   31,
+       32,   33,    1,   34,   35,   36,   37,    1,   38,   39,
+        1,   40,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1
     } ;
 
-static const flex_int16_t yy_base[181] =
+static const YY_CHAR yy_meta[41] =
     {   0,
-        0,   13,  185,    0,  186,  182,   22,   34,    2,    3,
-      161,  157,    0,  186,  169,  175,    0,  169,  169,  173,
-       15,  160,  165,   25,  154,   22,   31,  155,  156,  165,
-      158,  161,  160,  162,  160,  155,  156,  155,  138,  155,
-      152,  151,  136,  150,  152,  147,  146,  132,  131,  143,
-      139,  140,  139,  139,  138,  139,  134,  133,  122,  133,
-      129,  128,  122,  129,  128,  123,  122,  117,  112,  122,
-      124,  114,  113,  117,  116,  116,  109,  108,  101,  110,
-      105,  104,  110,  105,  104,  100,   99,   91,   96,  105,
-      102,  105,  103,  103,  101,   97,  100,   98,   94,   97,
-
-       96,   94,   87,   92,   91,   91,   89,   76,   84,   79,
-       81,    0,    0,   79,   79,   77,    0,    0,   76,   75,
-        0,    0,   65,   74,   70,    0,    0,   73,   66,   73,
-       68,   72,   70,   65,   51,   67,   52,   64,   66,   56,
-       43,    0,   62,    0,    0,   62,   49,    0,   42,    0,
-        0,   41,   46,   49,   50,   32,   39,   36,   32,   41,
-       45,   30,    0,   27,   27,   40,   36,   22,   26,   25,
-        0,    0,    0,   18,    0,   16,    0,  186,   57,    0
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1
     } ;
 
-static const flex_int16_t yy_def[181] =
+static const flex_int16_t yy_base[144] =
     {   0,
-      179,  179,  178,  180,  178,  180,  180,  180,  180,  180,
-      180,  180,  180,  178,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
+        0,   16,  179,  180,  180,    6,  157,  143,    6,   12,
+      152,  138,  153,  141,   14,   15,  151,  150,  134,  145,
+      134,  146,  136,   19,  134,  129,  160,  124,  125,  126,
+      138,  137,  133,  132,  118,  127,  119,  112,  130,  121,
+      121,  113,  117,  117,  120,  117,  121,  140,  139,  111,
+      112,  115,  114,  114,  111,  104,   98,   96,   99,   96,
+      180,  127,   93,  103,  105,  123,   92,   91,   34,  102,
+      100,   85,   91,   86,   81,   80,   82,   78,   87,   81,
+       75,   92,   83,   74,   76,   95,   74,   66,   69,   73,
+       69,   62,  180,   72,   60,   63,   60,   71,   70,   61,
 
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,  180,  180,  180,
-      180,  180,  180,  180,  180,  180,  180,    0,  178,  178
+       65,   64,   58,   57,   62,   64,   54,   58,   63,   49,
+       80,   52,   56,   47,   44,   43,   51,   54,   52,   41,
+       39,   47,   39,   39,   38,   39,   62,   36,   32,   42,
+       26,   28,   39,   34,   28,   21,   30,   31,   31,   23,
+        8,  180,    0
     } ;
 
-static const flex_int16_t yy_nxt[212] =
+static const flex_int16_t yy_def[144] =
     {   0,
-       13,    5,    6,   32,   33,   23,  178,   26,    7,    8,
-        9,   10,   11,   12,    5,    6,   24,   27,   37,   38,
-       25,    7,    8,    9,   10,   11,   12,   15,   41,   42,
-       44,   16,  177,   45,   46,   47,   17,   18,   19,  176,
-      175,  174,  173,   20,  172,  171,  170,  169,   21,  168,
-      167,  166,  165,  164,  163,  162,   22,    4,    4,  161,
-      160,  159,  158,  157,  156,  155,  154,  153,  152,  151,
-      150,  149,  148,  147,  146,  145,  144,  143,  142,  141,
-      140,  139,  138,  137,  136,  135,  134,  133,  132,  131,
-      130,  129,  128,  127,  126,  125,  124,  123,  122,  121,
+      143,  143,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
 
-      120,  119,  118,  117,  116,  115,  114,  113,  112,  111,
-      110,  109,  108,  107,  106,  105,  104,  103,  102,  101,
-      100,   99,   98,   97,   96,   95,   94,   93,   92,   91,
-       90,   89,   88,   87,   86,   85,   84,   83,   82,   81,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,    0,  142
+    } ;
+
+static const flex_int16_t yy_nxt[221] =
+    {   0,
+        4,  142,  142,    5,    5,    5,    6,    7,    8,    9,
+      142,   10,   11,   12,   13,   14,   15,   16,   17,    5,
+        5,    5,    6,    7,    8,    9,   23,   10,   11,   12,
+       13,   14,   15,   16,   17,   18,   19,   24,   25,   32,
+       35,   61,   89,   26,   20,   27,   33,   44,   61,   45,
+       90,   34,   36,   61,  141,   93,  140,   61,   93,  139,
+      138,  137,   93,  136,   61,   61,   93,   61,  135,  134,
+      133,  132,  131,  130,   93,   61,   61,   61,  129,   61,
+      128,  127,  126,  125,  124,  123,   93,  122,  121,  120,
+      119,  118,  117,  116,  115,  114,  113,   61,  112,  111,
+
+      110,  109,  108,   93,   61,  107,  106,  105,  104,  103,
+      102,  101,  100,   99,   98,   97,   96,   95,   94,   93,
+       92,   91,   88,   87,   86,   85,   84,   83,   82,   81,
        80,   79,   78,   77,   76,   75,   74,   73,   72,   71,
        70,   69,   68,   67,   66,   65,   64,   63,   62,   61,
        60,   59,   58,   57,   56,   55,   54,   53,   52,   51,
-       50,   49,   48,   43,   40,   39,   36,   35,   34,   31,
-       30,   29,   28,   14,  178,    3,  178,  178,  178,  178,
-      178,  178,  178,  178,  178,  178,  178,  178,  178,  178,
+       50,   49,   48,   47,   46,   43,   42,   41,   40,   39,
+       38,   37,   31,   30,   29,   28,   22,   21,  142,    3,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
 
-      178,  178,  178,  178,  178,  178,  178,  178,  178,  178,
-      178
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142
     } ;
 
-static const flex_int16_t yy_chk[212] =
+static const flex_int16_t yy_chk[221] =
     {   0,
-      180,    1,    1,   17,   17,    9,    0,   10,    1,    1,
-        1,    1,    1,    1,    2,    2,    9,   10,   21,   21,
-        9,    2,    2,    2,    2,    2,    2,    7,   24,   24,
-       26,    7,  176,   26,   27,   27,    7,    8,    8,  174,
-      170,  169,  168,    8,  167,  166,  165,  164,    8,  162,
-      161,  160,  159,  158,  157,  156,    8,  179,  179,  155,
-      154,  153,  152,  149,  147,  146,  143,  141,  140,  139,
-      138,  137,  136,  135,  134,  133,  132,  131,  130,  129,
-      128,  125,  124,  123,  120,  119,  116,  115,  114,  111,
-      110,  109,  108,  107,  106,  105,  104,  103,  102,  101,
+      143,    0,    0,    1,    1,    1,    1,    1,    1,    1,
+        0,    1,    1,    1,    1,    1,    1,    1,    1,    2,
+        2,    2,    2,    2,    2,    2,    9,    2,    2,    2,
+        2,    2,    2,    2,    2,    6,    6,    9,   10,   15,
+       16,  141,   69,   10,    6,   10,   15,   24,  140,   24,
+       69,   15,   16,  139,  138,  137,  136,  135,  134,  133,
+      132,  131,  130,  129,  128,  127,  126,  125,  124,  123,
+      122,  121,  120,  119,  118,  117,  116,  115,  114,  113,
+      112,  111,  110,  109,  108,  107,  106,  105,  104,  103,
+      102,  101,  100,   99,   98,   97,   96,   95,   94,   92,
 
-      100,   99,   98,   97,   96,   95,   94,   93,   92,   91,
-       90,   89,   88,   87,   86,   85,   84,   83,   82,   81,
-       80,   79,   78,   77,   76,   75,   74,   73,   72,   71,
-       70,   69,   68,   67,   66,   65,   64,   63,   62,   61,
-       60,   59,   58,   57,   56,   55,   54,   53,   52,   51,
-       50,   49,   48,   47,   46,   45,   44,   43,   42,   41,
-       40,   39,   38,   37,   36,   35,   34,   33,   32,   31,
-       30,   29,   28,   25,   23,   22,   20,   19,   18,   16,
-       15,   12,   11,    6,    3,  178,  178,  178,  178,  178,
-      178,  178,  178,  178,  178,  178,  178,  178,  178,  178,
+       91,   90,   89,   88,   87,   86,   85,   84,   83,   82,
+       81,   80,   79,   78,   77,   76,   75,   74,   73,   72,
+       71,   70,   68,   67,   66,   65,   64,   63,   62,   60,
+       59,   58,   57,   56,   55,   54,   53,   52,   51,   50,
+       49,   48,   47,   46,   45,   44,   43,   42,   41,   40,
+       39,   38,   37,   36,   35,   34,   33,   32,   31,   30,
+       29,   28,   27,   26,   25,   23,   22,   21,   20,   19,
+       18,   17,   14,   13,   12,   11,    8,    7,    3,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
 
-      178,  178,  178,  178,  178,  178,  178,  178,  178,  178,
-      178
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142,
+      142,  142,  142,  142,  142,  142,  142,  142,  142,  142
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -542,64 +534,73 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "moves.l"
-/* 
-   Ciencia Computacional Avanzada G02
-   Taller Flex _ Corte 2
-   Integrantes Cerecitas: 
-   - Daniela Pinzon
-   - Isabella Ardila
-   
-*/
-#line 10 "moves.l"
+#line 2 "moves.l"
 #include <stdio.h>
+#include <stdbool.h>
 #include <string.h>
-#include <time.h>   /* Librería para manejo del tiempo*/
 
 /* Definicion de variables globales*/
+int number_of_players = 0; /* Número de jugadores */
+/* Arreglo de juegadores seleccionados */
+
+bool SceneSelection = false;
+bool inGame = false;
+
+char players[4][20];
+char matrix[4][4][20] = {
+    {"", "Grasshopper", "", ""},
+    {"", "Outlaw 2", "", ""},
+    {"Mr. Slam", "", "", ""},
+    {"Twister", "", " ", " "}
+};
+int player = 0; /* Jugador actual */
+
+bool isCharacterSelected(const char* character) {
+    for (int i = 0; i < number_of_players; i++) {
+        if (strcmp(players[i], character) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void selectCharacter(const char* character) {
+    if(!inGame){
+        if(SceneSelection){
+          if (player < number_of_players) {
+              if (!isCharacterSelected(character)) {
+                  strcpy(players[player], character);
+                  player++;
+                  printf("Character %d selected: %s \n", player, character);
+              } else {
+                  printf("Character %s has already been selected\n", character);
+              }
+          } else {
+              inGame = true;
+              printf("The 4 players have been selected, you can't select one more");
+          }
+        }else{
+          printf("You need to select a scene first");
+        }
+    }else{
+        printf("You are in game you can't select a character in here");
+    }
+}
+
+
 int Japon [3] = {200,200,200}; /*Cada equipo cuenta con [3] personajes*/
 int Italia [3] = {200,200,200}; /*Cada personaje cuenta con su barra completa de vida*/
 
-/* Contador de vida para ambos equipos*/
-int p_life_2 = 0;
-int p_life = 0;
-
-/* Posicion del contador de cada equipo*/
-int position_Italia= 0;
-int position_Japon= 0;
-
-/*Asignacion de integrantes de cada equipo*/
-char Equipo_Italia[3][20] = {"Terry Bogard","Andy Bogard","Joe Higashi"}; 
-char Equipo_Japon[3][20] = {"Kyō Kusanagi","Benimaru Nikaido","Goro Daimon"};
- 
-/* Barra para poder especial incial en 0 - por cada golpe sube la barra */
-int special_power_1 = 0;  /*Equipo Italia */
-int special_power_2 = 0;  /*Equipo Japon */
-
-int time_limit = 60;         /*  Límite de tiempo por ronda en segundos (60 segundos = 1 minuto) */
-int current_round = 1;       /*  Ronda actual */
-int max_rounds = 2;          /*  Máximo de rondas (2) */
-int extra_round = 0;         /*  Ronda extra en caso de empate en vida */
-
-/* Función para obtener el tiempo actual */
-float get_current_time() {
-    return (float)clock() / CLOCKS_PER_SEC;
-}
-
-#line 589 "lex.yy.c"
+#line 595 "lex.yy.c"
 /* Token para cada escenario predefinido*/
 /* Llamda por escenario*/
-/*Movimientos basicos para el equipo Italia - #1*/
-/* Llamda para cada movimiento del equipo Italia - #1*/
-/* Movimientos basicos para el equipo Japon - #2*/
-/* Llamada para cada movimiento del equipo Japon - #2*/
-/* Movimientos especiales para el equipo Italia - #1 */
-/* Se definen por jugador y por equipo en general */
-/* 1 -> arriba , 2 -> abajo , 3 -> derecha , 4 -> izquierda */
-/* Llamda para cada movimiento especial del equipo Italia - #1 */
-/* Movimientos especiales para el equipo Japon - #2 */
-/* Se definen por jugador y por equipo en general */
-/* Llamada para cada movimiento especial del equipo Japon - #2 */
-#line 603 "lex.yy.c"
+/* Llamada por numero de jugadores*/
+/* Personajes */
+/*Movimientos de direccion*/
+/*Movimientos de velocidad*/
+/*Armas y cambio de armas*/
+/*Ataques especiales*/
+#line 604 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -816,12 +817,12 @@ YY_DECL
 		}
 
 	{
-#line 112 "moves.l"
+#line 143 "moves.l"
 
 
-#line 115 "moves.l"
+#line 146 "moves.l"
  /*DEFINICION DE REGALAS PARA CADA TOKEN DEL ESCENARIO SELECCIONADO*/
-#line 825 "lex.yy.c"
+#line 826 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -848,13 +849,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 179 )
+				if ( yy_current_state >= 143 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 186 );
+		while ( yy_base[yy_current_state] != 180 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -880,380 +881,35 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 116 "moves.l"
+#line 147 "moves.l"
 {
-	printf("Escenario seleccionado correctamente : \n");
-	printf("Bienvenidos a Brasil");
-	printf(" ");
+  SceneSelection = true;
+  printf("\nEscenario seleccionado: %s\n", yytext);
 }
 	YY_BREAK
+/*DEFINICION NUMERO DE JUGADORES*/
 case 2:
 YY_RULE_SETUP
-#line 121 "moves.l"
+#line 154 "moves.l"
 {
-	printf("Escenario seleccionado correctamente : \n");
-	printf( "Bienvenidos a Italia" );
-	printf(" ");
+  number_of_players = atoi(yytext);
+  printf("\nNumero de jugadores: %d\n", number_of_players);
 }
 	YY_BREAK
+/*Seleccion de personajes y guardado en arreglo*/
 case 3:
 YY_RULE_SETUP
-#line 126 "moves.l"
+#line 160 "moves.l"
 {
-	printf("Escenario seleccionado correctamente : \n");
-	printf( "Bienvenidos a England" );
-	printf(" ");
+  selectCharacter(yytext);
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 131 "moves.l"
-{
-	printf("Escenario seleccionado correctamente : \n");
-	printf( "Bienvenidos a China" );
-	printf(" ");
-}
-	YY_BREAK
-/*DEFINICION DE REGALAS PARA CADA TOKEN DE GOLPES PREDETERMINADOS EQUIPO ITALIA #1*/
-case 5:
-YY_RULE_SETUP
-#line 138 "moves.l"
-{
-	printf(" ");
-  printf("\nEquipo Italia - MOVE PUNCH  : %s\n", yytext);
-  printf("Player :  %s",Equipo_Italia[position_Italia]);printf("-- Golpe Dirigido a player-- %s",Equipo_Japon[position_Japon]);
-  Japon[p_life_2] = Japon[p_life_2] - 15;
-  special_power_2 = special_power_2 + 5;
-  printf("\n Count life player 2 : %d", Japon[p_life_2]);
-  printf("\n Count life player 1 : %d", Italia[p_life]);
-  printf("\n barra actual de poder equipo 2: [ %d]",special_power_2); 
-  
-  if(Japon[p_life_2]<=0){
-  printf("\nNuevo jugador : %s" ,Equipo_Japon[position_Japon]);printf(" vs %s",Equipo_Italia[position_Italia]);
-  p_life_2 = p_life_2 +1;
-  position_Japon = position_Japon+1;;
-  }if(Japon[p_life_2]<=0){ 
-     printf("\n*******************************************************\n");
-  printf("\nEl ganador es el Equipo 1 %s\n",Equipo_Italia[position_Italia]);
-        printf("\n*******************************************************\n");
-  exit(-1);
-  }
-}
-	YY_BREAK
-case 6:
-YY_RULE_SETUP
-#line 160 "moves.l"
-{
-	printf(" ");
-  printf("\nEquipo Italia - MOVE PUNCH SPECIAL :%s\n", yytext);
-  printf("Player: %s",Equipo_Italia[position_Italia]);printf("-- Golpe Dirigido a player-- %s",Equipo_Japon[position_Japon]);
-  Japon[p_life_2] = Japon[p_life_2]- 30;
-  special_power_2 = special_power_2+ 20;
-  printf("\n Count life player 2 : %d", Japon[p_life_2]);
-  printf("\n Count life player 1 : %d", Italia[p_life]);
-  printf("\n barra actual de poder equipo 2: [ %d]",special_power_2); 
-  
-  if(Japon[p_life_2]<= 0){
-  printf("\nNuevo jugador : %s" ,Equipo_Japon[position_Japon]);printf(" vs %s",Equipo_Italia[position_Italia]);
-  p_life_2 = p_life_2 +1;
-  position_Japon = position_Japon+1;
-  }if(Japon[p_life_2] <=0){ 
-        printf("\n*******************************************************\n");
-  printf("\nEl ganador es el Equipo 1 %s\n",Equipo_Italia[position_Italia]);
-        printf("\n*******************************************************\n");
-  exit(-1);
-  }
-}
-	YY_BREAK
-case 7:
-YY_RULE_SETUP
-#line 182 "moves.l"
-{
-	printf(" ");
-  printf("\nEquipo Italia - MOVE KICK :%s\n", yytext);
-  printf("Player %s",Equipo_Italia[position_Italia]);printf("-- Golpe Dirigido a player-- %s",Equipo_Japon[position_Japon]);
-  Japon[p_life_2] = Japon[p_life_2] - 25;
-  special_power_2 = special_power_2+ 15;
-  printf("\n Count life player 2 : %d", Japon[p_life_2]);
-  printf("\n Count life player 1 : %d", Italia[p_life]);
-  printf("\n barra actual de poder equipo 2: [ %d]",special_power_2); 
-  
-  if(Japon[p_life_2]<= 0){
-  printf("\nNuevo jugador : %s" ,Equipo_Japon[position_Japon]);printf(" vs %s",Equipo_Italia[position_Italia]);
-  p_life_2 = p_life_2 +1;
-  position_Japon = position_Japon+1;
-  }if(Japon[p_life_2]<=0){ 
-  printf("\n*******************************************************\n");
-  printf("\nEl ganador es el Equipo 1 %s\n",Equipo_Italia[position_Italia]);;
-        printf("\n*******************************************************\n");
-  exit(-1);
-  }
-}
-	YY_BREAK
-case 8:
-YY_RULE_SETUP
-#line 204 "moves.l"
-{
-	printf(" ");
-  printf("\nEquipo Italia - MOVE KICK SPECIAL : %s\n", yytext);
-  printf("Player %s",Equipo_Italia[position_Italia]);printf("-- Golpe Dirigido a player-- %s",Equipo_Japon[position_Japon]);
-  Japon[p_life_2] = Japon[p_life_2] - 50;
-  special_power_2 = special_power_2+ 30;
-  printf("\n Count life player 2 : %d", Japon[p_life_2]);
-  printf("\n Count life player 1 : %d", Italia[p_life]);
-  printf("\n barra actual de poder equipo 2: [ %d]",special_power_2); 
-  
-  if(Japon[p_life_2]<= 0){
-  printf("\nNuevo jugador : %s" ,Equipo_Japon[position_Japon]);printf(" vs %s",Equipo_Italia[position_Italia]);
-  p_life_2 = p_life_2 +1;
-  position_Japon = position_Japon+1;
-  }if(Japon[p_life_2]<=0){ 
-     printf("\n*******************************************************\n");
-  printf("\nEl ganador es el Equipo 1 %s\n",Equipo_Italia[position_Italia]);
-  printf("\n*******************************************************\n");
-  exit(-1);
-  }
-}
-	YY_BREAK
-/*DEFINICION DE REGLAS PARA CADA TOKEN DE COMBOS ESPECIALES EQUIPO ITALIA #1*/
-case 9:
-YY_RULE_SETUP
-#line 227 "moves.l"
-{
-    printf("\nCombo especial del jugador Terry Bogard- Ejecutado [%s]\n ",yytext);  
-    Japon[p_life_2] = Japon[p_life_2] - 60;
-    printf("\n Count life player 2 : %d", Japon[p_life_2]);
-    printf("\n Count life player 1 : %d", Italia[p_life]);
-    special_power_1 = special_power_1+ 30;
-}
-	YY_BREAK
-case 10:
-YY_RULE_SETUP
-#line 235 "moves.l"
-{
- printf(" ");
-    printf("\nCombo especial del jugador Andy Bogard- Ejecutado [%s]\n ",yytext);  
-    Japon[p_life_2] = Japon[p_life_2] - 60;
-    printf("\n Count life player 2 : %d", Japon[p_life_2]);
-    printf("\n Count life player 1 : %d", Italia[p_life]);
-    special_power_1 = special_power_1+ 30;
-}
-	YY_BREAK
-case 11:
-YY_RULE_SETUP
-#line 244 "moves.l"
-{
- printf(" ");
-    printf("\nCombo especial del jugador Joe Higashi- Ejecutado [%s]\n ",yytext);  
-    Japon[p_life_2] = Japon[p_life_2] - 60;
-    printf("\n Count life player 2 : %d", Japon[p_life_2]);
-    printf("\n Count life player 1 : %d", Italia[p_life]);
-    special_power_1 = special_power_1+ 30;
-}
-	YY_BREAK
-case 12:
-YY_RULE_SETUP
-#line 254 "moves.l"
-{
- if(special_power_1 < 100 ){
- printf("******************************************************");
- printf(" \nNo puedes usar la Super Especial de este equipo \n");
- printf("******************************************************");
- 
- }if(Japon[3] <= 50){
- special_power_1 = 0;
- printf("\nMovimiento Super Especial del Equipo Italia - Ejecutado [%s]\n ",yytext);  
- Japon[p_life_2] = Japon[p_life_2] - 120;
- printf("\n Count life player 2 : %d", Japon[p_life_2]);
- printf("\n Count life player 1 : %d", Italia[p_life]);
- printf("\n barra de poder actual: %d",special_power_1);
- }
-}
-	YY_BREAK
-/*DEFINICION DE REGLAS PARA CADA TOKEN DE COMBOS ESPECIALES EQUIPO JAPON #2*/
-case 13:
-YY_RULE_SETUP
-#line 272 "moves.l"
-{
-  
-  printf(" ");
-  printf("\nEquipo Mexico Ataca---> Golpe Basico : %s\n", yytext);
-  printf("El personaje %s",Equipo_Japon[position_Japon]);printf("--> acierta golpe a --> %s",Equipo_Italia[position_Italia]);
-  Italia[p_life] = Italia[p_life] - 15;
-  special_power_1 = special_power_1+ 5;
-  printf("\n Count life player 2 : %d", Japon[p_life_2]);
-  printf("\n Count life player 1 : %d", Italia[p_life]);
-  printf("\n barra actual de poder equipo 2: [ %d]",special_power_1); 
-  
-  if(Italia[p_life]<= 0){
-  printf("\nNuevo jugador : %s" ,Equipo_Japon[position_Japon]);printf(" vs %s",Equipo_Italia[position_Italia]);
-  p_life = p_life +1;
-  position_Italia = position_Italia+1;
-  }if(Italia[p_life]<=0){ 
-   printf("\n*******************************************************\n");
-  printf("\n*******************************************************\n");
-  printf("\nEl ganador es el Equipo 1 %s\n",Equipo_Japon[position_Japon]);
-  printf("\n*******************************************************\n");
-    printf("\n*******************************************************\n");;
-  exit(-1);
-  }
-}
-	YY_BREAK
-case 14:
-YY_RULE_SETUP
-#line 297 "moves.l"
-{
-		printf(" ");
-  printf("\nEquipo Mexico Ataca---> Golpe Basico : %s\n", yytext);
-  printf("El personaje %s",Equipo_Japon[position_Japon]);printf("--> acierta golpe a --> %s",Equipo_Italia[position_Italia]);
-  Italia[p_life] = Italia[p_life] - 30;
-  special_power_1 = special_power_1+ 20;
-  printf("\n Count life player 2 : %d", Japon[p_life_2]);
-  printf("\n Count life player 1 : %d", Italia[p_life]);
-  printf("\n barra actual de poder equipo 2: [ %d]",special_power_1); 
-  
-  if(Italia[p_life]<= 0){
-  printf("\nNuevo jugador : %s" ,Equipo_Japon[position_Japon]);printf(" vs %s",Equipo_Italia[position_Italia]);
-  p_life = p_life +1;
-  position_Italia = position_Italia+1;
-  }if(Italia[p_life]<=0){ 
-   printf("\n*******************************************************\n");
-  printf("\n*******************************************************\n");
-  printf("\nEl ganador es el Equipo 1 %s\n",Equipo_Japon[position_Japon]);
-  printf("\n*******************************************************\n");
-    printf("\n*******************************************************\n");
-  exit(-1);
-  } 
-}
-	YY_BREAK
-case 15:
-YY_RULE_SETUP
-#line 321 "moves.l"
-{
-		printf(" ");
-  printf("\nEquipo Mexico Ataca---> Golpe Basico : %s\n", yytext);
-  printf("El personaje %s",Equipo_Japon[position_Japon]);printf("--> acierta golpe a --> %s",Equipo_Italia[position_Italia]);
-  Italia[p_life] = Italia[p_life] - 25;
-  special_power_1 = special_power_1+ 15;
-  printf("\n Count life player 2 : %d", Japon[p_life_2]);
-  printf("\n Count life player 1 : %d", Italia[p_life]);
-  printf("\n barra actual de poder equipo 2: [ %d]",special_power_1); 
-  
-  if(Italia[p_life]<= 0){
-  printf("\nNuevo jugador : %s" ,Equipo_Japon[position_Japon]);printf(" vs %s",Equipo_Italia[position_Italia]);
-  p_life = p_life +1;
-  position_Italia = position_Italia+1;
-  }if(Italia[p_life]<=0){ 
-   printf("\n*******************************************************\n");
-  printf("\n*******************************************************\n");
-  printf("\nEl ganador es el Equipo 1 %s\n",Equipo_Japon[position_Japon]);
-  printf("\n*******************************************************\n");
-    printf("\n*******************************************************\n");
-  exit(-1);
-  }
-}
-	YY_BREAK
-case 16:
-YY_RULE_SETUP
-#line 345 "moves.l"
-{
-			printf(" ");
-  printf("\nEquipo Mexico Ataca---> Golpe Basico : %s\n", yytext);
-  printf("El personaje %s",Equipo_Japon[position_Japon]);printf("--> acierta golpe a --> %s",Equipo_Italia[position_Italia]);
-  Italia[p_life] = Italia[p_life] - 50;
-  special_power_1 = special_power_1+ 30;
-  printf("\n Count life player 2 : %d", Japon[p_life_2]);
-  printf("\n Count life player 1 : %d", Italia[p_life]);
-  printf("\n barra actual de poder equipo 2: [ %d]",special_power_1); 
-  
-  if(Italia[p_life]<= 0){
-  printf("\nNuevo jugador : %s" ,Equipo_Japon[position_Japon]);printf(" vs %s",Equipo_Italia[position_Italia]);
-  p_life = p_life +1;
-  position_Italia = position_Italia+1;
-  }if(Italia[p_life]<=0){ 
-  printf("\n*******************************************************\n");
-  printf("\n*******************************************************\n");
-  printf("\nEl ganador es el Equipo 1 %s\n",Equipo_Japon[position_Japon]);
-  printf("\n*******************************************************\n");
-    printf("\n*******************************************************\n");
-  exit(-1);
-  }
-}
-	YY_BREAK
-/*DEFINICION DE REGLAS PARA CADA TOKEN DE COMBOS ESPECIALES EQUIPO JAPON #2*/
-case 17:
-YY_RULE_SETUP
-#line 370 "moves.l"
-{
-    printf(" ");
-    printf("\nCombo especial del jugador Kyo Kusanagi- Ejecutado [%s]\n ",yytext);  
-    Japon[p_life_2] = Japon[p_life_2] - 60;
-    printf("\n Count life player 2 : %d", Japon[p_life_2]);
-    printf("\n Count life player 1 : %d", Italia[p_life]);
-    special_power_2 = special_power_2+ 30;
-}
-	YY_BREAK
-case 18:
-YY_RULE_SETUP
-#line 379 "moves.l"
-{
- printf(" ");
-    printf("\nCombo especial del jugador Benimaru Nikaido- Ejecutado [%s]\n ",yytext);  
-     Japon[p_life_2] = Japon[p_life_2] - 60;
-    printf("\n Count life player 2 : %d", Japon[p_life_2]);
-    printf("\n Count life player 1 : %d", Italia[p_life]);
-    special_power_2 = special_power_2+ 30;
-}
-	YY_BREAK
-case 19:
-YY_RULE_SETUP
-#line 388 "moves.l"
-{
-    printf("\nCombo especial del jugador Goro Daimon- Ejecutado [%s]\n ",yytext);  
-    Japon[p_life_2] = Japon[p_life_2] - 60;
-    printf("\n Count life player 2 : %d", Japon[p_life_2]);
-    printf("\n Count life player 1 : %d", Italia[p_life]);
-    special_power_2 = special_power_2+ 30;
-}
-	YY_BREAK
-case 20:
-YY_RULE_SETUP
-#line 396 "moves.l"
-{
- if(special_power_2 < 100 ){
- printf("******************************************************");
- printf(" \nNo puedes usar la Super Especial de este equipo \n");
- printf("******************************************************");
- 
- }if(Japon[3] <= 50){
- special_power_1 = 0;
- printf("\nMovimiento Super Especial del Equipo Japon - Ejecutado[%s]\n ",yytext);  
- Japon[p_life_2] = Japon[p_life_2] - 120;
- printf("\n Count life player 2 : %d", Japon[p_life_2]);
- printf("\n Count life player 1 : %d", Italia[p_life]);
- printf("\n barra de poder actual: %d",special_power_2);
- }
-}
-	YY_BREAK
-case 21:
-YY_RULE_SETUP
-#line 413 "moves.l"
-{
-  printf("No se reconoce este comando porfavor intentelo de nuevo: %s\n", yytext);
-}
-	YY_BREAK
-case 22:
-/* rule 22 can match eol */
-YY_RULE_SETUP
-#line 417 "moves.l"
-{;}
-	YY_BREAK
-case 23:
-YY_RULE_SETUP
-#line 420 "moves.l"
+#line 164 "moves.l"
 ECHO;
 	YY_BREAK
-#line 1257 "lex.yy.c"
+#line 913 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1550,7 +1206,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 179 )
+			if ( yy_current_state >= 143 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1578,11 +1234,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 179 )
+		if ( yy_current_state >= 143 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 178);
+	yy_is_jam = (yy_current_state == 142);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2258,7 +1914,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 420 "moves.l"
+#line 164 "moves.l"
 
 int main(int argc, char const *argv[]) {
   printf(" ");
