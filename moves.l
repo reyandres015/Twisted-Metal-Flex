@@ -2,12 +2,16 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
 /* Variables globales*/
 int number_of_players = 0; /* Número de jugadores */
 
 bool SceneSelection = false; /* ¿Escenario ya se selecciono? */
 bool inGame = false; /* ¿Ya se inicio el juego? */
+
+char brujula[4] = {'N', 'E', 'S', 'O'};
 
 typedef struct {
     char name[20];
@@ -17,7 +21,7 @@ typedef struct {
 typedef struct {
     char name[20];
     int vida;
-    char direccion[20];
+    int direccion; /*indice de la brujula*/
     int x;
     int y;
     int selectedWeapon;
@@ -40,7 +44,10 @@ Player players[4];
 
 int actualPlayer = 0; /* Jugador actual */
 
-char matrix[100][100][20]; /* Matriz del campo de juego */
+#define FILAS 10;
+#define COLUMNAS 10;
+/* inicializar matriz llena de -1*/
+int matrix[10][10];
 
 /* Función para identificar si un jugador ya fue seleccionado. */
 bool isCharacterSelected(char* character) {
@@ -53,7 +60,7 @@ bool isCharacterSelected(char* character) {
 }
 
 void startGame(){
-  Weapon newWeapon = {.damage = 20};
+  Weapon newWeapon = {.damage = 10};
   strncpy(newWeapon.name, "pistola", sizeof(newWeapon.name));
   weapons[0] = newWeapon;
 
@@ -71,11 +78,63 @@ void startGame(){
   ametralladora = newWeapon;
 }
 
+/* Ubicar jugadores en la matriz */
+void ubicarJugadores(){
+  for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 10; j++) {
+      matrix[i][j] = -1;
+    }
+  }
+
+  srand(time(NULL)); /*semilla para numeros aleatorios*/
+  for(int i = 0; i < number_of_players; i++){
+    /*generar posicion aleatoria*/
+    int x = rand() % COLUMNAS;
+    int y = rand() % FILAS;
+
+    /*verificar si la posicion ya esta ocupada*/
+    if(matrix[y][x] != -1){
+      i--;
+      continue;
+    } else { /*Posición libre*/
+      /*asignar posicion al jugador*/
+      matrix[y][x] = i;
+      players[i].y = y;
+      players[i].x = x;
+    }
+  }
+}
+
 /* CONTINUAR JUEGO */
 void continueGame() {
     if(inGame){
+        /* Imprimir matriz */
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if(matrix[i][j] != -1){
+                    int index = matrix[i][j];
+                    if(players[index].direccion == 0){
+                        printf("%d👆 ", index + 1);
+                    } else if(players[index].direccion == 1){
+                        printf("%d👉 ", index + 1);
+                    } else if(players[index].direccion == 2){
+                        printf("%d👇 ", index + 1);
+                    } else if(players[index].direccion == 3){
+                        printf("%d👈 ", index + 1);
+                    }
+                } else {
+                    printf("--- ");
+                }
+            }
+            printf("\n");
+        }
         printf("\n");
-        actualPlayer++;
+        /* Cambiar de jugador */
+        if(actualPlayer == number_of_players-1){ /* Si es el último jugador */
+            actualPlayer = 0; /* Iniciar nueva ronda */
+        } else{
+            actualPlayer++; /* Siguiente jugador */
+        }
         printf("Turno del jugador %d: %s", actualPlayer+1, players[actualPlayer].name);
     }else{
         printf("You need to select a character first");
@@ -88,9 +147,8 @@ void selectCharacter(char* character) {
         if(SceneSelection){
             if (!isCharacterSelected(character)) {
                 /* Crear jugador */
-                Player newPlayer = {.vida = 200, .canMove = true, .protected = false, .selectedWeapon = 1};
+                Player newPlayer = {.vida = 200, .direccion = 0, .canMove = true, .protected = false, .selectedWeapon = 1};
                 strncpy(newPlayer.name, character, sizeof(newPlayer.name));
-                strncpy(newPlayer.direccion, "arriba", sizeof(newPlayer.direccion));
 
                 players[actualPlayer] = newPlayer;
                 printf("Character %d selected: %s \n", actualPlayer+1, players[actualPlayer].name);
@@ -98,6 +156,7 @@ void selectCharacter(char* character) {
 
                 /* Si ya se seleccionaron todos los jugadores */
                 if(actualPlayer == number_of_players){
+                    ubicarJugadores();
                     inGame = true;
                     printf("The %d players have been selected. The game is ready to start\n",number_of_players);
                     actualPlayer = -1;
@@ -118,16 +177,13 @@ void selectCharacter(char* character) {
 
 ESCENARIO   "Moscow"|"Paris"|"Amazonia"|"New York"|"Antartica"|"Holland"|"Hong Kong"|"Dark Tooth"
 
-%option noyywrap
 
 NUMERO_JUGADORES   "2"|"3"|"4"
 
-%option noyywrap
 
 /* Personajes */
 PLAYER   "Axel"|"Grasshopper"|"Mr. Grimm"|"Hammerhead"|"Minion"|"Outlaw 2"|"Roadkill"|"Shadow"|"Mr. Slam"|"Spectre"|"Sweettooth"|"Thumper"|"Twister"|"Warthog"
 
-%option noyywrap
 
 /*Movimientos de direccion*/
 Direccion_Arriba	    "W"
@@ -135,12 +191,11 @@ Direccion_Abajo	    "S"
 Direccion_Izquierda	  "A"
 Direccion_Derecha	      "D"
 
-tk_up     ({Direccion_Arriba})
-tk_down   ({Direccion_Abajo})
+tk_forward     ({Direccion_Arriba})
+tk_back   ({Direccion_Abajo})
 tk_left   ({Direccion_Izquierda})
 tk_right  ({Direccion_Derecha})
 
-%option noyywrap
 
 /*Movimientos de velocidad*/
 Velocidad_Turbo		  "speed_turbo"
@@ -174,7 +229,6 @@ tk_freeze       ({Ataque_Freeze})
 tk_mine         ({Ataque_Mine})
 tk_invisible    ({Ataque_BeInvisible})
 
-%option noyywrap
 
 %%
 
@@ -198,20 +252,86 @@ tk_invisible    ({Ataque_BeInvisible})
 }
 
  /* TOKEN DIRECCIONES */
-{tk_up} {
+{tk_forward} {
   if(inGame){
-    strncpy(players[actualPlayer].direccion, "arriba", sizeof(players[actualPlayer-1].direccion));
-    printf("%s is moving up\n", players[actualPlayer].name);
+    printf("%s is moving forward\n", players[actualPlayer].name);
+
+    int direccion = players[actualPlayer].direccion;
+
+    matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
+
+    switch (direccion) {
+      case 0: /*Norte*/
+        if(players[actualPlayer].y > 0){
+          players[actualPlayer].y--;
+        } else{
+          printf("You can't move forward\n");
+        }
+        break;
+      case 1: /*Este*/
+        if(players[actualPlayer].x < 9){
+          players[actualPlayer].x++;
+        }else{
+          printf("You can't move forward\n");
+        }
+        break;
+      case 2: /*Sur*/
+        if(players[actualPlayer].y < 9){
+          players[actualPlayer].y++;
+        }else{
+          printf("You can't move forward\n");
+        }
+        break;
+      case 3: /*Oeste*/
+        if(players[actualPlayer].x > 0){
+          players[actualPlayer].x--;
+        }else{
+          printf("You can't move forward\n");
+        }
+        break;
+    }
+    matrix[players[actualPlayer].y][players[actualPlayer].x] = actualPlayer; /*asignar nueva posicion del player*/
+
+    /*SIGUIENTE TURNO*/
     continueGame();
   }else{
     printf("You need to select a character first");
   }
 }
 
-{tk_down} {
+{tk_back} {
   if(inGame){
-    strncpy(players[actualPlayer].direccion, "abajo", sizeof(players[actualPlayer-1].direccion));
-    printf("%s is moving down\n", players[actualPlayer].name);
+    printf("%s is moving back\n", players[actualPlayer].name);
+    int direccion = players[actualPlayer].direccion;
+
+    matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
+
+    switch (direccion) {
+      case 0: /*Norte*/
+        if(players[actualPlayer].y < 9){
+          players[actualPlayer].y++;
+        }
+        break;
+      case 1: /*Este*/
+        if(players[actualPlayer].x > 0){
+
+          players[actualPlayer].x--;
+        }
+        break;
+      case 2: /*Sur*/
+        if(players[actualPlayer].y > 0){
+          players[actualPlayer].y--;
+        }
+        break;
+      case 3: /*Oeste*/
+        if(players[actualPlayer].x < 9){
+          players[actualPlayer].x++;
+        }
+        break;
+    }
+    matrix[players[actualPlayer].y][players[actualPlayer].x] = actualPlayer;/*asignar nueva posicion del player*/
+
+    /*SIGUIENTE TURNO*/
     continueGame();
   }else{
     printf("You need to select a character first");
@@ -220,8 +340,15 @@ tk_invisible    ({Ataque_BeInvisible})
 
 {tk_left} {
   if(inGame){
-    strncpy(players[actualPlayer].direccion, "izquierda", sizeof(players[actualPlayer-1].direccion));
+    /* Cambiar direccion */
+    if(players[actualPlayer].direccion == 0){  /*Si esta en el norte*/
+        players[actualPlayer].direccion = 3; /*cambiar a oeste (ultima posicion del array)*/
+    } else {
+        players[actualPlayer].direccion--; /*cambiar a la izquierda */
+    }
     printf("%s is moving left\n", players[actualPlayer].name);
+
+    /*SIGUIENTE TURNO*/
     continueGame();
   }else{
     printf("You need to select a character first");
@@ -230,8 +357,14 @@ tk_invisible    ({Ataque_BeInvisible})
 
 {tk_right} {
   if(inGame){
-    strncpy(players[actualPlayer].direccion, "derecha", sizeof(players[actualPlayer-1].direccion));
+    if(players[actualPlayer].direccion == 3){ /*Si esta en el oeste*/
+        players[actualPlayer].direccion = 0; /*cambiar a norte (primera posicion del array)*/
+    } else {
+        players[actualPlayer].direccion++; /*cambiar a la derecha */
+    }
     printf("%s is moving right\n", players[actualPlayer].name);
+
+    /*SIGUIENTE TURNO*/
     continueGame();
   }else{
     printf("You need to select a character first");
@@ -311,14 +444,14 @@ tk_invisible    ({Ataque_BeInvisible})
 
  /* ATAQUES ESPECIALES */
 
-{tk_up}{tk_down}{tk_up} { /* freeze */
+{tk_forward}{tk_back}{tk_forward} { /* freeze */
   if(inGame){
     printf("Player %d is freezing\n", actualPlayer);
   }else{
     printf("You need to select a character first");
   }
 }
-{tk_up}{tk_left}{tk_left} { /* JUMP */
+{tk_forward}{tk_left}{tk_left} { /* JUMP */
   if(inGame){
     printf("Player %d is jumping\n", actualPlayer);
   }else{
@@ -327,7 +460,7 @@ tk_invisible    ({Ataque_BeInvisible})
 }
 
 
-{tk_right}{tk_left}{tk_down} { /* MINE */
+{tk_right}{tk_left}{tk_back} { /* MINE */
   if(inGame){
     printf("Player %d is placing a mine\n", actualPlayer);
   }else{
@@ -335,7 +468,7 @@ tk_invisible    ({Ataque_BeInvisible})
   }
 }
 
-{tk_left}{tk_left}{tk_down}{tk_down} { /* BE INVISIBLE */
+{tk_left}{tk_left}{tk_back}{tk_back} { /* BE INVISIBLE */
   if(inGame){
     printf("Player %d is becoming invisible\n", actualPlayer);
   }else{

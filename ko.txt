@@ -4,6 +4,11 @@ Axel
 Mr. Grimm
 Outlaw 2
 Roadkill
-R1
-R1
-R1
+A
+A
+A
+A
+W
+W
+W
+W
