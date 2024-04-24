@@ -3,46 +3,63 @@
 #include <stdbool.h>
 #include <string.h>
 
-/* Definicion de variables globales*/
+/* Variables globales*/
 int number_of_players = 0; /* Número de jugadores */
-/* Arreglo de juegadores seleccionados */
 
-bool SceneSelection = false;
-bool inGame = false;
+bool SceneSelection = false; /* ¿Escenario ya se selecciono? */
+bool inGame = false; /* ¿Ya se inicio el juego? */
 
-char players[4][20];
+typedef struct {
+    char name[20];
+    int vida;
+    int energia;
+    char direccion[20];
+    int x;
+    int y;
+} Player; /* Clase jugador */
+
+/* Arreglo de jugadores seleccionados */
+Player players[4];
+
+int actualPlayer = 0; /* Jugador actual */
+
 char matrix[4][4][20] = {
     {"", "Grasshopper", "", ""},
     {"", "Outlaw 2", "", ""},
     {"Mr. Slam", "", "", ""},
     {"Twister", "", " ", " "}
-};
-int player = 0; /* Jugador actual */
+}; /* Matriz del campo de juego */
 
-bool isCharacterSelected(const char* character) {
+/* Función para identificar si un jugador ya fue seleccionado. */
+bool isCharacterSelected(char* character) {
     for (int i = 0; i < number_of_players; i++) {
-        if (strcmp(players[i], character) == 0) {
+        if (strcmp(players[i].name, character) == 0) {
             return true;
         }
     }
     return false;
 }
 
-void selectCharacter(const char* character) {
+/* Función para seleccionar un personaje */
+void selectCharacter(char* character) {
     if(!inGame){
         if(SceneSelection){
-          if (player < number_of_players) {
-              if (!isCharacterSelected(character)) {
-                  strcpy(players[player], character);
-                  player++;
-                  printf("Character %d selected: %s \n", player, character);
-              } else {
-                  printf("Character %s has already been selected\n", character);
-              }
-          } else {
-              inGame = true;
-              printf("The 4 players have been selected, you can't select one more");
-          }
+            if (!isCharacterSelected(character)) {
+                Player newPlayer = {.vida = 200, .energia = 200};                  
+                strncpy(newPlayer.name, character, sizeof(newPlayer.name));
+                strncpy(newPlayer.direccion, "arriba", sizeof(newPlayer.direccion));
+                players[actualPlayer] = newPlayer;
+                printf("Character %d selected: %s \n", actualPlayer+1, players[actualPlayer].name);
+                actualPlayer++;
+
+                /* Si ya se seleccionaron los 4 jugadores */
+                if(actualPlayer == number_of_players){
+                    inGame = true;
+                    printf("The %d players have been selected. The game is ready to start\n",number_of_players);
+                }
+            } else {
+                printf("Character %s has already been selected\n", character);
+            }
         }else{
           printf("You need to select a scene first");
         }
@@ -51,48 +68,18 @@ void selectCharacter(const char* character) {
     }
 }
 
-
-int Japon [3] = {200,200,200}; /*Cada equipo cuenta con [3] personajes*/
-int Italia [3] = {200,200,200}; /*Cada personaje cuenta con su barra completa de vida*/
-
 %}
 
-/* Token para cada escenario predefinido*/
-Tk_escenario_Moscow      "Moscow"
-Tk_escenario_Paris       "Paris"
-Tk_escenario_Amazonia    "Amazonia"
-Tk_escenario_NewYork     "New York"
-Tk_escenario_Antartica   "Antartica"
-Tk_escenario_Holland     "Holland"
-Tk_escenario_HongKong    "Hong Kong"
-Tk_escenario_DarkTooth   "Dark Tooth"
-
-/* Llamda por escenario*/
-tk_Moscow      ({Tk_escenario_Moscow})
-tk_Paris       ({Tk_escenario_Paris})
-tk_Amazonia    ({Tk_escenario_Amazonia})
-tk_NewYork     ({Tk_escenario_NewYork})
-tk_Antartica   ({Tk_escenario_Antartica})
-tk_Holland     ({Tk_escenario_Holland})
-tk_HongKong    ({Tk_escenario_HongKong})
-tk_DarkTooth   ({Tk_escenario_DarkTooth})
+ESCENARIO   "Moscow"|"Paris"|"Amazonia"|"New York"|"Antartica"|"Holland"|"Hong Kong"|"Dark Tooth"
 
 %option noyywrap
 
-Tk_2 "2"
-Tk_3 "3"
-Tk_4 "4"
-
-/* Llamada por numero de jugadores*/
-tk_2 ({Tk_2})
-tk_3 ({Tk_3})
-tk_4 ({Tk_4})
+NUMERO_JUGADORES   "2"|"3"|"4"
 
 %option noyywrap
 
 /* Personajes */
-PLAYER    "Axel"|"Grasshopper"|"Mr. Grimm"|"Hammerhead"|"Minion"|"Outlaw 2"|"Roadkill"|"Shadow"|"Mr. Slam"|"Spectre"|"Sweettooth"|"Thumper"|"Twister"|"Warthog"
-
+PLAYER   "Axel"|"Grasshopper"|"Mr. Grimm"|"Hammerhead"|"Minion"|"Outlaw 2"|"Roadkill"|"Shadow"|"Mr. Slam"|"Spectre"|"Sweettooth"|"Thumper"|"Twister"|"Warthog"
 
 %option noyywrap
 
@@ -142,20 +129,20 @@ tk_invisible    ({Ataque_BeInvisible})
 
 %%
 
- /*DEFINICION DE REGALAS PARA CADA TOKEN DEL ESCENARIO SELECCIONADO*/
-({tk_Moscow}|{tk_Paris}|{tk_Amazonia}|{tk_NewYork}|{tk_Antartica}|{tk_Holland}|{tk_HongKong}|{tk_DarkTooth}) {
+ /* TOKEN ESCENARIO SELECCIONADO */
+{ESCENARIO} {
   SceneSelection = true;
   printf("\nEscenario seleccionado: %s\n", yytext);
 }
 
 
- /*DEFINICION NUMERO DE JUGADORES*/
-({tk_2}|{tk_3}|{tk_4}) {
+ /* TOKEN NUMERO DE JUGADORES*/
+{NUMERO_JUGADORES} {
   number_of_players = atoi(yytext);
   printf("\nNumero de jugadores: %d\n", number_of_players);
 }
 
- /*Seleccion de personajes y guardado en arreglo*/
+ /* TOKEN PLAYER -> Seleccion de personajes y guardado en arreglo*/
 {PLAYER} {
   selectCharacter(yytext);
 }
@@ -163,8 +150,7 @@ tk_invisible    ({Ataque_BeInvisible})
 %%
 int main(int argc, char const *argv[]) {
   printf(" ");
-  printf("\n--------------The kings Of fighters'94--------------\n");
-  printf("\n----------------Que empiece el juego ! ---------------\n");
+  printf("\n--------------Twisted Metal--------------\n");
   
   yyin = fopen(argv[1], "r");
   yylex();

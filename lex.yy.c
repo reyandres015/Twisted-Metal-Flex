@@ -541,44 +541,59 @@ char *yytext;
 
 /* Definicion de variables globales*/
 int number_of_players = 0; /* Número de jugadores */
-/* Arreglo de juegadores seleccionados */
 
 bool SceneSelection = false;
 bool inGame = false;
 
-char players[4][20];
+typedef struct {
+    char name[20];
+    int vida;
+    int energia;
+    char direccion[20];
+    int x;
+    int y;
+} Player;
+
+/* Arreglo de juegadores seleccionados, llenar con Players por defecto sin definir atributos */
+Player players[4];
+
+int player = 0; /* Jugador actual */
+
 char matrix[4][4][20] = {
     {"", "Grasshopper", "", ""},
     {"", "Outlaw 2", "", ""},
     {"Mr. Slam", "", "", ""},
     {"Twister", "", " ", " "}
 };
-int player = 0; /* Jugador actual */
 
-bool isCharacterSelected(const char* character) {
+bool isCharacterSelected(char* character) {
     for (int i = 0; i < number_of_players; i++) {
-        if (strcmp(players[i], character) == 0) {
+        if (strcmp(players[i].name, character) == 0) {
             return true;
         }
     }
     return false;
 }
 
-void selectCharacter(const char* character) {
+void selectCharacter(char* character) {
     if(!inGame){
         if(SceneSelection){
-          if (player < number_of_players) {
-              if (!isCharacterSelected(character)) {
-                  strcpy(players[player], character);
-                  player++;
-                  printf("Character %d selected: %s \n", player, character);
-              } else {
-                  printf("Character %s has already been selected\n", character);
-              }
-          } else {
-              inGame = true;
-              printf("The 4 players have been selected, you can't select one more");
-          }
+            if (!isCharacterSelected(character)) {
+                Player newPlayer = {.vida = 200, .energia = 200};                  
+                strncpy(newPlayer.name, character, sizeof(newPlayer.name));
+                strncpy(newPlayer.direccion, "arriba", sizeof(newPlayer.direccion));
+                players[player] = newPlayer;
+                printf("Character %d selected: %s \n", player+1, players[player].name);
+                player++;
+
+                /* Si ya se seleccionaron los 4 jugadores */
+                if(player == number_of_players){
+                    inGame = true;
+                    printf("The %d players have been selected. The game is ready to start\n",number_of_players);
+                }
+            } else {
+                printf("Character %s has already been selected\n", character);
+            }
         }else{
           printf("You need to select a scene first");
         }
@@ -587,20 +602,13 @@ void selectCharacter(const char* character) {
     }
 }
 
-
-int Japon [3] = {200,200,200}; /*Cada equipo cuenta con [3] personajes*/
-int Italia [3] = {200,200,200}; /*Cada personaje cuenta con su barra completa de vida*/
-
-#line 595 "lex.yy.c"
-/* Token para cada escenario predefinido*/
-/* Llamda por escenario*/
-/* Llamada por numero de jugadores*/
+#line 606 "lex.yy.c"
 /* Personajes */
 /*Movimientos de direccion*/
 /*Movimientos de velocidad*/
 /*Armas y cambio de armas*/
 /*Ataques especiales*/
-#line 604 "lex.yy.c"
+#line 612 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -817,12 +825,12 @@ YY_DECL
 		}
 
 	{
-#line 143 "moves.l"
+#line 128 "moves.l"
 
 
-#line 146 "moves.l"
+#line 131 "moves.l"
  /*DEFINICION DE REGALAS PARA CADA TOKEN DEL ESCENARIO SELECCIONADO*/
-#line 826 "lex.yy.c"
+#line 834 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -881,7 +889,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 147 "moves.l"
+#line 132 "moves.l"
 {
   SceneSelection = true;
   printf("\nEscenario seleccionado: %s\n", yytext);
@@ -890,7 +898,7 @@ YY_RULE_SETUP
 /*DEFINICION NUMERO DE JUGADORES*/
 case 2:
 YY_RULE_SETUP
-#line 154 "moves.l"
+#line 139 "moves.l"
 {
   number_of_players = atoi(yytext);
   printf("\nNumero de jugadores: %d\n", number_of_players);
@@ -899,17 +907,17 @@ YY_RULE_SETUP
 /*Seleccion de personajes y guardado en arreglo*/
 case 3:
 YY_RULE_SETUP
-#line 160 "moves.l"
+#line 145 "moves.l"
 {
   selectCharacter(yytext);
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 164 "moves.l"
+#line 149 "moves.l"
 ECHO;
 	YY_BREAK
-#line 913 "lex.yy.c"
+#line 921 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1914,7 +1922,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 164 "moves.l"
+#line 149 "moves.l"
 
 int main(int argc, char const *argv[]) {
   printf(" ");
