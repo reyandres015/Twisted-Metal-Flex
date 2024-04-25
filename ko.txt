@@ -3,4 +3,27 @@ Axel
 Mr. Grimm
 Outlaw 2
 Roadkill
-L1L2Outlaw 2
+WL1L2Outlaw 2
+WR1L2Roadkill
+WR1L2Axel
+WL1L2Mr. Grimm
+AL1L2Mr. Grimm
+DL2Axel
+DL2Roadkill
+triangleL2Mr. Grimm
+squareR2Roadkill
+AASS
+squareR2Roadkill
+AL2Axel
+WL2Roadkill
+AR1L2Roadkill
+AL2Axel
+WR2Axel
+SR2Roadkill
+DR2Axel
+squareR2Axel
+squareR2Outlaw 2
+SR2Mr. Grimm
+DAS
+AR2Outlaw 2
+SR2Mr. Grimm
