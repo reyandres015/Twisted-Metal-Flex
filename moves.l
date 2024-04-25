@@ -29,7 +29,7 @@ typedef struct {
     int y;
     int selectedWeapon;
     bool canMove;
-    bool protected;
+    bool invisible;
 } Player; /* Clase jugador */
 
 
@@ -90,47 +90,88 @@ void ubicarJugadores(){
     }
   }
 
-  srand(time(NULL)); /*semilla para numeros aleatorios*/
-  for(int i = 0; i < number_of_players; i++){
-    /*generar posicion aleatoria*/
-    int x = rand() % COLUMNAS;
-    int y = rand() % FILAS;
-
-    /*verificar si la posicion ya esta ocupada*/
-    if(matrix[y][x] != -1){
-      i--;
-      continue;
-    } else { /*Posición libre*/
-      /*asignar posicion al jugador*/
-      matrix[y][x] = i;
-      players[i].y = y;
-      players[i].x = x;
+  for(int i = 0; i < number_of_players; i++){ 
+      switch(i){
+        case 0:
+          players[i].x = 0;
+          players[i].y = 0;
+          matrix[0][0] = i;
+          players[i].direccion = 2;
+          break;
+        case 1:
+          players[i].x = 9;
+          players[i].y = 0;
+          matrix[0][9] = i;
+          players[i].direccion = 2;
+          break;
+        case 2:
+          players[i].x = 0;
+          players[i].y = 9;
+          matrix[9][0] = i;
+          break;
+        case 3:
+          players[i].x = 9;
+          players[i].y = 9;
+          matrix[9][9] = i;
+          break;
+      }
     }
-  }
 }
 
 /* CONTINUAR JUEGO */
 void continueGame() {
+    /* Verificar si solo queda un jugador vivo */
+    int playersAlive = 0;
+    for (int i = 0; i < number_of_players; i++) {
+        if (players[i].vida > 0) {
+            playersAlive++;
+        }
+    }
+    if(playersAlive == 1){
+        printf("Player %d wins\n", actualPlayer+1);
+        inGame = false;
+        /* Finalizar ejecucion del programa*/
+        exit(0);
+
+    } else if(playersAlive == 0){
+        printf("No players alive\n");
+        inGame = false;
+        /* Finalizar ejecucion del programa*/
+        exit(0);
+    }
+
     if(inGame){
-        /* Imprimir matriz */
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if(matrix[i][j] != -1){
-                    int index = matrix[i][j];
-                    if(players[index].direccion == 0){
-                        printf("%d👆 ", index + 1);
-                    } else if(players[index].direccion == 1){
-                        printf("%d👉 ", index + 1);
-                    } else if(players[index].direccion == 2){
-                        printf("%d👇 ", index + 1);
-                    } else if(players[index].direccion == 3){
-                        printf("%d👈 ", index + 1);
-                    }
-                } else {
-                    printf("--- ");
-                }
-            }
-            printf("\n");
+        if(players[actualPlayer+1].vida == 0){
+          actualPlayer++;
+          printf("Player %d is dead\n", actualPlayer+1);
+        } else {
+          /* Imprimir matriz */
+          for (int i = 0; i < 10; i++) {
+              for (int j = 0; j < 10; j++) {
+                      if(matrix[i][j] != -1){
+                          int index = matrix[i][j];
+                          if(players[index].vida == 0){
+                            printf("%d💀 ", index + 1);
+                          } else if(players[index].invisible){
+                            printf("%d👻 ", index + 1);
+                          } else {
+                            if(players[index].direccion == 0){
+                                printf("%d👆 ", index + 1);
+                            } else if(players[index].direccion == 1){
+                                printf("%d👉 ", index + 1);
+                            } else if(players[index].direccion == 2){
+                                printf("%d👇 ", index + 1);
+                            } else if(players[index].direccion == 3){
+                                printf("%d👈 ", index + 1);
+                            }
+                          }
+                          
+                      } else {
+                          printf("--- ");
+                      }
+              }
+              printf("\n");
+          }
         }
         printf("\n");
         /* Cambiar de jugador */
@@ -151,7 +192,7 @@ void selectCharacter(char* character) {
         if(SceneSelection){
             if (!isCharacterSelected(character)) {
                 /* Crear jugador */
-                Player newPlayer = {.vida = 200, .direccion = 0, .canMove = true, .protected = false, .selectedWeapon = 1};
+                Player newPlayer = {.vida = 200, .direccion = 0, .canMove = true, .invisible = false, .selectedWeapon = 1};
                 strncpy(newPlayer.name, character, sizeof(newPlayer.name));
 
                 players[actualPlayer] = newPlayer;
@@ -486,7 +527,7 @@ tk_invisible    ({Ataque_BeInvisible})
       players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
       printf("Ataque al player %d, Y se quedo con: %d", playerAttaked, players[playerAttaked].vida);
     }else{
-      printf("El ataque falló")
+      printf("El ataque falló");
     }
 
   }else{

@@ -634,7 +634,7 @@ typedef struct {
     int y;
     int selectedWeapon;
     bool canMove;
-    bool protected;
+    bool invisible;
 } Player; /* Clase jugador */
 
 
@@ -695,47 +695,88 @@ void ubicarJugadores(){
     }
   }
 
-  srand(time(NULL)); /*semilla para numeros aleatorios*/
-  for(int i = 0; i < number_of_players; i++){
-    /*generar posicion aleatoria*/
-    int x = rand() % COLUMNAS;
-    int y = rand() % FILAS;
-
-    /*verificar si la posicion ya esta ocupada*/
-    if(matrix[y][x] != -1){
-      i--;
-      continue;
-    } else { /*Posición libre*/
-      /*asignar posicion al jugador*/
-      matrix[y][x] = i;
-      players[i].y = y;
-      players[i].x = x;
+  for(int i = 0; i < number_of_players; i++){ 
+      switch(i){
+        case 0:
+          players[i].x = 0;
+          players[i].y = 0;
+          matrix[0][0] = i;
+          players[i].direccion = 2;
+          break;
+        case 1:
+          players[i].x = 9;
+          players[i].y = 0;
+          matrix[0][9] = i;
+          players[i].direccion = 2;
+          break;
+        case 2:
+          players[i].x = 0;
+          players[i].y = 9;
+          matrix[9][0] = i;
+          break;
+        case 3:
+          players[i].x = 9;
+          players[i].y = 9;
+          matrix[9][9] = i;
+          break;
+      }
     }
-  }
 }
 
 /* CONTINUAR JUEGO */
 void continueGame() {
+    /* Verificar si solo queda un jugador vivo */
+    int playersAlive = 0;
+    for (int i = 0; i < number_of_players; i++) {
+        if (players[i].vida > 0) {
+            playersAlive++;
+        }
+    }
+    if(playersAlive == 1){
+        printf("Player %d wins\n", actualPlayer+1);
+        inGame = false;
+        /* Finalizar ejecucion del programa*/
+        exit(0);
+
+    } else if(playersAlive == 0){
+        printf("No players alive\n");
+        inGame = false;
+        /* Finalizar ejecucion del programa*/
+        exit(0);
+    }
+
     if(inGame){
-        /* Imprimir matriz */
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if(matrix[i][j] != -1){
-                    int index = matrix[i][j];
-                    if(players[index].direccion == 0){
-                        printf("%d👆 ", index + 1);
-                    } else if(players[index].direccion == 1){
-                        printf("%d👉 ", index + 1);
-                    } else if(players[index].direccion == 2){
-                        printf("%d👇 ", index + 1);
-                    } else if(players[index].direccion == 3){
-                        printf("%d👈 ", index + 1);
-                    }
-                } else {
-                    printf("--- ");
-                }
-            }
-            printf("\n");
+        if(players[actualPlayer+1].vida == 0){
+          actualPlayer++;
+          printf("Player %d is dead\n", actualPlayer+1);
+        } else {
+          /* Imprimir matriz */
+          for (int i = 0; i < 10; i++) {
+              for (int j = 0; j < 10; j++) {
+                      if(matrix[i][j] != -1){
+                          int index = matrix[i][j];
+                          if(players[index].vida == 0){
+                            printf("%d💀 ", index + 1);
+                          } else if(players[index].invisible){
+                            printf("%d👻 ", index + 1);
+                          } else {
+                            if(players[index].direccion == 0){
+                                printf("%d👆 ", index + 1);
+                            } else if(players[index].direccion == 1){
+                                printf("%d👉 ", index + 1);
+                            } else if(players[index].direccion == 2){
+                                printf("%d👇 ", index + 1);
+                            } else if(players[index].direccion == 3){
+                                printf("%d👈 ", index + 1);
+                            }
+                          }
+                          
+                      } else {
+                          printf("--- ");
+                      }
+              }
+              printf("\n");
+          }
         }
         printf("\n");
         /* Cambiar de jugador */
@@ -756,7 +797,7 @@ void selectCharacter(char* character) {
         if(SceneSelection){
             if (!isCharacterSelected(character)) {
                 /* Crear jugador */
-                Player newPlayer = {.vida = 200, .direccion = 0, .canMove = true, .protected = false, .selectedWeapon = 1};
+                Player newPlayer = {.vida = 200, .direccion = 0, .canMove = true, .invisible = false, .selectedWeapon = 1};
                 strncpy(newPlayer.name, character, sizeof(newPlayer.name));
 
                 players[actualPlayer] = newPlayer;
@@ -823,13 +864,13 @@ int findPlayerByName(Player players[], int numPlayers, const char* name) {
 
 
 
-#line 827 "lex.yy.c"
+#line 868 "lex.yy.c"
 /* Personajes */
 /*Movimientos de direccion*/
 /*Movimientos de velocidad*/
 /*Armas y cambio de armas*/
 /*Ataques especiales*/
-#line 833 "lex.yy.c"
+#line 874 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -1046,12 +1087,12 @@ YY_DECL
 		}
 
 	{
-#line 278 "moves.l"
+#line 319 "moves.l"
 
 
-#line 281 "moves.l"
+#line 322 "moves.l"
  /* TOKEN ESCENARIO SELECCIONADO */
-#line 1055 "lex.yy.c"
+#line 1096 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1110,7 +1151,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 282 "moves.l"
+#line 323 "moves.l"
 {
   SceneSelection = true;
   startGame();
@@ -1120,7 +1161,7 @@ YY_RULE_SETUP
 /* TOKEN NUMERO DE JUGADORES*/
 case 2:
 YY_RULE_SETUP
-#line 290 "moves.l"
+#line 331 "moves.l"
 {
   number_of_players = atoi(yytext);
   printf("\nNumero de jugadores: %d\n", number_of_players);
@@ -1129,7 +1170,7 @@ YY_RULE_SETUP
 /* TOKEN PLAYER -> Seleccion de personajes y guardado en arreglo*/
 case 3:
 YY_RULE_SETUP
-#line 296 "moves.l"
+#line 337 "moves.l"
 {
   selectCharacter(yytext);
 }
@@ -1137,7 +1178,7 @@ YY_RULE_SETUP
 /* TOKEN DIRECCIONES */
 case 4:
 YY_RULE_SETUP
-#line 301 "moves.l"
+#line 342 "moves.l"
 {
   if(inGame){
     printf("%s is moving forward\n", players[actualPlayer].name);
@@ -1187,7 +1228,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 348 "moves.l"
+#line 389 "moves.l"
 {
   if(inGame){
     printf("%s is moving back\n", players[actualPlayer].name);
@@ -1229,7 +1270,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 387 "moves.l"
+#line 428 "moves.l"
 {
   if(inGame){
     /* Cambiar direccion */
@@ -1249,7 +1290,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 404 "moves.l"
+#line 445 "moves.l"
 {
   if(inGame){
     if(players[actualPlayer].direccion == 3){ /*Si esta en el oeste*/
@@ -1269,7 +1310,7 @@ YY_RULE_SETUP
 /* TOKEN VELOCIDADES */
 case 8:
 YY_RULE_SETUP
-#line 421 "moves.l"
+#line 462 "moves.l"
 {
   if(inGame){
     printf("Player %d is using turbo\n", actualPlayer);
@@ -1280,7 +1321,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 429 "moves.l"
+#line 470 "moves.l"
 {
   if(inGame){
     printf("Player %d is using brake\n", actualPlayer);
@@ -1291,7 +1332,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 437 "moves.l"
+#line 478 "moves.l"
 {
   if(inGame){
     printf("Player %d is using acelerate\n", actualPlayer);
@@ -1303,7 +1344,7 @@ YY_RULE_SETUP
 /* TOKEN ARMAS */
 case 11:
 YY_RULE_SETUP
-#line 446 "moves.l"
+#line 487 "moves.l"
 {
   if(inGame){
     printf("Player %d is changing weapon to the left", actualPlayer);
@@ -1320,7 +1361,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 460 "moves.l"
+#line 501 "moves.l"
 {
   if(inGame){
     printf("Player %d is shooting\n", actualPlayer);
@@ -1332,7 +1373,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 469 "moves.l"
+#line 510 "moves.l"
 {
   if(inGame){
     printf("Player %d is changing weapon to the right\n", actualPlayer);
@@ -1349,13 +1390,15 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 483 "moves.l"
+#line 524 "moves.l"
 {
   if(inGame){ 
     playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
     if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
       players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
       printf("Ataque al player %d, Y se quedo con: %d", playerAttaked, players[playerAttaked].vida);
+    }else{
+      printf("El ataque falló");
     }
 
   }else{
@@ -1366,7 +1409,7 @@ YY_RULE_SETUP
 /* ATAQUES ESPECIALES */
 case 15:
 YY_RULE_SETUP
-#line 498 "moves.l"
+#line 541 "moves.l"
 { /* freeze */
   if(inGame){
     printf("Player %d is freezing\n", actualPlayer);
@@ -1377,7 +1420,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 505 "moves.l"
+#line 548 "moves.l"
 { /* JUMP */
   if(inGame){
     printf("Player %d is jumping\n", actualPlayer);
@@ -1388,7 +1431,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 514 "moves.l"
+#line 557 "moves.l"
 { /* MINE */
   if(inGame){
     printf("Player %d is placing a mine\n", actualPlayer);
@@ -1399,7 +1442,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 522 "moves.l"
+#line 565 "moves.l"
 { /* BE INVISIBLE */
   if(inGame){
     printf("Player %d is becoming invisible\n", actualPlayer);
@@ -1411,17 +1454,17 @@ YY_RULE_SETUP
 /* TOKEN ERROR */
 case 19:
 YY_RULE_SETUP
-#line 531 "moves.l"
+#line 574 "moves.l"
 {
   printf("Error: %s\n", yytext);
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 535 "moves.l"
+#line 578 "moves.l"
 ECHO;
 	YY_BREAK
-#line 1425 "lex.yy.c"
+#line 1468 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2426,7 +2469,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 535 "moves.l"
+#line 578 "moves.l"
 
 int main(int argc, char const *argv[]) {
   printf(" ");
