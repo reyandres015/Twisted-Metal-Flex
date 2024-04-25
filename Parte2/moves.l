@@ -1,4 +1,5 @@
 %{
+  
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -142,22 +143,22 @@ void continueGame() {
     if(inGame){
         if(players[actualPlayer + 1].health <= 0 && actualPlayer < 3){
           actualPlayer++;
-          printf("Player %d is dead\n", actualPlayer);
+          printf("Player %d is dead\n", actualPlayer+1);
           if(players[actualPlayer + 1].health <= 0 && actualPlayer < 3){
             actualPlayer++;
-            printf("Player %d is dead\n", actualPlayer);
+            printf("Player %d is dead\n", actualPlayer+1);
           } else if(actualPlayer == 3) {
             actualPlayer = 0;
-            printf("Player %d is dead\n", actualPlayer);
+            printf("Player %d is dead\n", actualPlayer+1);
           }
         } else if(players[0].health <= 0 && actualPlayer == 3) {
           actualPlayer = 0;
-          printf("Player %d is dead\n", actualPlayer);
+          printf("Player %d is dead\n", actualPlayer+1);
           if(players[actualPlayer + 1].health <= 0){
             actualPlayer++;
-            printf("Player %d is dead\n", actualPlayer);
+            printf("Player %d is dead\n", actualPlayer+1);
           }
-        } else {
+        }
           /* Imprimir matriz */
           for (int i = 0; i < 10; i++) {
               for (int j = 0; j < 10; j++) {
@@ -193,7 +194,7 @@ void continueGame() {
           for (int i = 0; i < numberOfPlayers; i++) {
               printf("Player %s:, health: %d\n", players[i].name, players[i].health);
           }
-        }
+        
         printf("\n");
         /* Cambiar de jugador */
         if(actualPlayer == numberOfPlayers-1){ /* Si es el último jugador */
