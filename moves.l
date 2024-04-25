@@ -147,11 +147,11 @@ void continueGame() {
             actualPlayer++;
             printf("Player %d is dead\n", actualPlayer);
           } else if(actualPlayer == 3) {
-            actualPlayer = 0
+            actualPlayer = 0;
             printf("Player %d is dead\n", actualPlayer);
           }
         } else if(actualPlayer == 3) {
-          actualPlayer = 0
+          actualPlayer = 0;
           printf("Player %d is dead\n", actualPlayer);
           if(players[actualPlayer + 1].health == 0){
             actualPlayer++;
@@ -165,7 +165,7 @@ void continueGame() {
                           int index = matrix[i][j];
                           if(matrix[i][j] == -2){
                             printf("💣 ");
-                          } else if(players[index].vida == 0){
+                          } else if(players[index].health == 0){
                             printf("%d💀 ", index + 1);
                           } else if(players[index].invisible){
                             printf("%d👻 ", index + 1);
@@ -184,14 +184,14 @@ void continueGame() {
                           }
                           
                       } else {
-                          printf(" --- ");
+                          printf("*** ");
                       }
               }
               printf("\n");
           }
-          /* Imprimir vida de los jugadores */
-          for (int i = 0; i < number_of_players; i++) {
-              printf("Player %s:, health: %d\n", players[i].name, players[i].vida);
+          /* Imprimir health de los jugadores */
+          for (int i = 0; i < numberOfPlayers; i++) {
+              printf("Player %s:, health: %d\n", players[i].name, players[i].health);
           }
         }
         printf("\n");
@@ -210,7 +210,7 @@ void continueGame() {
 /* Función para seleccionar un personaje */
 void selectCharacter(char* character) {
     if(!inGame){
-        if(sceneSelection){
+        if(SceneSelection){
             if (!isCharacterSelected(character)) {
                 /* Crear jugador */
                 Player newPlayer = {.health = 100, .direction = 0, .canMove = true, .invisible = false, .selectedWeapon = 1};
@@ -281,47 +281,13 @@ switch (players[actualPlayer].direction) {
     }
 }
 
-void placeMine() {
-  int x = players[actualPlayer].x;
-  int y = players[actualPlayer].y;
-
-switch (players[actualPlayer].direccion) {
-
-      case 0: /*Norte*/
-        if(y < 9){
-          matrix[++y][x] = -2;
-          printf("actual y%d\n", players[actualPlayer].y);
-          printf("actual x%d\n", players[actualPlayer].x);
-        }
-        break;
-      case 1: /*Este*/
-        if(x > 0){
-          matrix[y][--x] = -2;
-        }
-        break;
-      case 2: /*Sur*/
-        if(y > 0){
-          matrix[--y][x] = -2;
-
-          printf("actual y %d\n", players[actualPlayer].y);
-          printf("actual x %d\n", players[actualPlayer].x);
-
-        }
-        break;
-      case 3: /*Oeste*/
-        if(x < 9){
-          matrix[y][++x] = -2;
-        }
-        break;
-    }
-}
+/* Función para colocar minas */
 
 void placeMine() {
   int x = players[actualPlayer].x;
   int y = players[actualPlayer].y;
-  printf("%d x, %d y\n", x, y);
 
-switch (players[actualPlayer].direccion) {
+switch (players[actualPlayer].direction) {
 
       case 0: /*Norte*/
         if(y < 9){
@@ -433,7 +399,7 @@ tk_pass         "Pass"
 
  /* TOKEN SCENE SELECCIONADO */
 {SCENE} {
-  sceneSelection = true;
+  SceneSelection = true;
   startGame();
   printf("\nSelected Scene: %s\n", yytext);
 }
@@ -453,13 +419,13 @@ tk_pass         "Pass"
 }
   
 
- /* TOKEN DIRECCIONES */
+ /* TOKEN directionES */
 {tk_forward} {
   if(inGame && players[actualPlayer].canMove){
 
     printf("%s is moving forward\n", players[actualPlayer].name);
     
-    int direccion = players[actualPlayer].direccion;
+    int direction = players[actualPlayer].direction;
 
 
 
@@ -470,8 +436,8 @@ tk_pass         "Pass"
         if(players[actualPlayer].y > 0){
           if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
             printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].vida -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].health -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
             players[actualPlayer].y--;
           } else {
             players[actualPlayer].y--;
@@ -484,8 +450,8 @@ tk_pass         "Pass"
         if(players[actualPlayer].x < 9){
           if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
             printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].vida -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].health -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
             players[actualPlayer].x++;
           } else {
             players[actualPlayer].x++;
@@ -498,8 +464,8 @@ tk_pass         "Pass"
         if(players[actualPlayer].y < 9){
           if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
             printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].vida -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].health -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
             players[actualPlayer].y++;
           } else {
             players[actualPlayer].y++;
@@ -512,8 +478,8 @@ tk_pass         "Pass"
         if(players[actualPlayer].x > 0){
           if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
             printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].vida -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].health -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
             players[actualPlayer].x--;
           } else {
             players[actualPlayer].x--;
@@ -542,8 +508,8 @@ tk_pass         "Pass"
         if(players[actualPlayer].y > 0){
           if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
             printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].vida -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].health -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
           }
           players[actualPlayer].y++;
         } else{
@@ -554,8 +520,8 @@ tk_pass         "Pass"
         if(players[actualPlayer].x < 9){
           if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
             printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].vida -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].health -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
           }
           players[actualPlayer].x--;
         }else{
@@ -566,8 +532,8 @@ tk_pass         "Pass"
         if(players[actualPlayer].y < 9){
           if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
             printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].vida -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].health -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
           }
           players[actualPlayer].y--;
         }else{
@@ -578,8 +544,8 @@ tk_pass         "Pass"
         if(players[actualPlayer].x > 0){
           if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
             printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].vida -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].health -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
           }
           players[actualPlayer].x++;
         }else{
@@ -631,10 +597,10 @@ tk_pass         "Pass"
     printf("You can't shoot again\n");
   } else {
     if(inGame){ 
-      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
+      playerAttaked = findPlayerByName(players,numberOfPlayers, modify_yytext(yytext));
       if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+        players[playerAttaked].health -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].health);
       }else{
         printf("El ataque falló\n");
       }
@@ -662,11 +628,11 @@ tk_pass         "Pass"
           players[actualPlayer].selectedWeapon--;
       }
       printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
-      /*imprimir direccion*/
-      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+      /*imprimir direction*/
+      playerAttaked = findPlayerByName(players,numberOfPlayers, modify_yytext3(yytext));
       if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+        players[playerAttaked].health -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].health);
       }else{
         printf("El ataque falló\n");
       }
@@ -691,10 +657,10 @@ tk_pass         "Pass"
           players[actualPlayer].selectedWeapon++;
       }
       printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
-      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+      playerAttaked = findPlayerByName(players,numberOfPlayers, modify_yytext3(yytext));
       if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+        players[playerAttaked].health -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].health);
       }else{
         printf("El ataque falló\n");
       }
@@ -712,10 +678,10 @@ tk_pass         "Pass"
     printf("You can't shoot again\n");
   } else {
     if(inGame){ 
-      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
+      playerAttaked = findPlayerByName(players,numberOfPlayers, modify_yytext(yytext));
       if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+        players[playerAttaked].health -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].health);
       }else{
         printf("El ataque falló\n");
       }
@@ -740,10 +706,10 @@ tk_pass         "Pass"
           players[actualPlayer].selectedWeapon++;
       }
       printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
-      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+      playerAttaked = findPlayerByName(players,numberOfPlayers, modify_yytext3(yytext));
       if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+        players[playerAttaked].health -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].health);
       }else{
         printf("El ataque falló\n");
       }
@@ -769,10 +735,10 @@ tk_pass         "Pass"
       }
       printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
       
-      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+      playerAttaked = findPlayerByName(players,numberOfPlayers, modify_yytext3(yytext));
       if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+        players[playerAttaked].health -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].health);
       }else{
         printf("El ataque falló\n");
       }
@@ -792,7 +758,7 @@ tk_pass         "Pass"
     printf("You can't shoot again\n");
   } else {
     if(inGame){
-          playerAttaked = findPlayerByName(players,number_of_players, modify_yytext2(yytext));
+          playerAttaked = findPlayerByName(players,numberOfPlayers, modify_yytext2(yytext));
     printf("Player %s is freezing %s\n", players[actualPlayer].name, players[playerAttaked].name);
     players[playerAttaked].canMove = false;
     }else{
