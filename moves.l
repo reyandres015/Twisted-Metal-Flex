@@ -14,7 +14,6 @@ int number_of_players = 4; /* Número de jugadores */
 bool SceneSelection = false; /* ¿Escenario ya se selecciono? */
 bool inGame = false; /* ¿Ya se inicio el juego? */
 
-char brujula[4] = {'N', 'E', 'S', 'O'};
 
 typedef struct {
     char name[20];
@@ -154,7 +153,9 @@ void continueGame() {
               for (int j = 0; j < 10; j++) {
                       if(matrix[i][j] != -1){
                           int index = matrix[i][j];
-                          if(players[index].vida == 0){
+                          if(matrix[i][j] == -2){
+                            printf("💣 ");
+                          } else if(players[index].vida == 0){
                             printf("%d💀 ", index + 1);
                           } else if(players[index].invisible){
                             printf("%d👻 ", index + 1);
@@ -171,7 +172,7 @@ void continueGame() {
                           }
                           
                       } else {
-                          printf("--- ");
+                          printf(" --- ");
                       }
               }
               printf("\n");
@@ -270,7 +271,42 @@ int isAngleBetweenMinus15And15(int x1, int y1, int x2, int y2) {
             return 0; 
         }
     }
-   
+}
+
+void placeMine() {
+  int x = players[actualPlayer].x;
+  int y = players[actualPlayer].y;
+  printf("%d x, %d y\n", x, y);
+
+switch (players[actualPlayer].direccion) {
+
+      case 0: /*Norte*/
+        if(y < 9){
+          matrix[++y][x] = -2;
+          printf("actual y%d\n", players[actualPlayer].y);
+          printf("actual x%d\n", players[actualPlayer].x);
+        }
+        break;
+      case 1: /*Este*/
+        if(x > 0){
+          matrix[y][--x] = -2;
+        }
+        break;
+      case 2: /*Sur*/
+        if(y > 0){
+          matrix[--y][x] = -2;
+
+          printf("actual y %d\n", players[actualPlayer].y);
+          printf("actual x %d\n", players[actualPlayer].x);
+
+        }
+        break;
+      case 3: /*Oeste*/
+        if(x < 9){
+          matrix[y][++x] = -2;
+        }
+        break;
+    }
 }
 
 char* modify_yytext(char* yytext) {
@@ -377,33 +413,63 @@ tk_invisible    ({Ataque_BeInvisible})
 
     int direccion = players[actualPlayer].direccion;
 
+
+
     matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
 
     switch (direccion) {
       case 0: /*Norte*/
         if(players[actualPlayer].y > 0){
-          players[actualPlayer].y--;
+          if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].y--;
+          } else {
+            players[actualPlayer].y--;
+          }
         } else{
           printf("You can't move forward\n");
         }
         break;
       case 1: /*Este*/
         if(players[actualPlayer].x < 9){
-          players[actualPlayer].x++;
+          if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].x++;
+          } else {
+            players[actualPlayer].x++;
+          }
         }else{
           printf("You can't move forward\n");
         }
         break;
       case 2: /*Sur*/
         if(players[actualPlayer].y < 9){
-          players[actualPlayer].y++;
+          if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].y++;
+          } else {
+            players[actualPlayer].y++;
+          }
         }else{
           printf("You can't move forward\n");
         }
         break;
       case 3: /*Oeste*/
         if(players[actualPlayer].x > 0){
-          players[actualPlayer].x--;
+          if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].x--;
+          } else {
+            players[actualPlayer].x--;
+          }
         }else{
           printf("You can't move forward\n");
         }
@@ -424,30 +490,57 @@ tk_invisible    ({Ataque_BeInvisible})
     int direccion = players[actualPlayer].direccion;
 
     matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
-
     switch (direccion) {
       case 0: /*Norte*/
-        if(players[actualPlayer].y < 9){
+        if(players[actualPlayer].y > 0){
+          if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+          }
           players[actualPlayer].y++;
+        } else{
+          printf("You can't move forward\n");
         }
         break;
       case 1: /*Este*/
-        if(players[actualPlayer].x > 0){
-
+        if(players[actualPlayer].x < 9){
+          if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+          }
           players[actualPlayer].x--;
+        }else{
+          printf("You can't move forward\n");
         }
         break;
       case 2: /*Sur*/
-        if(players[actualPlayer].y > 0){
+        if(players[actualPlayer].y < 9){
+          if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+          }
           players[actualPlayer].y--;
+        }else{
+          printf("You can't move forward\n");
         }
         break;
       case 3: /*Oeste*/
-        if(players[actualPlayer].x < 9){
+        if(players[actualPlayer].x > 0){
+          if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+          }
           players[actualPlayer].x++;
+        }else{
+          printf("You can't move forward\n");
         }
         break;
-    }
+}
+
     matrix[players[actualPlayer].y][players[actualPlayer].x] = actualPlayer;/*asignar nueva posicion del player*/
 
     /*SIGUIENTE TURNO*/
@@ -656,9 +749,12 @@ tk_invisible    ({Ataque_BeInvisible})
 }
 
 
-{tk_right}{tk_left}{tk_back} { /* MINE */
+({tk_right}{tk_left}{tk_back}) { /* MINE */
   if(inGame){
-    printf("Player %d is placing a mine\n", actualPlayer);
+    placeMine();
+
+    printf("Player %s is placing a mine\n", players[actualPlayer].name);
+    continueGame();
   }else{
     printf("You need to select a character first");
   }

@@ -351,8 +351,13 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
+<<<<<<< Updated upstream
 #define YY_NUM_RULES 21
 #define YY_END_OF_BUFFER 22
+=======
+#define YY_NUM_RULES 19
+#define YY_END_OF_BUFFER 20
+>>>>>>> Stashed changes
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -360,6 +365,7 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
+<<<<<<< Updated upstream
 static const flex_int16_t yy_accept[705] =
     {   0,
         0,    0,   22,   20,   21,    5,    6,   20,   20,   20,
@@ -368,6 +374,19 @@ static const flex_int16_t yy_accept[705] =
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,   18,    0,    0,    0,    0,    0,    0,    0,
+=======
+static const flex_int16_t yy_accept[262] =
+    {   0,
+        0,    0,   20,   18,   19,    5,    6,   18,   18,   18,
+       18,   18,   18,   18,   18,    4,   18,    3,   18,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,   10,   11,
+        0,    0,    0,    0,    0,    0,   12,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,   16,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,   15,
+       14,    0,    0,   17,    0,    0,    2,    0,    0,    0,
+>>>>>>> Stashed changes
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -376,6 +395,7 @@ static const flex_int16_t yy_accept[705] =
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+<<<<<<< Updated upstream
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -402,6 +422,12 @@ static const flex_int16_t yy_accept[705] =
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+=======
+        0,    0,    1,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,   13,    0,    0,    0,    0,
+>>>>>>> Stashed changes
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -437,9 +463,16 @@ static const flex_int16_t yy_accept[705] =
         0,    0,    0,    0,    0,    0,    0,    8,    7,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+<<<<<<< Updated upstream
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
 
         0,    0,    0,    0
+=======
+        0,    0,    0,    9,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    8,    7,    0,
+        0
+>>>>>>> Stashed changes
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -483,6 +516,7 @@ static const YY_CHAR yy_meta[44] =
         1,    1,    1
     } ;
 
+<<<<<<< Updated upstream
 static const flex_int16_t yy_base[706] =
     {   0,
         0,   37,  820,  821,  821,   25,    4,  782,    0,    0,
@@ -843,6 +877,158 @@ static const flex_int16_t yy_chk[865] =
       704,  704,  704,  704,  704,  704,  704,  704,  704,  704,
       704,  704,  704,  704,  704,  704,  704,  704,  704,  704,
       704,  704,  704,  704
+=======
+static const flex_int16_t yy_base[263] =
+    {   0,
+        0,   37,  313,  314,  314,   25,    4,  275,    0,    0,
+        6,  284,  270,  286,   25,   32,   33,   19,  272,  289,
+      283,  266,  277,  285,  265,  278,  267,   31,  314,  314,
+      265,  260,  293,  255,  256,  257,  314,   69,  270,  269,
+      264,  263,  249,  258,  280,  266,  248,  257,  265,  239,
+      258,  248,  314,  248,  240,  244,  244,  247,  244,  248,
+      269,  268,  238,  239,  226,  230,  243,    3,  225,  229,
+       54,   40,  240,  236,  235,  235,  232,  225,  219,  314,
+      314,  217,  228,  314,  219,  216,  314,  249,  213,  223,
+      226,  245,  212,  211,   16,  224,  221,  205,  215,  218,
+
+      207,  205,  234,  198,  213,  212,  207,  206,  192,  201,
+      193,  198,  193,  188,  187,  189,  185,  194,  196,  187,
+      181,  200,  189,  180,  182,  204,  180,  172,  175,  179,
+      175,  168,  314,  176,  169,  173,  175,  201,  171,  176,
+      175,  175,  172,  165,  159,  157,  165,  153,  156,  153,
+      164,  163,  154,  166,  157,  156,  150,  149,  154,  156,
+      146,  150,  156,  141,  174,    0,  138,  148,  139,   62,
+      150,  141,  136,  131,  130,  132,  128,  137,  133,  137,
+      128,  125,  124,  132,   53,  136,  133,  122,  120,  128,
+      120,  120,  119,  120,  144,  120,  111,  113,  109,  113,
+
+      103,  113,  101,  104,  101,  112,  111,  102,  104,  100,
+       97,   93,   96,  108,   91,   93,  105,   99,   93,   90,
+       95,   93,   99,  118,   88,   92,   83,   80,   79,   87,
+       75,   90,   75,  314,   82,   83,   83,   72,   80,   73,
+       72,   98,   71,   67,   72,   69,   75,   61,   61,   73,
+       61,   52,   58,   37,   43,   40,   35,  314,  314,   11,
+      314,    0
+    } ;
+
+static const flex_int16_t yy_def[263] =
+    {   0,
+      262,  262,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,   38,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+        0,  261
+    } ;
+
+static const flex_int16_t yy_nxt[358] =
+    {   0,
+        4,    5,  261,  261,   29,   30,    6,    7,    8,    9,
+       24,   10,   11,   12,   13,   14,   15,   16,   17,   18,
+      261,  261,   27,  261,  129,   45,   25,  261,  261,   37,
+       38,   20,  102,  130,   28,   31,   46,   19,    5,  103,
+       32,   47,   33,    6,    7,    8,    9,  166,   10,   11,
+       12,   13,   14,   15,   16,   17,   18,   21,   22,   39,
+       40,   43,   57,  166,   58,  166,   23,   41,  109,  260,
+      199,  259,   42,   44,   19,   65,  211,   66,   67,  200,
+      110,   68,  106,   69,  258,   70,   71,   72,   73,  107,
+      257,  212,  213,  166,  108,  256,  255,   87,  254,  253,
+
+       87,  252,  166,  166,  166,  251,  250,  249,   87,  248,
+      133,  247,  246,  245,  166,  166,  166,  244,  166,  243,
+      242,  241,  240,  239,  238,   87,  133,  237,  236,  235,
+      133,  234,  233,  232,  231,   87,  230,  229,  228,  227,
+      226,  166,  225,  224,  223,  222,  166,  221,  220,   87,
+      133,   87,  219,  218,  217,  216,  215,  214,  133,   87,
+       87,   87,  210,   87,  209,  208,  207,  206,  205,  204,
+      203,  202,  201,  198,  197,  196,  195,  194,  193,  192,
+      191,  133,  190,  189,  188,  187,  186,  185,  184,  183,
+      182,  181,  180,   87,  179,  178,  177,  176,  175,  174,
+
+      173,  172,  171,  170,  169,  168,  167,  166,  165,  164,
+      163,  162,  133,   87,  161,  160,  159,  158,  157,  156,
+      155,  154,  153,  152,  151,  150,  149,  148,  147,  146,
+      145,  144,  143,  142,  141,  140,  139,  138,  137,  136,
+      135,  134,  133,  132,  131,  128,  127,  126,  125,  124,
+      123,  122,  121,  120,  119,  118,  117,  116,  115,  114,
+      113,  112,  111,  105,  104,  101,  100,   99,   98,   97,
+       96,   95,   94,   93,   92,   91,   90,   89,   88,   87,
+       86,   85,   84,   83,   82,   81,   80,   79,   78,   77,
+       76,   75,   74,   64,   63,   62,   61,   60,   59,   56,
+
+       55,   54,   53,   52,   51,   50,   49,   48,   36,   35,
+       34,   26,  261,    3,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261
+    } ;
+
+static const flex_int16_t yy_chk[358] =
+    {   0,
+      262,    1,    0,    0,   10,   10,    1,    1,    1,    1,
+        7,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        0,    0,    9,    0,   95,   18,    7,    0,    0,   15,
+       15,    6,   68,   95,    9,   11,   18,    1,    2,   68,
+       11,   18,   11,    2,    2,    2,    2,  260,    2,    2,
+        2,    2,    2,    2,    2,    2,    2,    6,    6,   15,
+       16,   17,   28,  257,   28,  256,    6,   16,   72,  255,
+      170,  254,   16,   17,    2,   38,  185,   38,   38,  170,
+       72,   38,   71,   38,  253,   38,   38,   38,   38,   71,
+      252,  185,  185,  251,   71,  250,  249,  248,  247,  246,
+
+      245,  244,  243,  242,  241,  240,  239,  238,  237,  236,
+      235,  233,  232,  231,  230,  229,  228,  227,  226,  225,
+      224,  223,  222,  221,  220,  219,  218,  217,  216,  215,
+      214,  213,  212,  211,  210,  209,  208,  207,  206,  205,
+      204,  203,  202,  201,  200,  199,  198,  197,  196,  195,
+      194,  193,  192,  191,  190,  189,  188,  187,  186,  184,
+      183,  182,  181,  180,  179,  178,  177,  176,  175,  174,
+      173,  172,  171,  169,  168,  167,  165,  164,  163,  162,
+      161,  160,  159,  158,  157,  156,  155,  154,  153,  152,
+      151,  150,  149,  148,  147,  146,  145,  144,  143,  142,
+
+      141,  140,  139,  138,  137,  136,  135,  134,  132,  131,
+      130,  129,  128,  127,  126,  125,  124,  123,  122,  121,
+      120,  119,  118,  117,  116,  115,  114,  113,  112,  111,
+      110,  109,  108,  107,  106,  105,  104,  103,  102,  101,
+      100,   99,   98,   97,   96,   94,   93,   92,   91,   90,
+       89,   88,   86,   85,   83,   82,   79,   78,   77,   76,
+       75,   74,   73,   70,   69,   67,   66,   65,   64,   63,
+       62,   61,   60,   59,   58,   57,   56,   55,   54,   52,
+       51,   50,   49,   48,   47,   46,   45,   44,   43,   42,
+       41,   40,   39,   36,   35,   34,   33,   32,   31,   27,
+
+       26,   25,   24,   23,   22,   21,   20,   19,   14,   13,
+       12,    8,    3,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261,  261,  261,  261,
+      261,  261,  261,  261,  261,  261,  261
+>>>>>>> Stashed changes
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -876,7 +1062,6 @@ int number_of_players = 4; /* Número de jugadores */
 bool SceneSelection = false; /* ¿Escenario ya se selecciono? */
 bool inGame = false; /* ¿Ya se inicio el juego? */
 
-char brujula[4] = {'N', 'E', 'S', 'O'};
 
 typedef struct {
     char name[20];
@@ -1016,7 +1201,9 @@ void continueGame() {
               for (int j = 0; j < 10; j++) {
                       if(matrix[i][j] != -1){
                           int index = matrix[i][j];
-                          if(players[index].vida == 0){
+                          if(matrix[i][j] == -2){
+                            printf("💣 ");
+                          } else if(players[index].vida == 0){
                             printf("%d💀 ", index + 1);
                           } else if(players[index].invisible){
                             printf("%d👻 ", index + 1);
@@ -1033,7 +1220,7 @@ void continueGame() {
                           }
                           
                       } else {
-                          printf("--- ");
+                          printf(" --- ");
                       }
               }
               printf("\n");
@@ -1132,7 +1319,42 @@ int isAngleBetweenMinus15And15(int x1, int y1, int x2, int y2) {
             return 0; 
         }
     }
-   
+}
+
+void placeMine() {
+  int x = players[actualPlayer].x;
+  int y = players[actualPlayer].y;
+  printf("%d x, %d y\n", x, y);
+
+switch (players[actualPlayer].direccion) {
+
+      case 0: /*Norte*/
+        if(y < 9){
+          matrix[++y][x] = -2;
+          printf("actual y%d\n", players[actualPlayer].y);
+          printf("actual x%d\n", players[actualPlayer].x);
+        }
+        break;
+      case 1: /*Este*/
+        if(x > 0){
+          matrix[y][--x] = -2;
+        }
+        break;
+      case 2: /*Sur*/
+        if(y > 0){
+          matrix[--y][x] = -2;
+
+          printf("actual y %d\n", players[actualPlayer].y);
+          printf("actual x %d\n", players[actualPlayer].x);
+
+        }
+        break;
+      case 3: /*Oeste*/
+        if(x < 9){
+          matrix[y][++x] = -2;
+        }
+        break;
+    }
 }
 
 char* modify_yytext(char* yytext) {
@@ -1163,13 +1385,21 @@ int findPlayerByName(Player players[], int numPlayers, const char* name) {
 
 
 
+<<<<<<< Updated upstream
 #line 1167 "lex.yy.c"
+=======
+#line 931 "lex.yy.c"
+>>>>>>> Stashed changes
 /* Personajes */
 /*Movimientos de direccion*/
 /*Movimientos de velocidad*/
 /*Armas y cambio de armas*/
 /*Ataques especiales*/
+<<<<<<< Updated upstream
 #line 1173 "lex.yy.c"
+=======
+#line 937 "lex.yy.c"
+>>>>>>> Stashed changes
 
 #define INITIAL 0
 
@@ -1386,12 +1616,21 @@ YY_DECL
 		}
 
 	{
+<<<<<<< Updated upstream
 #line 358 "moves.l"
 
 
 #line 361 "moves.l"
  /* TOKEN ESCENARIO SELECCIONADO */
 #line 1395 "lex.yy.c"
+=======
+#line 381 "moves.l"
+
+
+#line 384 "moves.l"
+ /* TOKEN ESCENARIO SELECCIONADO */
+#line 1159 "lex.yy.c"
+>>>>>>> Stashed changes
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1418,13 +1657,21 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
+<<<<<<< Updated upstream
 				if ( yy_current_state >= 705 )
+=======
+				if ( yy_current_state >= 262 )
+>>>>>>> Stashed changes
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
+<<<<<<< Updated upstream
 		while ( yy_base[yy_current_state] != 821 );
+=======
+		while ( yy_base[yy_current_state] != 314 );
+>>>>>>> Stashed changes
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -1450,7 +1697,11 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 362 "moves.l"
+=======
+#line 385 "moves.l"
+>>>>>>> Stashed changes
 {
   SceneSelection = true;
   startGame();
@@ -1460,7 +1711,11 @@ YY_RULE_SETUP
 /* TOKEN PLAYER -> Seleccion de personajes y guardado en arreglo*/
 case 2:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 370 "moves.l"
+=======
+#line 393 "moves.l"
+>>>>>>> Stashed changes
 {
   selectCharacter(yytext);
 }
@@ -1468,40 +1723,74 @@ YY_RULE_SETUP
 /* TOKEN DIRECCIONES */
 case 3:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 375 "moves.l"
+=======
+#line 398 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){
     printf("%s is moving forward\n", players[actualPlayer].name);
 
     int direccion = players[actualPlayer].direccion;
 
+
+
     matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
 
     switch (direccion) {
       case 0: /*Norte*/
         if(players[actualPlayer].y > 0){
-          players[actualPlayer].y--;
+          if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].y--;
+          } else {
+            players[actualPlayer].y--;
+          }
         } else{
           printf("You can't move forward\n");
         }
         break;
       case 1: /*Este*/
         if(players[actualPlayer].x < 9){
-          players[actualPlayer].x++;
+          if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].x++;
+          } else {
+            players[actualPlayer].x++;
+          }
         }else{
           printf("You can't move forward\n");
         }
         break;
       case 2: /*Sur*/
         if(players[actualPlayer].y < 9){
-          players[actualPlayer].y++;
+          if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].y++;
+          } else {
+            players[actualPlayer].y++;
+          }
         }else{
           printf("You can't move forward\n");
         }
         break;
       case 3: /*Oeste*/
         if(players[actualPlayer].x > 0){
-          players[actualPlayer].x--;
+          if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+            players[actualPlayer].x--;
+          } else {
+            players[actualPlayer].x--;
+          }
         }else{
           printf("You can't move forward\n");
         }
@@ -1518,37 +1807,91 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 422 "moves.l"
+=======
+#line 475 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){
     printf("%s is moving back\n", players[actualPlayer].name);
     int direccion = players[actualPlayer].direccion;
 
     matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
-
     switch (direccion) {
       case 0: /*Norte*/
-        if(players[actualPlayer].y < 9){
+        if(players[actualPlayer].y > 0){
+          if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+          }
           players[actualPlayer].y++;
+        } else{
+          printf("You can't move forward\n");
         }
         break;
       case 1: /*Este*/
-        if(players[actualPlayer].x > 0){
-
+        if(players[actualPlayer].x < 9){
+          if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+          }
           players[actualPlayer].x--;
+        }else{
+          printf("You can't move forward\n");
         }
         break;
       case 2: /*Sur*/
-        if(players[actualPlayer].y > 0){
+        if(players[actualPlayer].y < 9){
+          if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+          }
           players[actualPlayer].y--;
+        }else{
+          printf("You can't move forward\n");
         }
         break;
       case 3: /*Oeste*/
-        if(players[actualPlayer].x < 9){
+        if(players[actualPlayer].x > 0){
+          if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
+            printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+          }
           players[actualPlayer].x++;
+        }else{
+          printf("You can't move forward\n");
         }
         break;
-    }
+}
+
+    // switch (direccion) {
+    //   case 0: /*Norte*/
+    //     if(players[actualPlayer].y < 9){
+    //       players[actualPlayer].y++;
+    //     }
+    //     break;
+    //   case 1: /*Este*/
+    //     if(players[actualPlayer].x > 0){
+
+    //       players[actualPlayer].x--;
+    //     }
+    //     break;
+    //   case 2: /*Sur*/
+    //     if(players[actualPlayer].y > 0){
+    //       players[actualPlayer].y--;
+    //     }
+    //     break;
+    //   case 3: /*Oeste*/
+    //     if(players[actualPlayer].x < 9){
+    //       players[actualPlayer].x++;
+    //     }
+    //     break;
+    // }
     matrix[players[actualPlayer].y][players[actualPlayer].x] = actualPlayer;/*asignar nueva posicion del player*/
 
     /*SIGUIENTE TURNO*/
@@ -1560,7 +1903,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 461 "moves.l"
+=======
+#line 564 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){
     /* Cambiar direccion */
@@ -1580,7 +1927,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 478 "moves.l"
+=======
+#line 581 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){
     if(players[actualPlayer].direccion == 3){ /*Si esta en el oeste*/
@@ -1600,7 +1951,11 @@ YY_RULE_SETUP
 /* TOKEN VELOCIDADES */
 case 7:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 495 "moves.l"
+=======
+#line 598 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){
     printf("Player %d is using turbo\n", actualPlayer);
@@ -1611,7 +1966,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 503 "moves.l"
+=======
+#line 606 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){
     printf("Player %d is using brake\n", actualPlayer);
@@ -1622,7 +1981,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 511 "moves.l"
+=======
+#line 614 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){
     printf("Player %d is using acelerate\n", actualPlayer);
@@ -1633,6 +1996,7 @@ YY_RULE_SETUP
 	YY_BREAK
 /* TOKEN ARMAS */
 case 10:
+<<<<<<< Updated upstream
 YY_RULE_SETUP
 #line 520 "moves.l"
 {
@@ -1654,6 +2018,10 @@ YY_RULE_SETUP
 case 11:
 YY_RULE_SETUP
 #line 536 "moves.l"
+=======
+YY_RULE_SETUP
+#line 623 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){
     printf("Player %d is changing weapon to the left\n", actualPlayer+1);
@@ -1676,9 +2044,13 @@ YY_RULE_SETUP
   }
 }
 	YY_BREAK
-case 12:
+case 11:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 558 "moves.l"
+=======
+#line 637 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){
     printf("Player %d is changing weapon to the right\n", actualPlayer+1);
@@ -1700,9 +2072,13 @@ YY_RULE_SETUP
   }
 }
 	YY_BREAK
-case 13:
+case 12:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 579 "moves.l"
+=======
+#line 646 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){ 
     playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
@@ -1745,9 +2121,15 @@ YY_RULE_SETUP
   continueGame();
 }
 	YY_BREAK
+<<<<<<< Updated upstream
 case 15:
 YY_RULE_SETUP
 #line 618 "moves.l"
+=======
+case 13:
+YY_RULE_SETUP
+#line 660 "moves.l"
+>>>>>>> Stashed changes
 {
   if(inGame){ 
     printf("Player %d is changing weapon to the left\n", actualPlayer+1);
@@ -1773,9 +2155,15 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* ATAQUES ESPECIALES */
+<<<<<<< Updated upstream
 case 16:
 YY_RULE_SETUP
 #line 644 "moves.l"
+=======
+case 14:
+YY_RULE_SETUP
+#line 678 "moves.l"
+>>>>>>> Stashed changes
 { /* freeze */
   if(inGame){
     printf("Player %d is freezing\n", actualPlayer);
@@ -1784,9 +2172,15 @@ YY_RULE_SETUP
   }
 }
 	YY_BREAK
+<<<<<<< Updated upstream
 case 17:
 YY_RULE_SETUP
 #line 651 "moves.l"
+=======
+case 15:
+YY_RULE_SETUP
+#line 685 "moves.l"
+>>>>>>> Stashed changes
 { /* JUMP */
   if(inGame){
     printf("Player %d is jumping\n", actualPlayer);
@@ -1795,20 +2189,35 @@ YY_RULE_SETUP
   }
 }
 	YY_BREAK
+<<<<<<< Updated upstream
 case 18:
 YY_RULE_SETUP
 #line 660 "moves.l"
+=======
+case 16:
+YY_RULE_SETUP
+#line 694 "moves.l"
+>>>>>>> Stashed changes
 { /* MINE */
   if(inGame){
-    printf("Player %d is placing a mine\n", actualPlayer);
+    placeMine();
+
+    printf("Player %s is placing a mine\n", players[actualPlayer].name);
+    continueGame();
   }else{
     printf("You need to select a character first");
   }
 }
 	YY_BREAK
+<<<<<<< Updated upstream
 case 19:
 YY_RULE_SETUP
 #line 668 "moves.l"
+=======
+case 17:
+YY_RULE_SETUP
+#line 705 "moves.l"
+>>>>>>> Stashed changes
 { /* BE INVISIBLE */
   if(inGame){
     printf("Player %d is becoming invisible\n", actualPlayer);
@@ -1818,19 +2227,34 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* TOKEN ERROR */
+<<<<<<< Updated upstream
 case 20:
 YY_RULE_SETUP
 #line 677 "moves.l"
+=======
+case 18:
+YY_RULE_SETUP
+#line 714 "moves.l"
+>>>>>>> Stashed changes
 {
   printf("Error: %s\n", yytext);
 }
 	YY_BREAK
+<<<<<<< Updated upstream
 case 21:
 YY_RULE_SETUP
 #line 681 "moves.l"
 ECHO;
 	YY_BREAK
 #line 1834 "lex.yy.c"
+=======
+case 19:
+YY_RULE_SETUP
+#line 718 "moves.l"
+ECHO;
+	YY_BREAK
+#line 1606 "lex.yy.c"
+>>>>>>> Stashed changes
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2127,7 +2551,11 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
+<<<<<<< Updated upstream
 			if ( yy_current_state >= 705 )
+=======
+			if ( yy_current_state >= 262 )
+>>>>>>> Stashed changes
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -2155,11 +2583,19 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
+<<<<<<< Updated upstream
 		if ( yy_current_state >= 705 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 	yy_is_jam = (yy_current_state == 704);
+=======
+		if ( yy_current_state >= 262 )
+			yy_c = yy_meta[yy_c];
+		}
+	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
+	yy_is_jam = (yy_current_state == 261);
+>>>>>>> Stashed changes
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2835,7 +3271,11 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
+<<<<<<< Updated upstream
 #line 681 "moves.l"
+=======
+#line 718 "moves.l"
+>>>>>>> Stashed changes
 
 int main(int argc, char const *argv[]) {
   printf(" ");
