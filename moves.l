@@ -220,24 +220,49 @@ void selectCharacter(char* character) {
 
 
 int isAngleBetweenMinus15And15(int x1, int y1, int x2, int y2) {
-    double angle = atan2(y2 - y1, x2 - x1) * 180 / PI;
+    double angle = atan2(y2 - y1, x2 - x1) * (180 / PI);
+
+    int minAngle;
+    int maxAngle;
+
+switch (players[actualPlayer].direccion) {
+  case 0: /*Norte*/
+    minAngle = 255;
+    maxAngle = 285;
+    break;
+  case 1: /*Este*/
+    minAngle = 345;
+    maxAngle = 15;
+    break;
+  case 2: /*Sur*/
+    minAngle = 75;
+    maxAngle = 105;
+    break;
+  case 3: /*Oeste*/
+    minAngle = 165;
+    maxAngle = 195;
+    break;
+}
 
     if (angle < 0) {
         angle += 360;
     }
+    printf("%f\n", angle);
+    printf("%d\n", minAngle);
+    printf("%d\n", maxAngle);
 
-    if ((angle >= 0 && angle <= 15) || (angle >= 345 && angle <= 360)) {
+    if ((angle >= minAngle && angle <= maxAngle)) {
         return 1; 
     } else {
-        if ((angle >= 0 && angle <= 45) || (angle >= 315 && angle <= 360)) {
+        if ((angle >= minAngle+30 && angle <= maxAngle+30)) {
             srand(time(0)); // seed the random number generator
             return rand() % 2; // return 0 or 1 with equal probability
         } else {
             return 0; 
         }
     }
+   
 }
-
 
 char* modify_yytext(char* yytext) {
     if(strlen(yytext) > 2) {
@@ -525,14 +550,15 @@ tk_invisible    ({Ataque_BeInvisible})
     playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
     if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
       players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-      printf("Ataque al player %d, Y se quedo con: %d", playerAttaked, players[playerAttaked].vida);
+      printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
     }else{
-      printf("El ataque falló");
+      printf("El ataque falló\n");
     }
 
   }else{
     printf("You need to select a character first");
   }
+  continueGame();
 }
 
  /* ATAQUES ESPECIALES */

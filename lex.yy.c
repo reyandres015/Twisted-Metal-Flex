@@ -825,24 +825,49 @@ void selectCharacter(char* character) {
 
 
 int isAngleBetweenMinus15And15(int x1, int y1, int x2, int y2) {
-    double angle = atan2(y2 - y1, x2 - x1) * 180 / PI;
+    double angle = atan2(y2 - y1, x2 - x1) * (180 / PI);
+
+    int minAngle;
+    int maxAngle;
+
+switch (players[actualPlayer].direccion) {
+  case 0: /*Norte*/
+    minAngle = 255;
+    maxAngle = 285;
+    break;
+  case 1: /*Este*/
+    minAngle = 345;
+    maxAngle = 15;
+    break;
+  case 2: /*Sur*/
+    minAngle = 75;
+    maxAngle = 105;
+    break;
+  case 3: /*Oeste*/
+    minAngle = 165;
+    maxAngle = 195;
+    break;
+}
 
     if (angle < 0) {
         angle += 360;
     }
+    printf("%f\n", angle);
+    printf("%d\n", minAngle);
+    printf("%d\n", maxAngle);
 
-    if ((angle >= 0 && angle <= 15) || (angle >= 345 && angle <= 360)) {
+    if ((angle >= minAngle && angle <= maxAngle)) {
         return 1; 
     } else {
-        if ((angle >= 0 && angle <= 45) || (angle >= 315 && angle <= 360)) {
+        if ((angle >= minAngle+30 && angle <= maxAngle+30)) {
             srand(time(0)); // seed the random number generator
             return rand() % 2; // return 0 or 1 with equal probability
         } else {
             return 0; 
         }
     }
+   
 }
-
 
 char* modify_yytext(char* yytext) {
     if(strlen(yytext) > 2) {
@@ -864,13 +889,13 @@ int findPlayerByName(Player players[], int numPlayers, const char* name) {
 
 
 
-#line 868 "lex.yy.c"
+#line 893 "lex.yy.c"
 /* Personajes */
 /*Movimientos de direccion*/
 /*Movimientos de velocidad*/
 /*Armas y cambio de armas*/
 /*Ataques especiales*/
-#line 874 "lex.yy.c"
+#line 899 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -1087,12 +1112,12 @@ YY_DECL
 		}
 
 	{
-#line 319 "moves.l"
+#line 344 "moves.l"
 
 
-#line 322 "moves.l"
+#line 347 "moves.l"
  /* TOKEN ESCENARIO SELECCIONADO */
-#line 1096 "lex.yy.c"
+#line 1121 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1151,7 +1176,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 323 "moves.l"
+#line 348 "moves.l"
 {
   SceneSelection = true;
   startGame();
@@ -1161,7 +1186,7 @@ YY_RULE_SETUP
 /* TOKEN NUMERO DE JUGADORES*/
 case 2:
 YY_RULE_SETUP
-#line 331 "moves.l"
+#line 356 "moves.l"
 {
   number_of_players = atoi(yytext);
   printf("\nNumero de jugadores: %d\n", number_of_players);
@@ -1170,7 +1195,7 @@ YY_RULE_SETUP
 /* TOKEN PLAYER -> Seleccion de personajes y guardado en arreglo*/
 case 3:
 YY_RULE_SETUP
-#line 337 "moves.l"
+#line 362 "moves.l"
 {
   selectCharacter(yytext);
 }
@@ -1178,7 +1203,7 @@ YY_RULE_SETUP
 /* TOKEN DIRECCIONES */
 case 4:
 YY_RULE_SETUP
-#line 342 "moves.l"
+#line 367 "moves.l"
 {
   if(inGame){
     printf("%s is moving forward\n", players[actualPlayer].name);
@@ -1228,7 +1253,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 389 "moves.l"
+#line 414 "moves.l"
 {
   if(inGame){
     printf("%s is moving back\n", players[actualPlayer].name);
@@ -1270,7 +1295,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 428 "moves.l"
+#line 453 "moves.l"
 {
   if(inGame){
     /* Cambiar direccion */
@@ -1290,7 +1315,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 445 "moves.l"
+#line 470 "moves.l"
 {
   if(inGame){
     if(players[actualPlayer].direccion == 3){ /*Si esta en el oeste*/
@@ -1310,7 +1335,7 @@ YY_RULE_SETUP
 /* TOKEN VELOCIDADES */
 case 8:
 YY_RULE_SETUP
-#line 462 "moves.l"
+#line 487 "moves.l"
 {
   if(inGame){
     printf("Player %d is using turbo\n", actualPlayer);
@@ -1321,7 +1346,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 470 "moves.l"
+#line 495 "moves.l"
 {
   if(inGame){
     printf("Player %d is using brake\n", actualPlayer);
@@ -1332,7 +1357,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 478 "moves.l"
+#line 503 "moves.l"
 {
   if(inGame){
     printf("Player %d is using acelerate\n", actualPlayer);
@@ -1344,7 +1369,7 @@ YY_RULE_SETUP
 /* TOKEN ARMAS */
 case 11:
 YY_RULE_SETUP
-#line 487 "moves.l"
+#line 512 "moves.l"
 {
   if(inGame){
     printf("Player %d is changing weapon to the left", actualPlayer);
@@ -1361,7 +1386,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 501 "moves.l"
+#line 526 "moves.l"
 {
   if(inGame){
     printf("Player %d is shooting\n", actualPlayer);
@@ -1373,7 +1398,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 510 "moves.l"
+#line 535 "moves.l"
 {
   if(inGame){
     printf("Player %d is changing weapon to the right\n", actualPlayer);
@@ -1390,26 +1415,27 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 524 "moves.l"
+#line 549 "moves.l"
 {
   if(inGame){ 
     playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
     if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
       players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-      printf("Ataque al player %d, Y se quedo con: %d", playerAttaked, players[playerAttaked].vida);
+      printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
     }else{
-      printf("El ataque falló");
+      printf("El ataque falló\n");
     }
 
   }else{
     printf("You need to select a character first");
   }
+  continueGame();
 }
 	YY_BREAK
 /* ATAQUES ESPECIALES */
 case 15:
 YY_RULE_SETUP
-#line 541 "moves.l"
+#line 567 "moves.l"
 { /* freeze */
   if(inGame){
     printf("Player %d is freezing\n", actualPlayer);
@@ -1420,7 +1446,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 548 "moves.l"
+#line 574 "moves.l"
 { /* JUMP */
   if(inGame){
     printf("Player %d is jumping\n", actualPlayer);
@@ -1431,7 +1457,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 557 "moves.l"
+#line 583 "moves.l"
 { /* MINE */
   if(inGame){
     printf("Player %d is placing a mine\n", actualPlayer);
@@ -1442,7 +1468,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 565 "moves.l"
+#line 591 "moves.l"
 { /* BE INVISIBLE */
   if(inGame){
     printf("Player %d is becoming invisible\n", actualPlayer);
@@ -1454,17 +1480,17 @@ YY_RULE_SETUP
 /* TOKEN ERROR */
 case 19:
 YY_RULE_SETUP
-#line 574 "moves.l"
+#line 600 "moves.l"
 {
   printf("Error: %s\n", yytext);
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 578 "moves.l"
+#line 604 "moves.l"
 ECHO;
 	YY_BREAK
-#line 1468 "lex.yy.c"
+#line 1494 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2469,7 +2495,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 578 "moves.l"
+#line 604 "moves.l"
 
 int main(int argc, char const *argv[]) {
   printf(" ");
