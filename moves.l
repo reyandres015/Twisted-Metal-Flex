@@ -29,6 +29,7 @@ typedef struct {
     int selectedWeapon;
     bool canMove;
     bool invisible;
+    bool shot; /* ¿Ya disparo? */	
 } Player; /* Clase jugador */
 
 
@@ -357,6 +358,9 @@ tk_back   ({Direccion_Abajo})
 tk_left   ({Direccion_Izquierda})
 tk_right  ({Direccion_Derecha})
 
+pasar_turno "pass"
+
+tk_pasar ({pasar_turno})
 
 /*Movimientos de velocidad*/
 Velocidad_Turbo		  "speed_turbo"
@@ -405,6 +409,15 @@ tk_invisible    ({Ataque_BeInvisible})
 {PLAYER} {
   selectCharacter(yytext);
 }
+
+{tk_pasar} {
+  if(inGame){
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+  }
+}
+  
 
  /* TOKEN DIRECCIONES */
 {tk_forward} {
@@ -477,8 +490,6 @@ tk_invisible    ({Ataque_BeInvisible})
     }
     matrix[players[actualPlayer].y][players[actualPlayer].x] = actualPlayer; /*asignar nueva posicion del player*/
 
-    /*SIGUIENTE TURNO*/
-    continueGame();
   }else{
     printf("You need to select a character first");
   }
@@ -543,8 +554,6 @@ tk_invisible    ({Ataque_BeInvisible})
 
     matrix[players[actualPlayer].y][players[actualPlayer].x] = actualPlayer;/*asignar nueva posicion del player*/
 
-    /*SIGUIENTE TURNO*/
-    continueGame();
   }else{
     printf("You need to select a character first");
   }
@@ -560,8 +569,6 @@ tk_invisible    ({Ataque_BeInvisible})
     }
     printf("%s is moving left\n", players[actualPlayer].name);
 
-    /*SIGUIENTE TURNO*/
-    continueGame();
   }else{
     printf("You need to select a character first");
   }
@@ -576,8 +583,6 @@ tk_invisible    ({Ataque_BeInvisible})
     }
     printf("%s is moving right\n", players[actualPlayer].name);
 
-    /*SIGUIENTE TURNO*/
-    continueGame();
   }else{
     printf("You need to select a character first");
   }
@@ -610,161 +615,226 @@ tk_invisible    ({Ataque_BeInvisible})
 
  /* TOKEN ARMAS */
 {tk_L2}{PLAYER} {
-  if(inGame){ 
-    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
-    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-      printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
-    }else{
-      printf("El ataque falló\n");
-    }
+  /* verificar si el jugador ya disparo*/
+  if(players[actualPlayer].shot){
+    printf("You can't shoot again\n");
+  } else {
+    if(inGame){ 
+      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
+      if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+      }else{
+        printf("El ataque falló\n");
+      }
 
-  }else{
-    printf("You need to select a character first");
+      /* definir que el jugador ya disparo */
+      players[actualPlayer].shot = true;
+
+    }else{
+      printf("You need to select a character first");
+    }
   }
-  continueGame();
+  
 }
 
 {tk_L1}{tk_L2}{PLAYER} {
-  if(inGame){
-    printf("Player %d is changing weapon to the left\n", actualPlayer+1);
-    if(players[actualPlayer].selectedWeapon == 0){
-        players[actualPlayer].selectedWeapon = 2;
-    } else {
-        players[actualPlayer].selectedWeapon--;
-    }
-    printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
-    /*imprimir direccion*/
-    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
-    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-      printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+  /* verificar si el jugador ya disparo*/
+  if(players[actualPlayer].shot){
+    printf("You can't shoot again\n");
+  } else {
+    if(inGame){
+      printf("Player %d is changing weapon to the left\n", actualPlayer+1);
+      if(players[actualPlayer].selectedWeapon == 0){
+          players[actualPlayer].selectedWeapon = 2;
+      } else {
+          players[actualPlayer].selectedWeapon--;
+      }
+      printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
+      /*imprimir direccion*/
+      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+      if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+      }else{
+        printf("El ataque falló\n");
+      }
+      /* definir que el jugador ya disparo */
+      players[actualPlayer].shot = true;
     }else{
-      printf("El ataque falló\n");
+      printf("You need to select a character first");
     }
-  }else{
-    printf("You need to select a character first");
   }
 }
 
 {tk_R1}{tk_L2}{PLAYER} {
-  if(inGame){
-    printf("Player %d is changing weapon to the right\n", actualPlayer+1);
-    if(players[actualPlayer].selectedWeapon == 2){
-        players[actualPlayer].selectedWeapon = 0;
-    } else {
-        players[actualPlayer].selectedWeapon++;
-    }
-    printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
-    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
-    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-      printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+  /* verificar si el jugador ya disparo*/
+  if(players[actualPlayer].shot){
+    printf("You can't shoot again\n");
+  } else {
+    if(inGame){
+      printf("Player %d is changing weapon to the right\n", actualPlayer+1);
+      if(players[actualPlayer].selectedWeapon == 2){
+          players[actualPlayer].selectedWeapon = 0;
+      } else {
+          players[actualPlayer].selectedWeapon++;
+      }
+      printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
+      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+      if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+      }else{
+        printf("El ataque falló\n");
+      }
+      /* definir que el jugador ya disparo */
+      players[actualPlayer].shot = true;
     }else{
-      printf("El ataque falló\n");
+      printf("You need to select a character first");
     }
-  }else{
-    printf("You need to select a character first");
   }
 }
 
 {tk_R2}{PLAYER} {
-  if(inGame){ 
-    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
-    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-      printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+  /* verificar si el jugador ya disparo*/
+  if(players[actualPlayer].shot){
+    printf("You can't shoot again\n");
+  } else {
+    if(inGame){ 
+      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
+      if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+      }else{
+        printf("El ataque falló\n");
+      }
+      /* definir que el jugador ya disparo */
+      players[actualPlayer].shot = true;
     }else{
-      printf("El ataque falló\n");
+      printf("You need to select a character first");
     }
-
-  }else{
-    printf("You need to select a character first");
   }
-  continueGame();
 }
 
 {tk_R1}{tk_R2}{PLAYER} {
-  if(inGame){ 
-    printf("Player %d is changing weapon to the right\n", actualPlayer+1);
-    if(players[actualPlayer].selectedWeapon == 2){
-        players[actualPlayer].selectedWeapon = 0;
-    } else {
-        players[actualPlayer].selectedWeapon++;
-    }
-    printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
-    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
-    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-      printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+  /* verificar si el jugador ya disparo*/
+  if(players[actualPlayer].shot){
+    printf("You can't shoot again\n");
+  } else {
+    if(inGame){ 
+      printf("Player %d is changing weapon to the right\n", actualPlayer+1);
+      if(players[actualPlayer].selectedWeapon == 2){
+          players[actualPlayer].selectedWeapon = 0;
+      } else {
+          players[actualPlayer].selectedWeapon++;
+      }
+      printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
+      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+      if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+      }else{
+        printf("El ataque falló\n");
+      }
+      /* definir que el jugador ya disparo */
+      players[actualPlayer].shot = true;
     }else{
-      printf("El ataque falló\n");
+      printf("You need to select a character first");
     }
-
-  }else{
-    printf("You need to select a character first");
   }
-  continueGame();
 }
 
 {tk_L1}{tk_R2}{PLAYER} {
-  if(inGame){ 
-    printf("Player %d is changing weapon to the left\n", actualPlayer+1);
-    if(players[actualPlayer].selectedWeapon == 0){
-        players[actualPlayer].selectedWeapon = 2;
-    } else {
-        players[actualPlayer].selectedWeapon--;
-    }
-    printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
-    
-    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
-    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
-      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
-      printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+  /* verificar si el jugador ya disparo*/
+  if(players[actualPlayer].shot){
+    printf("You can't shoot again\n");
+  } else {
+    if(inGame){ 
+      printf("Player %d is changing weapon to the left\n", actualPlayer+1);
+      if(players[actualPlayer].selectedWeapon == 0){
+          players[actualPlayer].selectedWeapon = 2;
+      } else {
+          players[actualPlayer].selectedWeapon--;
+      }
+      printf("%s seleccionada\n", weapons[players[actualPlayer].selectedWeapon].name);
+      
+      playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+      if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+        players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+        printf("Ataque al player %s, Y se quedo con: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+      }else{
+        printf("El ataque falló\n");
+      }
+      /* definir que el jugador ya disparo */
+      players[actualPlayer].shot = true;
     }else{
-      printf("El ataque falló\n");
+      printf("You need to select a character first");
     }
-
-  }else{
-    printf("You need to select a character first");
   }
-  continueGame();
 }
 
  /* ATAQUES ESPECIALES */
 
 {tk_forward}{tk_back}{tk_forward} { /* freeze */
-  if(inGame){
-    printf("Player %d is freezing\n", actualPlayer);
-  }else{
-    printf("You need to select a character first");
+/* verificar si el jugador ya disparo*/
+  if(players[actualPlayer].shot){
+    printf("You can't shoot again\n");
+  } else {
+    if(inGame){
+      printf("Player %d is freezing\n", actualPlayer);
+    }else{
+      printf("You need to select a character first");
+    }
+    /* definir que el jugador ya disparo */
+    players[actualPlayer].shot = true;
   }
 }
 {tk_forward}{tk_left}{tk_left} { /* JUMP */
-  if(inGame){
-    printf("Player %d is jumping\n", actualPlayer);
-  }else{
-    printf("You need to select a character first");
+/* verificar si el jugador ya disparo*/
+  if(players[actualPlayer].shot){
+    printf("You can't shoot again\n");
+  } else {
+    if(inGame){
+      printf("Player %d is jumping\n", actualPlayer);
+    }else{
+      printf("You need to select a character first");
+    }
+    /* definir que el jugador ya disparo */
+    players[actualPlayer].shot = true;
   }
 }
 
 
 ({tk_right}{tk_left}{tk_back}) { /* MINE */
-  if(inGame){
+/* verificar si el jugador ya disparo*/
+  if(players[actualPlayer].shot){
+    printf("You can't shoot again\n");
+  } else {
+    if(inGame){
     placeMine();
 
-    printf("Player %s is placing a mine\n", players[actualPlayer].name);
-    continueGame();
-  }else{
-    printf("You need to select a character first");
+      printf("Player %s is placing a mine\n", players[actualPlayer].name);
+    
+    }else{
+      printf("You need to select a character first");
+    }
+    /* definir que el jugador ya disparo */
+    players[actualPlayer].shot = true;
   }
 }
 
 {tk_left}{tk_left}{tk_back}{tk_back} { /* BE INVISIBLE */
-  if(inGame){
-    printf("Player %d is becoming invisible\n", actualPlayer);
-  }else{
-    printf("You need to select a character first");
+  /* verificar si el jugador ya disparo*/
+  if(players[actualPlayer].shot){
+    printf("You can't shoot again\n");
+  } else {
+    if(inGame){
+      printf("Player %d is becoming invisible\n", actualPlayer);
+    }else{
+      printf("You need to select a character first");
+    }
+    /* definir que el jugador ya disparo */
+    players[actualPlayer].shot = true;
   }
 }
 
