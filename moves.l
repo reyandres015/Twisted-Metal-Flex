@@ -63,19 +63,19 @@ bool isCharacterSelected(char* character) {
 }
 
 void startGame(){
-  Weapon newWeapon = {.damage = 10};
+  Weapon newWeapon = {.damage = 20};
   strncpy(newWeapon.name, "SOCOM", sizeof(newWeapon.name));
   weapons[0] = newWeapon;
 
-  newWeapon.damage = 30;
+  newWeapon.damage = 40;
   strncpy(newWeapon.name, "FAMAS", sizeof(newWeapon.name));
   weapons[1] = newWeapon;
 
-  newWeapon.damage = 20;
+  newWeapon.damage = 50;
   strncpy(newWeapon.name, "GRANADE", sizeof(newWeapon.name));
   weapons[2] = newWeapon;
 
-  newWeapon.damage = 40;
+  newWeapon.damage = 60;
   strncpy(newWeapon.name, "MACHINEGUN", sizeof(newWeapon.name));
   
   machineGun = newWeapon;
@@ -140,20 +140,20 @@ void continueGame() {
     }
 
     if(inGame){
-        if(players[actualPlayer + 1].health == 0 && actualPlayer < 3){
+        if(players[actualPlayer + 1].health <= 0 && actualPlayer < 3){
           actualPlayer++;
           printf("Player %d is dead\n", actualPlayer);
-          if(players[actualPlayer + 1].health == 0 && actualPlayer < 3){
+          if(players[actualPlayer + 1].health <= 0 && actualPlayer < 3){
             actualPlayer++;
             printf("Player %d is dead\n", actualPlayer);
           } else if(actualPlayer == 3) {
             actualPlayer = 0;
             printf("Player %d is dead\n", actualPlayer);
           }
-        } else if(actualPlayer == 3) {
+        } else if(players[0].health <= 0 && actualPlayer == 3) {
           actualPlayer = 0;
           printf("Player %d is dead\n", actualPlayer);
-          if(players[actualPlayer + 1].health == 0){
+          if(players[actualPlayer + 1].health <= 0){
             actualPlayer++;
             printf("Player %d is dead\n", actualPlayer);
           }
@@ -165,7 +165,7 @@ void continueGame() {
                           int index = matrix[i][j];
                           if(matrix[i][j] == -2){
                             printf("💣 ");
-                          } else if(players[index].health == 0){
+                          } else if(players[index].health <= 0){
                             printf("%d💀 ", index + 1);
                           } else if(players[index].invisible){
                             printf("%d👻 ", index + 1);
@@ -200,7 +200,9 @@ void continueGame() {
             actualPlayer = 0; /* Iniciar nueva ronda */
         } else{
             actualPlayer++; /* Siguiente jugador */
-        }
+        } 
+        players[actualPlayer].shot = false;
+        players[actualPlayer].canMove = true;
         printf("Player %d turn: %s", actualPlayer+1, players[actualPlayer].name);
     }else{
         printf("You need to select a character first");
@@ -421,75 +423,79 @@ tk_pass         "Pass"
 
  /* TOKEN directionES */
 {tk_forward} {
-  if(inGame && players[actualPlayer].canMove){
-
-    printf("%s is moving forward\n", players[actualPlayer].name);
+  if(inGame){
+    if(players[actualPlayer].canMove) {
+      printf("%s is moving forward\n", players[actualPlayer].name);
     
-    int direction = players[actualPlayer].direction;
+      int direction = players[actualPlayer].direction;
 
 
 
-    matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
+      matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
 
-    switch (direction) {
-      case 0: /*Norte*/
-        if(players[actualPlayer].y > 0){
-          if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
-            printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].health -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
-            players[actualPlayer].y--;
-          } else {
-            players[actualPlayer].y--;
+      switch (direction) {
+        case 0: /*Norte*/
+          if(players[actualPlayer].y > 0){
+            if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
+              printf("%s has found a mine \n", players[actualPlayer].name);
+              players[actualPlayer].health -= 50;
+              printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+              players[actualPlayer].y--;
+            } else {
+              players[actualPlayer].y--;
+            }
+          } else{
+            printf("You can't move forward\n");
           }
-        } else{
-          printf("You can't move forward\n");
-        }
-        break;
-      case 1: /*Este*/
-        if(players[actualPlayer].x < 9){
-          if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
-            printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].health -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
-            players[actualPlayer].x++;
-          } else {
-            players[actualPlayer].x++;
+          break;
+        case 1: /*Este*/
+          if(players[actualPlayer].x < 9){
+            if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
+              printf("%s has found a mine \n", players[actualPlayer].name);
+              players[actualPlayer].health -= 50;
+              printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+              players[actualPlayer].x++;
+            } else {
+              players[actualPlayer].x++;
+            }
+          }else{
+            printf("You can't move forward\n");
           }
-        }else{
-          printf("You can't move forward\n");
-        }
-        break;
-      case 2: /*Sur*/
-        if(players[actualPlayer].y < 9){
-          if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
-            printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].health -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
-            players[actualPlayer].y++;
-          } else {
-            players[actualPlayer].y++;
+          break;
+        case 2: /*Sur*/
+          if(players[actualPlayer].y < 9){
+            if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
+              printf("%s has found a mine \n", players[actualPlayer].name);
+              players[actualPlayer].health -= 50;
+              printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+              players[actualPlayer].y++;
+            } else {
+              players[actualPlayer].y++;
+            }
+          }else{
+            printf("You can't move forward\n");
           }
-        }else{
-          printf("You can't move forward\n");
-        }
-        break;
-      case 3: /*Oeste*/
-        if(players[actualPlayer].x > 0){
-          if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
-            printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].health -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
-            players[actualPlayer].x--;
-          } else {
-            players[actualPlayer].x--;
+          break;
+        case 3: /*Oeste*/
+          if(players[actualPlayer].x > 0){
+            if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
+              printf("%s has found a mine \n", players[actualPlayer].name);
+              players[actualPlayer].health -= 50;
+              printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+              players[actualPlayer].x--;
+            } else {
+              players[actualPlayer].x--;
+            }
+          }else{
+            printf("You can't move forward\n");
           }
-        }else{
-          printf("You can't move forward\n");
-        }
-        break;
+          break;
+      }
+      matrix[players[actualPlayer].y][players[actualPlayer].x] = actualPlayer; /*asignar nueva posicion del player*/
+    } else {
+      printf("Player freezed, you need to pass turn");
     }
-    matrix[players[actualPlayer].y][players[actualPlayer].x] = actualPlayer; /*asignar nueva posicion del player*/
+    
 
   }else{
     printf("You need to select a character first");
@@ -497,79 +503,85 @@ tk_pass         "Pass"
 }
 
 {tk_back} {
-  if(inGame && players[actualPlayer].canMove){
-    printf("%s is moving back\n", players[actualPlayer].name);
-    int direction = players[actualPlayer].direction;
+  if(inGame){
+    if (players[actualPlayer].canMove){
+      printf("%s is moving back\n", players[actualPlayer].name);
+      int direction = players[actualPlayer].direction;
 
-    matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
+      matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
 
-    switch (direction) {
-      case 0: /*Norte*/
-        if(players[actualPlayer].y > 0){
-          if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
-            printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].health -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+      switch (direction) {
+        case 0: /*Norte*/
+          if(players[actualPlayer].y < 9){
+            if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
+              printf("%s has found a mine \n", players[actualPlayer].name);
+              players[actualPlayer].health -= 50;
+              printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+            }
+            players[actualPlayer].y++;
+          } else{
+            printf("You can't move forward\n");
           }
-          players[actualPlayer].y++;
-        } else{
-          printf("You can't move forward\n");
-        }
-        break;
-      case 1: /*Este*/
-        if(players[actualPlayer].x < 9){
-          if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
-            printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].health -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+          break;
+        case 1: /*Este*/
+          if(players[actualPlayer].x > 0){
+            if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
+              printf("%s has found a mine \n", players[actualPlayer].name);
+              players[actualPlayer].health -= 50;
+              printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+            }
+            players[actualPlayer].x--;
+          }else{
+            printf("You can't move forward\n");
           }
-          players[actualPlayer].x--;
-        }else{
-          printf("You can't move forward\n");
-        }
-        break;
-      case 2: /*Sur*/
-        if(players[actualPlayer].y < 9){
-          if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
-            printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].health -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+          break;
+        case 2: /*Sur*/
+          if(players[actualPlayer].y > 0){
+            if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
+              printf("%s has found a mine \n", players[actualPlayer].name);
+              players[actualPlayer].health -= 50;
+              printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+            }
+            players[actualPlayer].y--;
+          }else{
+            printf("You can't move forward\n");
           }
-          players[actualPlayer].y--;
-        }else{
-          printf("You can't move forward\n");
-        }
-        break;
-      case 3: /*Oeste*/
-        if(players[actualPlayer].x > 0){
-          if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
-            printf("%s has found a mine \n", players[actualPlayer].name);
-            players[actualPlayer].health -= 50;
-            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+          break;
+        case 3: /*Oeste*/
+          if(players[actualPlayer].x < 9){
+            if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
+              printf("%s has found a mine \n", players[actualPlayer].name);
+              players[actualPlayer].health -= 50;
+              printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].health);
+            }
+            players[actualPlayer].x++;
+          }else{
+            printf("You can't move forward\n");
           }
-          players[actualPlayer].x++;
-        }else{
-          printf("You can't move forward\n");
-        }
         break;
-}
-
-    matrix[players[actualPlayer].y][players[actualPlayer].x] = actualPlayer;/*asignar nueva posicion del player*/
-
-  }else{
+      }
+      matrix[players[actualPlayer].y][players[actualPlayer].x] = actualPlayer;/*asignar nueva posicion del player*/
+    } else {
+      printf("Player freezed, you need to pass turn");
+    }
+  } else{
     printf("You need to select a character first");
   }
 }
 
 {tk_left} {
   if(inGame){
-    /* Cambiar direction */
-    if(players[actualPlayer].direction == 0){  /*Si esta en el norte*/
-        players[actualPlayer].direction = 3; /*cambiar a oeste (ultima posicion del array)*/
+    if(players[actualPlayer].canMove) {
+      /* Cambiar direction */
+      if(players[actualPlayer].direction == 0){  /*Si esta en el norte*/
+          players[actualPlayer].direction = 3; /*cambiar a oeste (ultima posicion del array)*/
+      } else {
+          players[actualPlayer].direction--; /*cambiar a la izquierda */
+      }
+      printf("%s is moving left\n", players[actualPlayer].name);
     } else {
-        players[actualPlayer].direction--; /*cambiar a la izquierda */
+      printf("Player freezed, you need to pass turn");
     }
-    printf("%s is moving left\n", players[actualPlayer].name);
 
   }else{
     printf("You need to select a character first");
@@ -578,12 +590,17 @@ tk_pass         "Pass"
 
 {tk_right} {
   if(inGame){
-    if(players[actualPlayer].direction == 3){ /*Si esta en el oeste*/
-        players[actualPlayer].direction = 0; /*cambiar a norte (primera posicion del array)*/
+    if(players[actualPlayer].canMove) {
+      if(players[actualPlayer].direction == 3){ /*Si esta en el oeste*/
+          players[actualPlayer].direction = 0; /*cambiar a norte (primera posicion del array)*/
+      } else {
+          players[actualPlayer].direction++; /*cambiar a la derecha */
+      }
+      printf("%s is moving right\n", players[actualPlayer].name);
     } else {
-        players[actualPlayer].direction++; /*cambiar a la derecha */
+      printf("Player freezed, you need to pass turn");
     }
-    printf("%s is moving right\n", players[actualPlayer].name);
+    
 
   }else{
     printf("You need to select a character first");
@@ -752,7 +769,7 @@ tk_pass         "Pass"
 
  /* ATAQUES ESPECIALES */
 
-{tk_forward}{tk_back}{tk_forward} { /* freeze */
+{tk_forward}{tk_back}{tk_forward}{PLAYER} { /* freeze */
 /* verificar si el jugador ya disparo*/
   if(players[actualPlayer].shot){
     printf("You can't shoot again\n");

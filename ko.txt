@@ -3,5 +3,42 @@ Axel
 Mr. Grimm
 Outlaw 2
 Roadkill
-L1L2Outlaw 2
+WWAWD
+R2Outlaw 2
+Pass
+WWD
+R1L2Axel
+Pass
+D
+WSWRoadkill
+Pass
+W
+A
+Pass
+WW
+DAS
+Pass
+L1L2Axel
+Pass
+WA
+R2Axel
+Pass
+W
+Pass
+SA
+R2Roadkill
+Pass
+W
+L1L2Roadkill
+Pass
+W
+R2Outlaw 2
+Pass
+WDWWWWWWA
+R2Outlaw 2
+Pass
+Pass
+Pass
+Pass
+Pass
 Pass
