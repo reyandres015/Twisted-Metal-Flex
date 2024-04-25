@@ -6,14 +6,20 @@
 #include <time.h>
 #include <math.h>
 
+
 #define PI 3.14159265
 
 /* Variables globales*/
-int number_of_players = 4; /* Número de jugadores */
+int numberOfPlayers = 4; /* Número de jugadores */
 
+<<<<<<< HEAD
 bool SceneSelection = false; /* ¿Escenario ya se selecciono? */
 bool inGame = false; /* ¿Ya se inicio el juego? */
 
+=======
+bool sceneSelection = false; /* ¿SCENE ya se selecciono? */
+bool = false; /* ¿Ya se inicio el juego? */
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
 
 typedef struct {
     char name[20];
@@ -22,8 +28,8 @@ typedef struct {
 
 typedef struct {
     char name[20];
-    int vida;
-    int direccion; /*indice de la brujula*/
+    int health;
+    int direction; /*0 = Norte, 1 = Este, 2 = Sur, 3 = Oeste*/
     int x;
     int y;
     int selectedWeapon;
@@ -35,7 +41,7 @@ typedef struct {
 
 /*arreglo de armas */
 Weapon weapons[3];
-Weapon ametralladora;
+Weapon machineGun;
 
 typedef struct {
     char name[20];
@@ -48,14 +54,12 @@ Player players[4];
 int actualPlayer = 0; /* Jugador actual */
 int playerAttaked;
 
-#define FILAS 10;
-#define COLUMNAS 10;
 /* inicializar matriz llena de -1*/
 int matrix[10][10];
 
 /* Función para identificar si un jugador ya fue seleccionado. */
 bool isCharacterSelected(char* character) {
-    for (int i = 0; i < number_of_players; i++) {
+    for (int i = 0; i < numberOfPlayers; i++) {
         if (strcmp(players[i].name, character) == 0) {
             return true;
         }
@@ -65,44 +69,44 @@ bool isCharacterSelected(char* character) {
 
 void startGame(){
   Weapon newWeapon = {.damage = 10};
-  strncpy(newWeapon.name, "pistola", sizeof(newWeapon.name));
+  strncpy(newWeapon.name, "SOCOM", sizeof(newWeapon.name));
   weapons[0] = newWeapon;
 
   newWeapon.damage = 30;
-  strncpy(newWeapon.name, "Bazuca", sizeof(newWeapon.name));
+  strncpy(newWeapon.name, "FAMAS", sizeof(newWeapon.name));
   weapons[1] = newWeapon;
 
-  newWeapon.damage = 10;
-  strncpy(newWeapon.name, "Granada", sizeof(newWeapon.name));
+  newWeapon.damage = 20;
+  strncpy(newWeapon.name, "GRANADE", sizeof(newWeapon.name));
   weapons[2] = newWeapon;
 
   newWeapon.damage = 40;
-  strncpy(newWeapon.name, "Ametralladora", sizeof(newWeapon.name));
+  strncpy(newWeapon.name, "MACHINEGUN", sizeof(newWeapon.name));
   
-  ametralladora = newWeapon;
+  machineGun = newWeapon;
 }
 
 /* Ubicar jugadores en la matriz */
-void ubicarJugadores(){
+void locatePlayers(){
   for (int i = 0; i < 10; i++) {
     for (int j = 0; j < 10; j++) {
       matrix[i][j] = -1;
     }
   }
 
-  for(int i = 0; i < number_of_players; i++){ 
+  for(int i = 0; i < numberOfPlayers; i++){ 
       switch(i){
         case 0:
           players[i].x = 0;
           players[i].y = 0;
           matrix[0][0] = i;
-          players[i].direccion = 2;
+          players[i].direction = 2;
           break;
         case 1:
           players[i].x = 9;
           players[i].y = 0;
           matrix[0][9] = i;
-          players[i].direccion = 2;
+          players[i].direction = 2;
           break;
         case 2:
           players[i].x = 0;
@@ -122,8 +126,8 @@ void ubicarJugadores(){
 void continueGame() {
     /* Verificar si solo queda un jugador vivo */
     int playersAlive = 0;
-    for (int i = 0; i < number_of_players; i++) {
-        if (players[i].vida > 0) {
+    for (int i = 0; i < numberOfPlayers; i++) {
+        if (players[i].health > 0) {
             playersAlive++;
         }
     }
@@ -141,12 +145,22 @@ void continueGame() {
     }
 
     if(inGame){
-        if(players[actualPlayer+1].vida == 0){
+        if(players[actualPlayer + 1].health == 0 && actualPlayer < 3){
           actualPlayer++;
-          printf("Player %d is dead\n", actualPlayer+1);
-          if(players[actualPlayer+1].vida == 0){
+          printf("Player %d is dead\n", actualPlayer);
+          if(players[actualPlayer + 1].health == 0 && actualPlayer < 3){
             actualPlayer++;
-            printf("Player %d is dead\n", actualPlayer+1);
+            printf("Player %d is dead\n", actualPlayer);
+          } else if(actualPlayer == 3) {
+            actualPlayer = 0
+            printf("Player %d is dead\n", actualPlayer);
+          }
+        } else if(actualPlayer == 3) {
+          actualPlayer = 0
+          printf("Player %d is dead\n", actualPlayer);
+          if(players[actualPlayer + 1].health == 0){
+            actualPlayer++;
+            printf("Player %d is dead\n", actualPlayer);
           }
         } else {
           /* Imprimir matriz */
@@ -157,20 +171,26 @@ void continueGame() {
                           if(matrix[i][j] == -2){
                             printf("💣 ");
                           } else if(players[index].vida == 0){
+<<<<<<< HEAD
                             printf("%d💀 ", index + 1);
                           } else if(players[index].invisible){
                             printf("%d👻 ", index + 1);
                           } else if(players[index].canMove == false){
                             printf("%d❄️ ", index + 1);
+=======
+                            printf("💀%d ", index + 1);
+                          } else if(players[index].invisible){
+                            printf("👻%d ", index + 1);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
                           } else {
-                            if(players[index].direccion == 0){
-                                printf("%d👆 ", index + 1);
-                            } else if(players[index].direccion == 1){
-                                printf("%d👉 ", index + 1);
-                            } else if(players[index].direccion == 2){
-                                printf("%d👇 ", index + 1);
-                            } else if(players[index].direccion == 3){
-                                printf("%d👈 ", index + 1);
+                            if(players[index].direction == 0){
+                                printf("⬆️%d ", index + 1);
+                            } else if(players[index].direction == 1){
+                                printf("➡️%d ", index + 1);
+                            } else if(players[index].direction == 2){
+                                printf("⬇️%d ", index + 1);
+                            } else if(players[index].direction == 3){
+                                printf("⬅️%d ", index + 1);
                             }
                           }
                           
@@ -180,21 +200,31 @@ void continueGame() {
               }
               printf("\n");
           }
+<<<<<<< HEAD
 
           /* Imprimir vida de los jugadores */
           for (int i = 0; i < number_of_players; i++) {
               printf("Player %s:, Vida: %d\n", players[i].name, players[i].vida);
+=======
+          /* Imprimir vida de los jugadores */
+          for (int i = 0; i < number_of_players; i++) {
+              printf("Player %s:, health: %d\n", players[i].name, players[i].vida);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
           }
         }
         printf("\n");
         /* Cambiar de jugador */
-        if(actualPlayer == number_of_players-1){ /* Si es el último jugador */
+        if(actualPlayer == numberOfPlayers-1){ /* Si es el último jugador */
             actualPlayer = 0; /* Iniciar nueva ronda */
         } else{
             actualPlayer++; /* Siguiente jugador */
         }
+<<<<<<< HEAD
         players[actualPlayer].canMove = true;
         printf("Turno del jugador %d: %s", actualPlayer+1, players[actualPlayer].name);
+=======
+        printf("Player %d turn: %s", actualPlayer+1, players[actualPlayer].name);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
     }else{
         printf("You need to select a character first");
     }
@@ -203,10 +233,10 @@ void continueGame() {
 /* Función para seleccionar un personaje */
 void selectCharacter(char* character) {
     if(!inGame){
-        if(SceneSelection){
+        if(sceneSelection){
             if (!isCharacterSelected(character)) {
                 /* Crear jugador */
-                Player newPlayer = {.vida = 100, .direccion = 0, .canMove = true, .invisible = false, .selectedWeapon = 1};
+                Player newPlayer = {.health = 100, .direction = 0, .canMove = true, .invisible = false, .selectedWeapon = 1};
                 strncpy(newPlayer.name, character, sizeof(newPlayer.name));
 
                 players[actualPlayer] = newPlayer;
@@ -214,10 +244,10 @@ void selectCharacter(char* character) {
                 actualPlayer++;
 
                 /* Si ya se seleccionaron todos los jugadores */
-                if(actualPlayer == number_of_players){
-                    ubicarJugadores();
+                if(actualPlayer == numberOfPlayers){
+                    locatePlayers();
                     inGame = true;
-                    printf("The %d players have been selected. The game is ready to start\n",number_of_players);
+                    printf("The %d players have been selected. The game is ready to start\n",numberOfPlayers);
                     actualPlayer = -1;
                     continueGame();
                 }
@@ -239,6 +269,7 @@ int isAngleBetweenMinus15And15(int x1, int y1, int x2, int y2) {
     int minAngle;
     int maxAngle;
 
+<<<<<<< HEAD
     switch (players[actualPlayer].direccion) {
       case 0: /*Norte*/
         minAngle = 255;
@@ -257,13 +288,36 @@ int isAngleBetweenMinus15And15(int x1, int y1, int x2, int y2) {
         maxAngle = 195;
         break;
     }
+=======
+switch (players[actualPlayer].direction) {
+  case 0: /*Norte*/
+    minAngle = 255;
+    maxAngle = 285;
+    break;
+  case 1: /*Este*/
+    minAngle = 345;
+    maxAngle = 15;
+    break;
+  case 2: /*Sur*/
+    minAngle = 75;
+    maxAngle = 105;
+    break;
+  case 3: /*Oeste*/
+    minAngle = 165;
+    maxAngle = 195;
+    break;
+}
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
 
     if (angle < 0) {
         angle += 360;
     }
+<<<<<<< HEAD
     printf("Angle: %f°\n", angle);
     printf("Min angle: %d°\n", minAngle);
     printf("Max angle: %d°\n", maxAngle);
+=======
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
 
     if ((angle >= minAngle && angle <= maxAngle)) {
         return 1; 
@@ -312,6 +366,36 @@ switch (players[actualPlayer].direccion) {
     }
 }
 
+void placeMine() {
+  int x = players[actualPlayer].x;
+  int y = players[actualPlayer].y;
+  printf("%d x, %d y\n", x, y);
+
+switch (players[actualPlayer].direccion) {
+
+      case 0: /*Norte*/
+        if(y < 9){
+          matrix[++y][x] = -2;
+        }
+        break;
+      case 1: /*Este*/
+        if(x > 0){
+          matrix[y][--x] = -2;
+        }
+        break;
+      case 2: /*Sur*/
+        if(y > 0){
+          matrix[--y][x] = -2;
+        }
+        break;
+      case 3: /*Oeste*/
+        if(x < 9){
+          matrix[y][++x] = -2;
+        }
+        break;
+    }
+}
+
 char* modify_yytext(char* yytext) {
     if(strlen(yytext) > 2) {
         return &yytext[2];
@@ -320,6 +404,7 @@ char* modify_yytext(char* yytext) {
     }
 }
 
+<<<<<<< HEAD
 char* modify_yytext2(char* yytext) {
     if(strlen(yytext) > 2) {
         return &yytext[3];
@@ -328,6 +413,8 @@ char* modify_yytext2(char* yytext) {
     }
 }
 
+=======
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
 char* modify_yytext3(char* yytext) {
     if(strlen(yytext) > 2) {
         return &yytext[4];
@@ -350,19 +437,20 @@ int findPlayerByName(Player players[], int numPlayers, const char* name) {
 
 %}
 
-ESCENARIO   "Moscow"|"Paris"|"Amazonia"|"New York"|"Antartica"|"Holland"|"Hong Kong"|"Dark Tooth"
+SCENE   "Moscow"|"Paris"|"Amazonia"|"New York"|"Antartica"|"Holland"|"Hong Kong"|"Dark Tooth"
 
 
 /* Personajes */
 PLAYER   "Axel"|"Grasshopper"|"Mr. Grimm"|"Hammerhead"|"Minion"|"Outlaw 2"|"Roadkill"|"Shadow"|"Mr. Slam"|"Spectre"|"Sweettooth"|"Thumper"|"Twister"|"Warthog"
 
 
-/*Movimientos de direccion*/
-Direccion_Arriba	    "W"
-Direccion_Abajo	    "S"
-Direccion_Izquierda	  "A"
-Direccion_Derecha	      "D"
+/*Movimientos de direction*/
+move_forward	    "W"
+move_back	        "S"
+turn_left	        "A"
+turn_right	      "D"
 
+<<<<<<< HEAD
 tk_forward     ({Direccion_Arriba})
 tk_back   ({Direccion_Abajo})
 tk_left   ({Direccion_Izquierda})
@@ -380,17 +468,23 @@ Velocidad_Acelerar	"speed_up"
 tk_turbo      ({Velocidad_Turbo})
 tk_brake      ({Velocidad_Frenar})
 tk_acelerate  ({Velocidad_Acelerar})
+=======
+tk_forward     ({move_forward})
+tk_back        ({move_back})
+tk_left        ({turn_left})
+tk_right       ({turn_right})
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
 
 /*Armas y cambio de armas*/
-Armas_CambioIzq		    "L1"
-Armas_Disparar		    "L2"
-Armas_CambioDer		    "R1"
-Armas_Ametralladora	  "R2"
+change_wp_left		    "L1"
+shoot_wp		          "L2"
+change_wp_right		    "R1"
+machinegun	          "R2"
 
-tk_L1 ({Armas_CambioIzq})
-tk_L2 ({Armas_Disparar})
-tk_R1 ({Armas_CambioDer})
-tk_R2 ({Armas_Ametralladora})
+tk_L1 ({change_wp_left})
+tk_L2 ({shoot_wp})
+tk_R1 ({change_wp_right})
+tk_R2 ({machinegun})
 
 
 /*Ataques especiales*/
@@ -407,11 +501,11 @@ tk_invisible    ({Ataque_BeInvisible})
 
 %%
 
- /* TOKEN ESCENARIO SELECCIONADO */
-{ESCENARIO} {
-  SceneSelection = true;
+ /* TOKEN SCENE SELECCIONADO */
+{SCENE} {
+  sceneSelection = true;
   startGame();
-  printf("\nEscenario seleccionado: %s\n", yytext);
+  printf("\nSelected Scene: %s\n", yytext);
 }
 
 
@@ -420,6 +514,7 @@ tk_invisible    ({Ataque_BeInvisible})
   selectCharacter(yytext);
 }
 
+<<<<<<< HEAD
 {tk_pasar} {
   if(inGame){
     continueGame();
@@ -430,24 +525,37 @@ tk_invisible    ({Ataque_BeInvisible})
   
 
  /* TOKEN DIRECCIONES */
+=======
+ /* TOKENS DE DIRECCION */
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
 {tk_forward} {
   if(inGame && players[actualPlayer].canMove){
 
+<<<<<<< HEAD
     printf("%s is moving forward\n", players[actualPlayer].name);
     
     int direccion = players[actualPlayer].direccion;
+=======
+    int direction = players[actualPlayer].direction;
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
 
 
 
     matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
 
-    switch (direccion) {
+    switch (direction) {
       case 0: /*Norte*/
         if(players[actualPlayer].y > 0){
           if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
+<<<<<<< HEAD
             printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
             players[actualPlayer].vida -= 50;
             printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+=======
+            printf("%s has found a mine \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
             players[actualPlayer].y--;
           } else {
             players[actualPlayer].y--;
@@ -459,9 +567,15 @@ tk_invisible    ({Ataque_BeInvisible})
       case 1: /*Este*/
         if(players[actualPlayer].x < 9){
           if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
+<<<<<<< HEAD
             printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
             players[actualPlayer].vida -= 50;
             printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+=======
+            printf("%s has found a mine \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
             players[actualPlayer].x++;
           } else {
             players[actualPlayer].x++;
@@ -473,9 +587,15 @@ tk_invisible    ({Ataque_BeInvisible})
       case 2: /*Sur*/
         if(players[actualPlayer].y < 9){
           if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
+<<<<<<< HEAD
             printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
             players[actualPlayer].vida -= 50;
             printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+=======
+            printf("%s has found a mine \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
             players[actualPlayer].y++;
           } else {
             players[actualPlayer].y++;
@@ -487,9 +607,15 @@ tk_invisible    ({Ataque_BeInvisible})
       case 3: /*Oeste*/
         if(players[actualPlayer].x > 0){
           if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
+<<<<<<< HEAD
             printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
             players[actualPlayer].vida -= 50;
             printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+=======
+            printf("%s has found a mine \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
             players[actualPlayer].x--;
           } else {
             players[actualPlayer].x--;
@@ -509,9 +635,10 @@ tk_invisible    ({Ataque_BeInvisible})
 {tk_back} {
   if(inGame && players[actualPlayer].canMove){
     printf("%s is moving back\n", players[actualPlayer].name);
-    int direccion = players[actualPlayer].direccion;
+    int direction = players[actualPlayer].direction;
 
     matrix[players[actualPlayer].y][players[actualPlayer].x] = -1;/*borrar posicion anterior*/
+<<<<<<< HEAD
     switch (direccion) {
       case 0: /*Norte*/
         if(players[actualPlayer].y > 0){
@@ -519,6 +646,16 @@ tk_invisible    ({Ataque_BeInvisible})
             printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
             players[actualPlayer].vida -= 50;
             printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+=======
+
+    switch (direction) {
+      case 0: /*Norte*/
+        if(players[actualPlayer].y > 0){
+          if(matrix[players[actualPlayer].y+1][players[actualPlayer].x] == -2){
+            printf("%s has found a mine \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
           }
           players[actualPlayer].y++;
         } else{
@@ -528,9 +665,15 @@ tk_invisible    ({Ataque_BeInvisible})
       case 1: /*Este*/
         if(players[actualPlayer].x < 9){
           if(matrix[players[actualPlayer].y][players[actualPlayer].x-1] == -2){
+<<<<<<< HEAD
             printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
             players[actualPlayer].vida -= 50;
             printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+=======
+            printf("%s has found a mine \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
           }
           players[actualPlayer].x--;
         }else{
@@ -540,9 +683,15 @@ tk_invisible    ({Ataque_BeInvisible})
       case 2: /*Sur*/
         if(players[actualPlayer].y < 9){
           if(matrix[players[actualPlayer].y-1][players[actualPlayer].x] == -2){
+<<<<<<< HEAD
             printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
             players[actualPlayer].vida -= 50;
             printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+=======
+            printf("%s has found a mine \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
           }
           players[actualPlayer].y--;
         }else{
@@ -552,9 +701,15 @@ tk_invisible    ({Ataque_BeInvisible})
       case 3: /*Oeste*/
         if(players[actualPlayer].x > 0){
           if(matrix[players[actualPlayer].y][players[actualPlayer].x+1] == -2){
+<<<<<<< HEAD
             printf("%s se ha encontrado con una mina \n", players[actualPlayer].name);
             players[actualPlayer].vida -= 50;
             printf("%s Vida restante: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+=======
+            printf("%s has found a mine \n", players[actualPlayer].name);
+            players[actualPlayer].vida -= 50;
+            printf("%s Remaining health: %d\n", players[actualPlayer].name, players[actualPlayer].vida);
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
           }
           players[actualPlayer].x++;
         }else{
@@ -571,12 +726,19 @@ tk_invisible    ({Ataque_BeInvisible})
 }
 
 {tk_left} {
+<<<<<<< HEAD
   if(inGame && players[actualPlayer].canMove){
     /* Cambiar direccion */
     if(players[actualPlayer].direccion == 0){  /*Si esta en el norte*/
         players[actualPlayer].direccion = 3; /*cambiar a oeste (ultima posicion del array)*/
+=======
+  if(inGame){
+    /* Cambiar direction */
+    if(players[actualPlayer].direction == 0){  /*Si esta en el norte*/
+        players[actualPlayer].direction = 3; /*cambiar a oeste (ultima posicion del array)*/
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
     } else {
-        players[actualPlayer].direccion--; /*cambiar a la izquierda */
+        players[actualPlayer].direction--; /*cambiar a la izquierda */
     }
     printf("%s is moving left\n", players[actualPlayer].name);
 
@@ -586,11 +748,17 @@ tk_invisible    ({Ataque_BeInvisible})
 }
 
 {tk_right} {
+<<<<<<< HEAD
   if(inGame && players[actualPlayer].canMove){
     if(players[actualPlayer].direccion == 3){ /*Si esta en el oeste*/
         players[actualPlayer].direccion = 0; /*cambiar a norte (primera posicion del array)*/
+=======
+  if(inGame){
+    if(players[actualPlayer].direction == 3){ /*Si esta en el oeste*/
+        players[actualPlayer].direction = 0; /*cambiar a norte (primera posicion del array)*/
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
     } else {
-        players[actualPlayer].direccion++; /*cambiar a la derecha */
+        players[actualPlayer].direction++; /*cambiar a la derecha */
     }
     printf("%s is moving right\n", players[actualPlayer].name);
 
@@ -599,33 +767,9 @@ tk_invisible    ({Ataque_BeInvisible})
   }
 }
 
- /* TOKEN VELOCIDADES */
-{tk_turbo} {
-  if(inGame){
-    printf("Player %d is using turbo\n", actualPlayer);
-  }else{
-    printf("You need to select a character first");
-  }
-}
-
-{tk_brake} {
-  if(inGame){
-    printf("Player %d is using brake\n", actualPlayer);
-  }else{
-    printf("You need to select a character first");
-  }
-}
-
-{tk_acelerate} {
-  if(inGame){
-    printf("Player %d is using acelerate\n", actualPlayer);
-  }else{
-    printf("You need to select a character first");
-  }
-}
-
  /* TOKEN ARMAS */
 {tk_L2}{PLAYER} {
+<<<<<<< HEAD
   /* verificar si el jugador ya disparo*/
   if(players[actualPlayer].shot){
     printf("You can't shoot again\n");
@@ -675,10 +819,47 @@ tk_invisible    ({Ataque_BeInvisible})
     }else{
       printf("You need to select a character first");
     }
+=======
+  if(inGame){ 
+    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
+    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+      printf("Attack on player %s, remaining health: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+    }else{
+      printf("Failed attack\n");
+    }
+
+  }else{
+    printf("You need to select a character first");
+  }
+  continueGame();
+}
+
+{tk_L1}{tk_L2}{PLAYER} {
+  if(inGame){
+    printf("Player %d is changing weapon to the left\n", actualPlayer+1);
+    if(players[actualPlayer].selectedWeapon == 0){
+        players[actualPlayer].selectedWeapon = 2;
+    } else {
+        players[actualPlayer].selectedWeapon--;
+    }
+    printf("%s selected\n", weapons[players[actualPlayer].selectedWeapon].name);
+    /*imprimir direccion*/
+    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+      printf("Attack on player %s, remaining health: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+    }else{
+      printf("Failed attack\n");
+    }
+  }else{
+    printf("You need to select a character first");
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
   }
 }
 
 {tk_R1}{tk_L2}{PLAYER} {
+<<<<<<< HEAD
   /* verificar si el jugador ya disparo*/
   if(players[actualPlayer].shot){
     printf("You can't shoot again\n");
@@ -703,10 +884,30 @@ tk_invisible    ({Ataque_BeInvisible})
     }else{
       printf("You need to select a character first");
     }
+=======
+  if(inGame){
+    printf("Player %d is changing weapon to the right\n", actualPlayer+1);
+    if(players[actualPlayer].selectedWeapon == 2){
+        players[actualPlayer].selectedWeapon = 0;
+    } else {
+        players[actualPlayer].selectedWeapon++;
+    }
+    printf("%s selected\n", weapons[players[actualPlayer].selectedWeapon].name);
+    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+      printf("Attack on player %s, remaining health: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+    }else{
+      printf("Attack failed\n");
+    }
+  }else{
+    printf("You need to select a character first");
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
   }
 }
 
 {tk_R2}{PLAYER} {
+<<<<<<< HEAD
   /* verificar si el jugador ya disparo*/
   if(players[actualPlayer].shot){
     printf("You can't shoot again\n");
@@ -752,10 +953,47 @@ tk_invisible    ({Ataque_BeInvisible})
     }else{
       printf("You need to select a character first");
     }
+=======
+  if(inGame){ 
+    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext(yytext));
+    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+      printf("Attack on player %s, remaining health: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+    }else{
+      printf("Attack failed\n");
+    }
+
+  }else{
+    printf("You need to select a character first");
+  }
+  continueGame();
+}
+
+{tk_R1}{tk_R2}{PLAYER} {
+  if(inGame){ 
+    printf("Player %d is changing weapon to the right\n", actualPlayer+1);
+    if(players[actualPlayer].selectedWeapon == 2){
+        players[actualPlayer].selectedWeapon = 0;
+    } else {
+        players[actualPlayer].selectedWeapon++;
+    }
+    printf("%s selected\n", weapons[players[actualPlayer].selectedWeapon].name);
+    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+      players[playerAttaked].vida -= weapons[players[actualPlayer].selectedWeapon].damage;
+      printf("Attack on player %s, remaining health: %d\n", players[playerAttaked].name, players[playerAttaked].vida);
+    }else{
+      printf("Attack failed\n");
+    }
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
   }
 }
 
 {tk_L1}{tk_R2}{PLAYER} {
+<<<<<<< HEAD
   /* verificar si el jugador ya disparo*/
   if(players[actualPlayer].shot){
     printf("You can't shoot again\n");
@@ -780,6 +1018,23 @@ tk_invisible    ({Ataque_BeInvisible})
       players[actualPlayer].shot = true;
     }else{
       printf("You need to select a character first");
+=======
+  if(inGame){ 
+    printf("Player %d is changing weapon to the left\n", actualPlayer+1);
+    if(players[actualPlayer].selectedWeapon == 0){
+        players[actualPlayer].selectedWeapon = 2;
+    } else {
+        players[actualPlayer].selectedWeapon--;
+    }
+    printf("%s selected\n", weapons[players[actualPlayer].selectedWeapon].name);
+
+    playerAttaked = findPlayerByName(players,number_of_players, modify_yytext3(yytext));
+    if(isAngleBetweenMinus15And15(players[actualPlayer].x, players[actualPlayer].y, players[playerAttaked].x, players[playerAttaked].y) == 1){
+      players[playerAttaked].health -= weapons[players[actualPlayer].selectedWeapon].damage;
+      printf("Atacked player: %s. Remaining health: %d\n", players[playerAttaked].name, players[playerAttaked].health);
+    }else{
+      printf("The atack failed\n");
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
     }
   }
 }
@@ -818,6 +1073,7 @@ tk_invisible    ({Ataque_BeInvisible})
 }
 
 
+<<<<<<< HEAD
 ({tk_right}{tk_left}{tk_back}) { /* MINE */
 /* verificar si el jugador ya disparo*/
   if(players[actualPlayer].shot){
@@ -833,6 +1089,16 @@ tk_invisible    ({Ataque_BeInvisible})
     }
     /* definir que el jugador ya disparo */
     players[actualPlayer].shot = true;
+=======
+{tk_right}{tk_left}{tk_back} { /* MINE */
+  if(inGame){
+    placeMine();
+
+    printf("Player %s is placing a mine\n", players[actualPlayer].name);
+    continueGame();
+  }else{
+    printf("You need to select a character first");
+>>>>>>> 5fc18269d2890053d261024ae6369e68f63d6698
   }
 }
 
@@ -859,7 +1125,7 @@ tk_invisible    ({Ataque_BeInvisible})
 %%
 int main(int argc, char const *argv[]) {
   printf(" ");
-  printf("\n--------------Twisted Metal--------------\n");
+  printf("\n¡WELCOME TO TWISTED METAL!\n");
   
   yyin = fopen(argv[1], "r");
   yylex();
