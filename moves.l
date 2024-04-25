@@ -9,7 +9,7 @@
 #define PI 3.14159265
 
 /* Variables globales*/
-int number_of_players = 0; /* Número de jugadores */
+int number_of_players = 4; /* Número de jugadores */
 
 bool SceneSelection = false; /* ¿Escenario ya se selecciono? */
 bool inGame = false; /* ¿Ya se inicio el juego? */
@@ -144,6 +144,10 @@ void continueGame() {
         if(players[actualPlayer+1].vida == 0){
           actualPlayer++;
           printf("Player %d is dead\n", actualPlayer+1);
+          if(players[actualPlayer+1].vida == 0){
+            actualPlayer++;
+            printf("Player %d is dead\n", actualPlayer+1);
+          }
         } else {
           /* Imprimir matriz */
           for (int i = 0; i < 10; i++) {
@@ -192,7 +196,7 @@ void selectCharacter(char* character) {
         if(SceneSelection){
             if (!isCharacterSelected(character)) {
                 /* Crear jugador */
-                Player newPlayer = {.vida = 200, .direccion = 0, .canMove = true, .invisible = false, .selectedWeapon = 1};
+                Player newPlayer = {.vida = 100, .direccion = 0, .canMove = true, .invisible = false, .selectedWeapon = 1};
                 strncpy(newPlayer.name, character, sizeof(newPlayer.name));
 
                 players[actualPlayer] = newPlayer;
@@ -289,9 +293,6 @@ int findPlayerByName(Player players[], int numPlayers, const char* name) {
 ESCENARIO   "Moscow"|"Paris"|"Amazonia"|"New York"|"Antartica"|"Holland"|"Hong Kong"|"Dark Tooth"
 
 
-NUMERO_JUGADORES   "2"|"3"|"4"
-
-
 /* Personajes */
 PLAYER   "Axel"|"Grasshopper"|"Mr. Grimm"|"Hammerhead"|"Minion"|"Outlaw 2"|"Roadkill"|"Shadow"|"Mr. Slam"|"Spectre"|"Sweettooth"|"Thumper"|"Twister"|"Warthog"
 
@@ -350,12 +351,6 @@ tk_invisible    ({Ataque_BeInvisible})
   printf("\nEscenario seleccionado: %s\n", yytext);
 }
 
-
- /* TOKEN NUMERO DE JUGADORES*/
-{NUMERO_JUGADORES} {
-  number_of_players = atoi(yytext);
-  printf("\nNumero de jugadores: %d\n", number_of_players);
-}
 
  /* TOKEN PLAYER -> Seleccion de personajes y guardado en arreglo*/
 {PLAYER} {
