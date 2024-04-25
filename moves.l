@@ -160,6 +160,8 @@ void continueGame() {
                             printf("%d💀 ", index + 1);
                           } else if(players[index].invisible){
                             printf("%d👻 ", index + 1);
+                          } else if(players[index].canMove == false){
+                            printf("%d❄️ ", index + 1);
                           } else {
                             if(players[index].direccion == 0){
                                 printf("%d👆 ", index + 1);
@@ -191,6 +193,7 @@ void continueGame() {
         } else{
             actualPlayer++; /* Siguiente jugador */
         }
+        players[actualPlayer].canMove = true;
         printf("Turno del jugador %d: %s", actualPlayer+1, players[actualPlayer].name);
     }else{
         printf("You need to select a character first");
@@ -277,7 +280,6 @@ int isAngleBetweenMinus15And15(int x1, int y1, int x2, int y2) {
 void placeMine() {
   int x = players[actualPlayer].x;
   int y = players[actualPlayer].y;
-  printf("%d x, %d y\n", x, y);
 
 switch (players[actualPlayer].direccion) {
 
@@ -313,6 +315,14 @@ switch (players[actualPlayer].direccion) {
 char* modify_yytext(char* yytext) {
     if(strlen(yytext) > 2) {
         return &yytext[2];
+    } else {
+        return NULL;
+    }
+}
+
+char* modify_yytext2(char* yytext) {
+    if(strlen(yytext) > 2) {
+        return &yytext[3];
     } else {
         return NULL;
     }
@@ -421,9 +431,10 @@ tk_invisible    ({Ataque_BeInvisible})
 
  /* TOKEN DIRECCIONES */
 {tk_forward} {
-  if(inGame){
-    printf("%s is moving forward\n", players[actualPlayer].name);
+  if(inGame && players[actualPlayer].canMove){
 
+    printf("%s is moving forward\n", players[actualPlayer].name);
+    
     int direccion = players[actualPlayer].direccion;
 
 
@@ -496,7 +507,7 @@ tk_invisible    ({Ataque_BeInvisible})
 }
 
 {tk_back} {
-  if(inGame){
+  if(inGame && players[actualPlayer].canMove){
     printf("%s is moving back\n", players[actualPlayer].name);
     int direccion = players[actualPlayer].direccion;
 
@@ -560,7 +571,7 @@ tk_invisible    ({Ataque_BeInvisible})
 }
 
 {tk_left} {
-  if(inGame){
+  if(inGame && players[actualPlayer].canMove){
     /* Cambiar direccion */
     if(players[actualPlayer].direccion == 0){  /*Si esta en el norte*/
         players[actualPlayer].direccion = 3; /*cambiar a oeste (ultima posicion del array)*/
@@ -575,7 +586,7 @@ tk_invisible    ({Ataque_BeInvisible})
 }
 
 {tk_right} {
-  if(inGame){
+  if(inGame && players[actualPlayer].canMove){
     if(players[actualPlayer].direccion == 3){ /*Si esta en el oeste*/
         players[actualPlayer].direccion = 0; /*cambiar a norte (primera posicion del array)*/
     } else {
@@ -781,7 +792,9 @@ tk_invisible    ({Ataque_BeInvisible})
     printf("You can't shoot again\n");
   } else {
     if(inGame){
-      printf("Player %d is freezing\n", actualPlayer);
+          playerAttaked = findPlayerByName(players,number_of_players, modify_yytext2(yytext));
+    printf("Player %s is freezing %s\n", players[actualPlayer].name, players[playerAttaked].name);
+    players[playerAttaked].canMove = false;
     }else{
       printf("You need to select a character first");
     }
